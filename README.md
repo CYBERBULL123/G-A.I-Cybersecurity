@@ -43,6 +43,9 @@ Welcome to the G-A.I Cybersecurity Project - where cutting-edge technology meets
    pip install -r requirements.txt
    ```
 
+*Enter Your API Key:*
+*Open constants.py and enter your own API key in the designated field. This key unlocks the gates to the cybersecurity realms.*
+
 ### 🌌 Conjure the Experience:
 
 1. **Run the Streamlit Charm:**
