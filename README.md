@@ -69,6 +69,6 @@ Special thanks to the architects of LangChain, Streamlit, OpenAI, and the Google
 
 ## 📧 Contact :
 
-For inquiries or if you've spotted a flying dragon, send your owls to [your.email@example.com](mailto:opaadi98@gmail.com).
+For inquiries or if you've spotted a flying dragon, send your owls to [Aditya Pandey](mailto:opaadi98@gmail.com).
 
 Embark on a magical journey into the realm of cybersecurity with G-A.I! May your bytes be swift and your firewalls unyielding! 🔮🔐✨
