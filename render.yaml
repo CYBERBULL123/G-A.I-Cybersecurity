@@ -1,0 +1,10 @@
+# render.yaml
+
+services:
+  - type: web
+    name: OxSecure-G-A.I 
+    buildCommand: pip3 install -r requirements.txt
+    startCommand: streamlit run mod2.py
+    env:
+      - key: API_KEY
+        from: secret
