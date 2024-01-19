@@ -5,9 +5,7 @@ services:
     name: OxSecure-G-A.I
     buildCommand: pip3 install -r requirements.txt
     startCommand: streamlit run mod2.py
-    env:
-      - key: GOOGLE_API_KEY
-        value: 
+    env: 
       - key: GEMINI_KEY
         value: AIzaSyAHMF0ONJJJI1g9W57WLzUwwzDvwxBCcbA
 
