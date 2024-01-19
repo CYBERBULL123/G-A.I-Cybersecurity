@@ -1,0 +1,7 @@
+# render.yaml
+
+services:
+  - type: web
+    name: OxSecure-G-A.I
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run mod2.py
