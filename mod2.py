@@ -59,19 +59,19 @@ first_input_prompt=PromptTemplate(
 # Memory
 
 Topic_memory = ConversationBufferMemory(input_key='Topic', memory_key='chat_history')
-Policy_memory = ConversationBufferMemory(input_key='Policy', memory_key='chat_history')
+Policy_memory = ConversationBufferMemory(input_key='security policies', memory_key='chat_history')
 Practice_memory = ConversationBufferMemory(input_key='Practice', memory_key='description_history')
 
 ## GEMINI LLMS
 llm = ChatGoogleGenerativeAI(model="gemini-pro")
 chain=LLMChain(
-    llm=llm,prompt=first_input_prompt,verbose=True,output_key='Policy',memory=Topic_memory)
+    llm=llm,prompt=first_input_prompt,verbose=True,output_key='security policies',memory=Topic_memory)
 
 # Prompt Templates
 
 second_input_prompt=PromptTemplate(
     input_variables=['Policy'],
-    template="when was {Policy} Discoverd and by Whom"
+    template="write best {security policies} and perfect code snippet for secure coding "
 )
 
 chain2=LLMChain(
@@ -80,11 +80,11 @@ chain2=LLMChain(
 
 third_input_prompt=PromptTemplate(
     input_variables=['Practice'],
-    template="Implement  5 major best Cybersecurity {Practice} in the business Infrastructure world"
+    template="Implement  5 major best Cybersecurity {Practice} for the better security posture in business and infrastructure "
 )
 chain3=LLMChain(llm=llm,prompt=third_input_prompt,verbose=True,output_key='description',memory=Practice_memory)
 parent_chain=SequentialChain(
-    chains=[chain,chain2,chain3],input_variables=['Topic'],output_variables=['Policy','Practice','description'],verbose=True)
+    chains=[chain,chain2,chain3],input_variables=['Topic'],output_variables=['security policies','Practice','description'],verbose=True)
 
 
 if input_text:
