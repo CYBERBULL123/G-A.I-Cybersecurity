@@ -95,4 +95,37 @@ if input_text:
 
     with st.expander('Major Practices'): 
         st.info(Practice_memory.buffer)
+st.markdown("---")
+st.text("                           Created with ❤️ by Aditya Pandey ")
 
+# Custom HTML and CSS for the background
+cybersecurity_background = """
+<style>
+body {
+    background-color: #0e0e0e; /* Dark background color */
+    background-image: url('21074660_6397022.jpg'); /* Replace with the actual name of your image file */
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
+}
+
+@keyframes animateGlob {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.glob {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    background-color: #00ff00; /* Color of the glob */
+    border-radius: 50%;
+    animation: animateGlob 10s linear infinite; /* Adjust the animation duration as needed */
+    opacity: 0.5; /* Adjust the opacity as needed */
+    box-shadow: 0 0 20px #00ff00; /* Adjust the shadow color as needed */
+}
+</style>
+"""
+
+# Display the background
+st.markdown(cybersecurity_background, unsafe_allow_html=True)
