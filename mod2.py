@@ -20,8 +20,8 @@ import streamlit as st
 # streamlit framework
 st.set_page_config(
     page_title="OxSecure A.I",
-    page_icon="🔒"
-    layout = "wide"
+    page_icon="🔒",
+    layout="wide"
 )
 
 # Set your Gemini Pro API key
