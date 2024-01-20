@@ -17,6 +17,12 @@ from langchain.chains import SequentialChain
 
 import streamlit as st
 
+# streamlit framework
+st.set_page_config(
+    page_title="OxSecure A.I",
+    page_icon="🔒"
+)
+
 # Set your Gemini Pro API key
 api_key = st.text_input("Enter Your Gemini Pro API Key:", type="password")
 
@@ -40,11 +46,7 @@ def get_gemini_response(input,image):
        response = model.generate_content(image)
     return response.text
 
-# streamlit framework
-st.set_page_config(
-    page_title="OxSecure A.I",
-    page_icon="🔒"
-)
+
 st.header('LLM 2nd MOD')
 st.title('Cybersecurity Best practices for Infrastructure')
 st.subheader('By :- Aadi OP ')
