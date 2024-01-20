@@ -21,7 +21,7 @@ import streamlit as st
 api_key = st.text_input("Enter Your Gemini Pro API Key:", type="password")
 
 # Check if the API key is provided
-if gemini_pro_api_key:
+if api_key:
     os.environ["GOOGLE_API_KEY"] = api_key
     genai.configure(api_key = os.environ['GOOGLE_API_KEY'])
 else:
