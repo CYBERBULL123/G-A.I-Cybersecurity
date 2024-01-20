@@ -17,8 +17,18 @@ from langchain.chains import SequentialChain
 
 import streamlit as st
 
-os.environ["GOOGLE_API_KEY"]=gemini_key
-genai.configure(api_key = os.environ['GOOGLE_API_KEY'])
+# Set your Gemini Pro API key
+api_key = st.text_input("Enter Your Gemini Pro API Key:", type="password")
+
+# Check if the API key is provided
+if gemini_pro_api_key:
+    os.environ["GOOGLE_API_KEY"] = api_key
+    genai.configure(api_key = os.environ['GOOGLE_API_KEY'])
+else:
+    st.warning("Please enter your Gemini Pro API key to use the app.")
+
+#os.environ["GOOGLE_API_KEY"]=gemini_key
+#genai.configure(api_key = os.environ['GOOGLE_API_KEY'])
 
 ## Function to load OpenAI model and get respones
 
@@ -31,6 +41,10 @@ def get_gemini_response(input,image):
     return response.text
 
 # streamlit framework
+st.set_page_config(
+    page_title="OxSecure A.I",
+    page_icon="🔒"
+)
 st.header('LLM 2nd MOD')
 st.title('Cybersecurity Best practices for Infrastructure')
 st.subheader('By :- Aadi OP ')
@@ -98,34 +112,3 @@ if input_text:
 st.markdown("---")
 st.text("                           Created with ❤️ by Aditya Pandey ")
 
-# Custom HTML and CSS for the background
-cybersecurity_background = """
-<style>
-body {
-    background-color: #0e0e0e; /* Dark background color */
-    background-image: url('21074660_6397022.jpg'); /* Replace with the actual name of your image file */
-    background-size: cover;
-    background-position: center;
-    background-blend-mode: overlay;
-}
-
-@keyframes animateGlob {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.glob {
-    position: fixed;
-    width: 100px;
-    height: 100px;
-    background-color: #00ff00; /* Color of the glob */
-    border-radius: 50%;
-    animation: animateGlob 10s linear infinite; /* Adjust the animation duration as needed */
-    opacity: 0.5; /* Adjust the opacity as needed */
-    box-shadow: 0 0 20px #00ff00; /* Adjust the shadow color as needed */
-}
-</style>
-"""
-
-# Display the background
-st.markdown(cybersecurity_background, unsafe_allow_html=True)
