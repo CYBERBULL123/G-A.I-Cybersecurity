@@ -21,20 +21,21 @@ import streamlit as st
 st.set_page_config(
     page_title="OxSecure A.I",
     page_icon="🔒"
+    layout = "wide"
 )
 
 # Set your Gemini Pro API key
-gemini_key = st.text_input("Enter Your Gemini Pro API Key:", type="password")
+#gemini_key = st.text_input("Enter Your Gemini Pro API Key:", type="password")
 
 # Check if the API key is provided
-if gemini_key:
-    os.environ["GOOGLE_API_KEY"] = gemini_key
-    genai.configure(gemini_key = os.environ['GOOGLE_API_KEY'])
-else:
-    st.warning("Please enter your Gemini Pro API key to use the app.")
+#if gemini_key:
+ #   os.environ["GOOGLE_API_KEY"] = gemini_key
+ #   genai.configure(gemini_key = os.environ['GOOGLE_API_KEY'])
+#else:
+#    st.warning("Please enter your Gemini Pro API key to use the app.")
 
-#os.environ["GOOGLE_API_KEY"]=gemini_key
-#genai.configure(api_key = os.environ['GOOGLE_API_KEY'])
+os.environ["GOOGLE_API_KEY"]=gemini_key
+genai.configure(api_key = os.environ['GOOGLE_API_KEY'])
 
 ## Function to load OpenAI model and get respones
 
