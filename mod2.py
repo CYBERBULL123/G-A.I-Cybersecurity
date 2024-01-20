@@ -48,11 +48,11 @@ def get_gemini_response(input,image):
     return response.text
 
 
-st.header('LLM 2nd MOD')
+st.header('OxSecure Intelligence')
 st.title('Cybersecurity Best practices for Infrastructure')
 st.subheader('By :- Aadi OP ')
 st.text('🚀 Empower Tomorrow, 🛡️ Secure Today: Unleash the Power of Cybersecurity Brilliance! 💻✨ ')
-input_text=st.text_input("Search Your Desire Security Policy")
+input_text=st.text_input("Search Your Desire Security Related Topic")
 input=st.text_input("Input Prompt: ",key="input")
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 image=""
