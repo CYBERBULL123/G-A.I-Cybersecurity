@@ -28,7 +28,7 @@ api_key = st.text_input("Enter Your Gemini Pro API Key:", type="password")
 
 # Check if the API key is provided
 if api_key:
-    os.environ["GOOGLE_API_KEY"] = api_key
+    os.environ["GOOGLE_API_KEY"] = gemini_key
     genai.configure(api_key = os.environ['GOOGLE_API_KEY'])
 else:
     st.warning("Please enter your Gemini Pro API key to use the app.")
