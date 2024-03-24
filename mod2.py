@@ -70,7 +70,7 @@ if submit:
 
 first_input_prompt=PromptTemplate(
     input_variables=['Topic'],
-    template="Tell me everything about {Topic} and full informative description. "
+    template="Tell me everything about and explain in so informative descriptive way about {Topic} "
 )
 
 # Memory
@@ -88,7 +88,7 @@ chain=LLMChain(
 
 second_input_prompt=PromptTemplate(
     input_variables=['Policy'],
-    template="write best {security policies} and perfect all code snippet for secure this {Topic}  . give all important full secure coding principles about {Topic} "
+    template="write best {security policies} and perfect code snippet for implementing secure coding to this {Topic} and give me all important full secure coding principles about {Topic} "
 )
 
 chain2=LLMChain(
@@ -97,7 +97,7 @@ chain2=LLMChain(
 
 third_input_prompt=PromptTemplate(
     input_variables=['Practice'],
-    template="Implement  5 major best Cybersecurity {Practice} for the better security postures into infrastructure business. Also give Major cyberattack which is done by this {Topic} and write about malware which is developed by this {Topic}"
+    template="Implement  5 major best Cybersecurity {Practice} for this {Topic} that helps better security postures into infrastructure business. Also give Major cyberattack which is done by this {Topic} and write about malware which is developed by this {Topic}"
 )
 chain3=LLMChain(llm=llm,prompt=third_input_prompt,verbose=True,output_key='description',memory=Practice_memory)
 parent_chain=SequentialChain(
