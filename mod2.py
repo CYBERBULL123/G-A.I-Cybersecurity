@@ -50,7 +50,7 @@ def get_gemini_response(input,image):
 
 st.header('OxSecure Intelligence 🧠')
 st.title('Cybersecurity Best practices for Infrastructure')
-st.subheader('By :- Aadi OP 🧑‍💻')
+st.subheader('By :- Aadi 🧑‍💻')
 st.text('🚀 Empower Tomorrow, 🛡️ Secure Today: Unleash the Power of Cybersecurity Brilliance! 💻✨ ')
 input_text=st.text_input("Search Your Desire Security Related Topic 🔍")
 input=st.text_input("Input Prompt: ",key="input")
