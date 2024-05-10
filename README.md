@@ -1,6 +1,13 @@
-# 🚀 G-A.I Cybersecurity Project
+# 🚀 Welcome to the G-A.I Cybersecurity Project!
 
 ## Dive into the Future of Cybersecurity Intelligence!
+
+
+🔐 Dive into the Future of Cybersecurity with G-A.I Cybersecurity Project! Visit  
+
+## **[OxSecure Intelligence](https://oxsecure-g-a-i.onrender.com/)**
+for a firsthand experience of cutting-edge cyber vigilance! 🚀
+
 
 Welcome to the G-A.I Cybersecurity Project - where cutting-edge technology meets cyber vigilance! Our project seamlessly blends Language Models, Gemini, and OpenAI to create an intelligent powerhouse that unravels the mysteries of cybersecurity. With the magic touch of LangChain, Streamlit's charm, and the robustness of Google AI Python framework, we present a cybernetic symphony that transforms complexity into simplicity.
 
