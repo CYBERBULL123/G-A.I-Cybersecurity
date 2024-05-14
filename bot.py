@@ -176,7 +176,7 @@ def render_main_program():
     # Prompt Templates
     third_input_prompt = PromptTemplate(
         input_variables=['Practice'],
-        template="Implement  5 major best Cybersecurity {Practice} for this {Topic} that helps better security postures into any business. illustrate Major cyberattack which is done by misconfiguration of {Topic} and give the informative info about the malware which caused this"
+        template="Implement  5 major best Cybersecurity {Practice} for this {Topic} that helps better security postures into any business.  Major cyberattack which is done by misconfiguration of {Topic} and give the informative details , date , losses  that causes in this attack"
     )
     chain3 = LLMChain(llm=llm, prompt=third_input_prompt, verbose=True, output_key='description', memory=Practice_memory)
     parent_chain = SequentialChain(
