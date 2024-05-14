@@ -59,9 +59,9 @@ def get_gemini_response(input,image):
     return response.text
 
 def login_portal():
-    st.title("🔒 Oxsecure🧠 - Your Cybersecurity Companion! 🔒")
+    st.title("Oxsecure🧠 - Your Cybersecurity Companion! 🔒")
     st.markdown("---")
-    st.write("Unlock the realm of cybersecurity expertise with OxSecure Intelligence 🧠 🚀 Safeguarding your data, one prompt at a time. 🔒 Let's chat about security topics and empower your knowledge! 💡")
+    st.write("Unlock the realm of cybersecurity expertise with OxSecure Intelligence 🧠 🚀 Safeguarding your data, one prompt at a time. 🔒 Let's chat about security topics and empower your knowledge! 💡 Product of CyberBULL 👁️")
     st.markdown("---")
     st.write("Please log in to continue.")
     st.image('ui/Ox.jpg', width=200, use_column_width='always')
@@ -192,8 +192,8 @@ def render_main_program():
         with st.expander('Major Practices'):
             st.info(Practice_memory.buffer)
     st.markdown("---")
-    st.text("                           Created with 🤗 By Aditya Pandey ")
-
+    linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
+    st.markdown("  Created with 🤗💖 By Aditya Pandey" f"[🔗]({linkedin_url})")
 
 if __name__ == "__main__":
     main()
