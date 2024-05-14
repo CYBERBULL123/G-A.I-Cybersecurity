@@ -1,11 +1,10 @@
-## Integrate our code OpenAI API
+## Integrate our code GEMINI API
 import os
 import pathlib
 import textwrap
 from PIL import Image
 from constants import gemini_key
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.llms import OpenAI
 from langchain import PromptTemplate
 from langchain.chains import LLMChain
 
@@ -13,6 +12,7 @@ import google.generativeai as genai
 
 from langchain.memory import ConversationBufferMemory
 from google.generativeai import GenerativeModel
+from google.generativeai.types import HarmCategory, HarmBlockThreshold, HarmProbability
 from langchain.chains import SequentialChain
 
 import streamlit as st
@@ -24,15 +24,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Set your Gemini Pro API key
-#gemini_key = st.text_input("Enter Your Gemini Pro API Key:", type="password")
-
-# Check if the API key is provided
-#if gemini_key:
- #   os.environ["GOOGLE_API_KEY"] = gemini_key
- #   genai.configure(gemini_key = os.environ['GOOGLE_API_KEY'])
-#else:
-#    st.warning("Please enter your Gemini Pro API key to use the app.")
+#API configuration
 
 os.environ["GOOGLE_API_KEY"]=gemini_key
 genai.configure(api_key = os.environ['GOOGLE_API_KEY'])
@@ -41,12 +33,30 @@ genai.configure(api_key = os.environ['GOOGLE_API_KEY'])
 
 def get_gemini_response(input,image):
     model = genai.GenerativeModel('gemini-pro-vision')
+    safety_settings={
+        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_DANGEROUS: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_SEXUAL: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_TOXICITY: HarmBlockThreshold.BLOCK_NONE
+    }
     if input!="":
        response = model.generate_content([input,image])
     else:
        response = model.generate_content(image)
     return response.text
 
+
+# Configure safety settings
+safety_settings = {
+    'HATE': 'ALLOW',
+    'HARASSMENT': 'ALLOW',
+    'SEXUAL': 'ALLOW',
+    'DANGEROUS': 'ALLOW'
+}
 
 st.header('OxSecure Intelligence 🧠')
 st.title('Cybersecurity Best practices for Infrastructure')
@@ -81,16 +91,26 @@ Practice_memory = ConversationBufferMemory(input_key='Practice', memory_key='des
 
 ## GEMINI LLMS
 llm = ChatGoogleGenerativeAI(model="gemini-pro")
+safety_settings={
+        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_DANGEROUS: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_SEXUAL: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_TOXICITY: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT:HarmProbability.HIGH
+    }
 chain=LLMChain(
     llm=llm,prompt=first_input_prompt,verbose=True,output_key='security policies',memory=Topic_memory)
 
 # Prompt Templates
 
 second_input_prompt=PromptTemplate(
-    input_variables=['Policy'],
+    input_variables=['security policies'],
     template="write best {security policies} and perfect code snippet for implementing secure coding to this {Topic} and give me all important full secure coding principles about {Topic} use codes snippet for every countersome points . "
 )
-
 chain2=LLMChain(
     llm=llm,prompt=second_input_prompt,verbose=True,output_key='Practice',memory=Policy_memory)
 # Prompt Templates
@@ -102,6 +122,7 @@ third_input_prompt=PromptTemplate(
 chain3=LLMChain(llm=llm,prompt=third_input_prompt,verbose=True,output_key='description',memory=Practice_memory)
 parent_chain=SequentialChain(
     chains=[chain,chain2,chain3],input_variables=['Topic'],output_variables=['security policies','Practice','description'],verbose=True)
+
 
 
 if input_text:
