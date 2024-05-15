@@ -59,13 +59,12 @@ def get_gemini_response(input,image):
     return response.text
 
 def login_portal():
-    st.title("🧠 Oxsecure - Cybersecurity Companion! 🔒")
+    st.title("Oxsecure 🧠 - Your Companion! 🔒")
     st.markdown("---")
     st.write("Unlock the realm of cybersecurity expertise with OxSecure Intelligence 🧠 🚀 Safeguarding your data, one prompt at a time. 🔒 Let's chat about security topics and empower your knowledge! 💡 Product of CyberBULL 👁️")
     st.markdown("---")
     st.write("Please log in to continue.")
-    st.markdown("----")
-    st.write("💳 Default credentials username = Oxsecure , Pass = Oxsecure@123")
+    st.write("💳 Default Credentials [ Username = Oxsecure , Password = Oxsecure@123 ]")
     st.image('ui/Ox.jpg', width=200, use_column_width='always')
    
 
