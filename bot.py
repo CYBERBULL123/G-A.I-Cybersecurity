@@ -64,7 +64,7 @@ def login_portal():
     st.write("Unlock the realm of cybersecurity expertise with OxSecure Intelligence 🧠 🚀 Safeguarding your data, one prompt at a time. 🔒 Let's chat about security topics and empower your knowledge! 💡 Product of CyberBULL 👁️")
     st.markdown("---")
     st.write("Please log in to continue.")
-    st.write("💳 Default Credentials [ Username = Oxsecure , Password = Oxsecure@123 ]")
+    st.write("💳 Default Credentials  Username = Oxsecure , Password = Oxsecure@123 ")
     st.image('ui/Ox.jpg', width=200, use_column_width='always')
    
 
@@ -194,7 +194,7 @@ def render_main_program():
             st.info(Practice_memory.buffer)
     st.markdown("---")
     linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
-    st.markdown("  Created with 🤗 💖 By Aditya Pandey"  f"[LinkedIn 🔗]({linkedin_url})")
+    st.markdown("  Created with 🤗 💖 By Aditya Pandey  "  f"[ LinkedIn 🔗 ]({linkedin_url})")
 
 if __name__ == "__main__":
     main()
