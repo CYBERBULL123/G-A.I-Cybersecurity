@@ -65,7 +65,7 @@ def login_portal():
     st.markdown("---")
     st.write("Please log in to continue.")
     st.markdown("----")
-    st.write("💳 Default credentials username = Oxsecure , Pass = Oxsecure@123
+    st.write("💳 Default credentials username = Oxsecure , Pass = Oxsecure@123")
     st.image('ui/Ox.jpg', width=200, use_column_width='always')
    
 
