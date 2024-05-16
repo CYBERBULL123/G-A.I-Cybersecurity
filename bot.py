@@ -50,13 +50,14 @@ def main():
     else:
         render_main_program()
 
+## Function to load Gemini vision model and get respones
 def get_gemini_response(input,image):
-    model = genai.GenerativeModel('gemini-pro-vision')
+    Model = genai.GenerativeModel('gemini-pro-vision')
     if input!="":
-        response = model.generate_content([input,image])
+       response = Model.generate_content([input,image])
     else:
-        response = model.generate_content(image)
-        return response.text
+       response = model.generate_content(image)
+    return response.text
 
 def login_portal():
     st.title("Oxsecure 🧠 - Your Companion! 🔒")
@@ -99,26 +100,6 @@ def render_main_program():
         response = get_gemini_response(input_prompt, image)
         st.subheader("The Response is")
         st.write(response)
-
-    def get_gemini_response(input,image):
-        Model = genai.GenerativeModel('gemini-pro-vision')
-        safety_settings={
-        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_DANGEROUS: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_SEXUAL: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_TOXICITY: HarmBlockThreshold.BLOCK_NONE
-    }
-        if input!="":
-            response = Model.generate_content([input,image])
-        else:
-            response = Model.generate_content(image)
-            return response.text
-    
-
 
     # Prompt Templates
     first_input_prompt = PromptTemplate(
