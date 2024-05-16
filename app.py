@@ -73,18 +73,9 @@ custom_css = """
         color: #00FF00;
     }
     h1, h2, h3, h4, h5, h6 {
-        color: #000000;
-        animation: neon 1.0s ease-in-out infinite alternate;
+        color: #00FF00;
         text-align: center;
-    }
-    @keyframes neon {
-        from {
-            text-shadow: 0 0 5px #FF0000, 0 0 10px #FF0000, 0 0 20px #FF0000, 0 0 30px #FF0000, 0 0 40px #FF0000, 0 0 50px #FF0000, 0 0 60px #FF0000;
-        }
-        to {
-            text-shadow: 0 0 25px #FF0000, 0 0 30px #FF0000, 0 0 40px #FF0000, 0 0 50px #FF0000, 0 0 60px #FF0000, 0 0 70px #FF0000, 0 0 80px #FF0000;
-        }
-    }
+    } 
     p, ol, ul, dl {
         margin: 0px 0px 1rem;
         padding: 0px;
@@ -137,7 +128,7 @@ def get_gemini_response(input_prompt, image):
     return response.text
 
 def render_main_program():
-    st.write("🔒 Unlock the Future of Cybersecurity with OxSecure: Where Knowledge Meets Innovation! 🚀 Dive into Cyber Brilliance with OxSecure Chat 🤖 and Experience the Power of Visual Intelligence with OxSecure ImaGen 🎨, all driven by the cutting-edge Gemini AI! 🌟")
+    st.subheader("🔒 Unlock the Future of Cybersecurity with OxSecure: Where Knowledge Meets Innovation! 🚀 Dive into Cyber Brilliance with OxSecure 🤖 🌟")
     st.markdown("---")
     app_choice = st.sidebar.radio("Choose App", ("OxSecure Chat 🤖", "OxSecure ImaGen 🎨"))
 
