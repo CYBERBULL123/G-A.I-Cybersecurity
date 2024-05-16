@@ -56,7 +56,7 @@ def get_gemini_response(input,image):
         response = model.generate_content([input,image])
     else:
         response = model.generate_content(image)
-    return response.text
+        return response.text
 
 def login_portal():
     st.title("Oxsecure 🧠 - Your Companion! 🔒")
