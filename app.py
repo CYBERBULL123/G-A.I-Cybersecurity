@@ -91,7 +91,6 @@ custom_css = """
         font-size: 1rem;
         font-weight: 400;
         color: #02ff02;
-        text-align: -webkit-center;
     }
     .st-ed {
         background-color: rgb(0 0 0 / 20%);
@@ -227,7 +226,8 @@ def render_gemini_api_app():
                                                                                      'description'], verbose=True)
 
     if input_text:
-        st.text(parent_chain({'Topic': input_text}))
+        with st.spinner('Processing.... ⏳'):
+            st.text(parent_chain({'Topic': input_text}))
 
         with st.expander('Your Topic'):
             st.info(Topic_memory.buffer)
