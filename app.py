@@ -70,7 +70,7 @@ custom_css = """
     }
     .stFileUploader>div>div>input {
         background-color: #1F1F1F;
-        color: #00FF00;
+        color: #FF0800;
     }
     h1, h2, h3, h4, h5, h6 {
         color: #00FF00;
