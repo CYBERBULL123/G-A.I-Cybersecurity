@@ -44,58 +44,6 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS for futuristic design
-custom_css = """
-<style>
-    body {
-        background-color: #000000;
-        color: #00FF00;
-        font-family: 'Courier New', Courier, monospace;
-    }
-    .stButton>button {
-        background-color: #1F1F1F;
-        color: #00FF00;
-        border: 1px solid #00FF00;
-        border-radius: 5px;
-    }
-    .stTextInput>div>div>input {
-        background-color: #1F1F1F;
-        color: #00FF00;
-        border: 1px solid #00FF00;
-    }
-    .stTextArea>div>textarea {
-        background-color: #1F1F1F;
-        color: #00FF00;
-        border: 1px solid #00FF00;
-    }
-    .stFileUploader>div>div>input {
-        background-color: #1F1F1F;
-        color: #00FF00;
-    }
-    h1, h2, h3, h4, h5, h6 {
-        color: #FF0800;
-        text-align: center;
-    } 
-    p, ol, ul, dl {
-        margin: 0px 0px 1rem;
-        padding: 0px;
-        font-size: 1rem;
-        font-weight: 400;
-        color: #02ff02;
-    }
-    .st-ed {
-        background-color: rgb(0 0 0 / 20%);
-    }
-    .stApp {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    
-</style>
-"""
-
-st.markdown(custom_css, unsafe_allow_html=True)
 
 def render_login_page():
     st.title("Oxsecure 🧠 - Your Companion! 🔒")
