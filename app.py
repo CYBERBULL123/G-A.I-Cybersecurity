@@ -133,7 +133,7 @@ def render_gemini_api_app():
     ## GEMINI LLMS
     llm = ChatGoogleGenerativeAI(model="gemini-pro")
     chain = LLMChain(
-        llm=llm, prompt=first_input_prompt, verbose=True, output_key='security policies', memory=Topic_memory)
+        llm=llm, prompt=first_input_prompt, verbose=True, output_key='secure coding', memory=Topic_memory)
     safety_settings = {
         HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
         HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
