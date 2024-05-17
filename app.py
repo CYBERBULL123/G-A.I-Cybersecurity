@@ -50,7 +50,7 @@ def load_css(file_name):
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # Load the custom CSS file
-load_css('ui/style.css')
+load_css('ui/Style.css')
 
 def render_login_page():
     st.title("Oxsecure 🧠 - Your Companion! 🔒")
