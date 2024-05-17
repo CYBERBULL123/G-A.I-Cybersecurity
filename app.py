@@ -44,17 +44,9 @@ st.set_page_config(
     layout="wide"
 )
 
-# Load CSS file
-def load_css(file_name):
-    with open(file_name) as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-
-# Load the custom CSS file
-load_css('ui/Style.css')
 
 def render_login_page():
     st.title("Oxsecure 🧠 - Your Companion! 🔒")
-    st.markdown('<div class="curve"></div>', unsafe_allow_html=True)
     st.markdown("---")
     st.write("Unlock the realm of cybersecurity expertise with OxSecure 🧠 🚀 Safeguarding your data. 🔒 Let's chat about security topics and empower your knowledge! Product of CyberBULL 👁️")
     st.markdown("---")
