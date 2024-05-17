@@ -8,12 +8,12 @@ body {
 h1, h2, h3, h4, h5, h6 {
     color: #FF0040; /* Cherry red color */
     text-align: center; /* Align to center */
-    text-shadow: 0 0 10px #FF0040, 0 0 20px #FF0040, 0 0 30px #FF0040;
     font-family: 'Orbitron', sans-serif; /* More futuristic font */
 }
 
 p, li, span, div {
     color: #00FF00;
+    
     font-family: 'Orbitron', sans-serif; /* Futuristic font */
 }
 
