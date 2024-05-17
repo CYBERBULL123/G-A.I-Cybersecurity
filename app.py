@@ -149,15 +149,15 @@ def render_gemini_api_app():
     # Prompt Templates
     second_input_prompt = PromptTemplate(
         input_variables=['Policy'],
-        template="write best {security policies} and perfect code snippet for implementing secure coding to this {Topic} in well detailed and descriptive "
+        template="write best {Policy} and perfect code snippet for implementing secure coding to this {Topic} in well detailed and descriptive way use code snippet for each point."
     )
 
     chain2 = LLMChain(
         llm=llm, prompt=second_input_prompt, verbose=True, output_key='Practice', memory=Policy_memory)
     # Prompt Templates
     third_input_prompt = PromptTemplate(
-        input_variables=['Practice'],
-        template="Implement  5 major best Cybersecurity {Practice} for this {Topic} that helps better security postures into any business. illustrate Major cyberattack which is done by misconfiguration of {Topic} and give the informative info about the malware which caused this"
+        input_variables=['Practices'],
+        template="Implement major best Cybersecurity {Practices} for this {Topic} that helps better security postures into any business. illustrate Major cyberattack which is done by misconfiguration of {Topic} and give the informative info about the malware which caused this"
     )
     chain3 = LLMChain(llm=llm, prompt=third_input_prompt, verbose=True, output_key='description', memory=Practice_memory)
     parent_chain = SequentialChain(
