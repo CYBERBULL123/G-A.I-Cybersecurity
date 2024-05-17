@@ -161,7 +161,7 @@ def render_gemini_api_app():
     )
     chain3 = LLMChain(llm=llm, prompt=third_input_prompt, verbose=True, output_key='description', memory=Practice_memory)
     parent_chain = SequentialChain(
-        chains=[chain, chain2, chain3], input_variables=['Topic'], output_variables=['security policies', 'Practice',
+        chains=[chain, chain2, chain3], input_variables=['Topic'], output_variables=['secure coding', 'Practice',
                                                                                      'description'], verbose=True)
 
     if input_text:
