@@ -1,7 +1,7 @@
 /* Custom CSS for Streamlit app */
 body {
     background-color: #000000;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Orbitron', sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -9,12 +9,5 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center; /* Align to center */
     font-family: 'Orbitron', sans-serif; /* More futuristic font */
 }
-
-p {
-    color: #00FF00;
-    font-family: 'Orbitron', sans-serif; /* Futuristic font */
-}
-
-
 /* Importing the futuristic font */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
