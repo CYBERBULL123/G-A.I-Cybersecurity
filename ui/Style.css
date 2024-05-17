@@ -6,15 +6,20 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: #00FF00;
-    text-align: centre;
-    text-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00;
+    color: #FF0040; /* Cherry red color */
+    text-align: center; /* Align to center */
+    text-shadow: 0 0 10px #FF0040, 0 0 20px #FF0040, 0 0 30px #FF0040;
+    font-family: 'Orbitron', sans-serif; /* More futuristic font */
 }
 
 p, li, span, div {
     color: #00FF00;
+    font-family: 'Orbitron', sans-serif; /* Futuristic font */
 }
 
 footer {
     color: #00FF00;
 }
+
+/* Importing the futuristic font */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
