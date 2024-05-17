@@ -1,0 +1,59 @@
+/* Custom CSS for Streamlit app */
+body {
+    background-color: #000000;
+    color: #00FF00;
+    font-family: 'Roboto', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #00FF00;
+    align-text: centre;
+    text-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00;
+    animation: neon 1.5s ease-in-out infinite alternate;
+}
+
+p, li, span, div {
+    color: #00FF00;
+}
+
+@keyframes neon {
+    from {
+        text-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00, 0 0 30px #00FF00, 0 0 40px #00FF00, 0 0 50px #00FF00, 0 0 60px #00FF00, 0 0 70px #00FF00;
+    }
+    to {
+        text-shadow: 0 0 20px #00FF00, 0 0 30px #00FF00, 0 0 40px #00FF00, 0 0 50px #00FF00, 0 0 60px #00FF00, 0 0 70px #00FF00, 0 0 80px #00FF00;
+    }
+}
+
+.curve {
+    position: relative;
+    height: 200px;
+    background: linear-gradient(135deg, #00FF00 25%, #FF00FF 75%);
+    border-radius: 50%/100px 100px 0 0;
+    overflow: hidden;
+    margin-bottom: 50px;
+}
+
+.curve:before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 50%, #00FF00, #FF00FF, transparent);
+    animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+footer {
+    color: #00FF00;
+}
