@@ -127,7 +127,7 @@ def render_gemini_api_app():
 
     # Memory
     Topic_memory = ConversationBufferMemory(input_key='Topic', memory_key='chat_history')
-    Policy_memory = ConversationBufferMemory(input_key='security policies', memory_key='chat_history')
+    Policy_memory = ConversationBufferMemory(input_key='secure coding principal', memory_key='chat_history')
     Practice_memory = ConversationBufferMemory(input_key='Practice', memory_key='description_history')
 
     ## GEMINI LLMS
@@ -148,15 +148,15 @@ def render_gemini_api_app():
 
     # Prompt Templates
     second_input_prompt = PromptTemplate(
-        input_variables=['Policy'],
-        template="write best {Policy} and perfect code snippet for implementing secure coding to this {Topic} in well detailed and descriptive way use code snippet for each point."
+        input_variables=['secure coding principal'],
+        template="write best {secure coding principal} and perfect code snippet for implementing secure coding to this {Topic} in well detailed and descriptive way use code snippets for each point and describe code."
     )
 
     chain2 = LLMChain(
         llm=llm, prompt=second_input_prompt, verbose=True, output_key='Practice', memory=Policy_memory)
     # Prompt Templates
     third_input_prompt = PromptTemplate(
-        input_variables=['Practices'],
+        input_variables=['Practice'],
         template="Implement major best Cybersecurity {Practices} for this {Topic} that helps better security postures into any business. illustrate Major cyberattack which is done by misconfiguration of {Topic} and give the informative info about the malware which caused this"
     )
     chain3 = LLMChain(llm=llm, prompt=third_input_prompt, verbose=True, output_key='description', memory=Practice_memory)
