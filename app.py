@@ -127,7 +127,7 @@ def render_gemini_api_app():
 
     # Memory
     Topic_memory = ConversationBufferMemory(input_key='Topic', memory_key='chat_history')
-    Policy_memory = ConversationBufferMemory(input_key='security policies', memory_key='chat_history')
+    Policy_memory = ConversationBufferMemory(input_key='secure coding', memory_key='chat_history')
     Practice_memory = ConversationBufferMemory(input_key='Practice', memory_key='description_history')
 
     ## GEMINI LLMS
@@ -148,8 +148,8 @@ def render_gemini_api_app():
 
     # Prompt Templates
     second_input_prompt = PromptTemplate(
-        input_variables=['security policies'],
-        template="write best {secure coding principal} and perfect code snippet for implementing secure coding to this {Topic} in well detailed and descriptive way use code snippets for each point and describe code."
+        input_variables=['secure coding'],
+        template="write best {secure coding} and perfect code snippet for implementing secure coding to this {Topic} in well detailed and descriptive way use code snippets for each point and describe code."
     )
 
     chain2 = LLMChain(
