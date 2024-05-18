@@ -5,7 +5,8 @@
 
 🔐 Dive into the Future of Cybersecurity with G-A.I Cybersecurity Project! Visit  
 
-## **[OxSecure Intelligence](https://oxsecure-g-a-i.onrender.com/)**
+## **[OxSecure Intelligence V1 Updated](https://oxsecure-aadi.streamlit.app/)**
+## **[OxSecure Intelligence V2](https://oxsecure-g-a-i.onrender.com/)**
 for a firsthand experience of cutting-edge cyber vigilance! 🚀
 
 
