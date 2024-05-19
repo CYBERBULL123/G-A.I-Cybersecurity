@@ -10,16 +10,6 @@ body {
 h1, h2, h3, h4, h5, h6 {
     color: #FF0000; /* Neon red for titles */
     text-align: center;
-    animation: neon 1.5s ease-in-out infinite alternate;
-}
-
-@keyframes neon {
-    from {
-        text-shadow: 0 0 5px #FF0000, 0 0 10px #FF0000, 0 0 20px #FF0000, 0 0 30px #FF0000, 0 0 40px #FF0000, 0 0 50px #FF0000, 0 0 60px #FF0000;
-    }
-    to {
-        text-shadow: 0 0 20px #FF0000, 0 0 30px #FF0000, 0 0 40px #FF0000, 0 0 50px #FF0000, 0 0 60px #FF0000, 0 0 70px #FF0000, 0 0 80px #FF0000;
-    }
 }
 
 p, ol, ul, dl {
