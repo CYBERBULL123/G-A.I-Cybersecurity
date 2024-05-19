@@ -8,7 +8,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: #FF0000; /* Neon red for titles */
+    color: #000000; /* Neon red for titles */
     text-align: center;
     animation: neon 1.5s ease-in-out infinite alternate;
 }
