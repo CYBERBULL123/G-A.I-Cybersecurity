@@ -1,13 +1,17 @@
 /* style.css */
 body {
     font-family: 'Roboto', sans-serif;
-    background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);
+    background-color: #000000; /* Dark black background */
     color: white;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: #ffffff;
+    color: #d2042d; /* Cherry red title */
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+p, .stMarkdown p {
+    color: #32cd32; /* Lime green paragraphs */
 }
 
 .stApp {
