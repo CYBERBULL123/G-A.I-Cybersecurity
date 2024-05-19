@@ -1,13 +1,65 @@
-/* Custom CSS for Streamlit app */
+/* style.css */
 body {
-    background-color: #000000;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);
+    color: white;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: #FF0040; /* Cherry red color */
-    text-align: center; /* Align to center */
-    font-family: 'Orbitron', sans-serif; /* More futuristic font */
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
-/* Importing the futuristic font */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+.stApp {
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.stButton button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.stButton button:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.stTextInput, .stTextArea, .stSelectbox, .stCheckbox, .stRadio, .stSlider, .stNumberInput {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 5px;
+}
+
+.stTextInput input, .stTextArea textarea, .stSelectbox select {
+    background: none;
+    border: none;
+    color: white;
+}
+
+.stTextInput input::placeholder, .stTextArea textarea::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.stRadio div, .stCheckbox div {
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.stRadio div:hover, .stCheckbox div:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.stRadio div label, .stCheckbox div label {
+    color: white;
+}
