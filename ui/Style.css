@@ -24,11 +24,6 @@ p, ol, ul, dl {
     transition: background-color 0.3s, color 0.3s, transform 0.3s;
 }
 
-.stButton>button:hover {
-    background-color: #00FF00;
-    color: #000000;
-    transform: scale(1.05);
-}
 
 .stTextInput>div>div>input, .stTextArea>div>textarea, .stFileUploader>div>div>input {
     background-color: #1F1F1F; /* Dark background for inputs */
