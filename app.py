@@ -44,6 +44,14 @@ st.set_page_config(
     layout="wide"
 )
 
+# Load custom CSS
+def load_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
+# Load the CSS file
+load_css("ui/Style.css")
+
 
 def render_login_page():
     st.title("Oxsecure 🧠 - Your Companion! 🔒")
