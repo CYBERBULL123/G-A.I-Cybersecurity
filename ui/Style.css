@@ -1,53 +1,79 @@
+/* style.css */
 body {
-        background-color: #000000;
-        color: #00FF00;
-        font-family: 'Courier New', Courier, monospace;
+    background-color: #000000; /* Dark black background */
+    color: #00FF00; /* Lime green text */
+    font-family: 'Courier New', Courier, monospace; /* Monospace font */
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #FF0000; /* Neon red for titles */
+    text-align: center;
+    animation: neon 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon {
+    from {
+        text-shadow: 0 0 5px #FF0000, 0 0 10px #FF0000, 0 0 20px #FF0000, 0 0 30px #FF0000, 0 0 40px #FF0000, 0 0 50px #FF0000, 0 0 60px #FF0000;
     }
-    .stButton>button {
-        background-color: #1F1F1F;
-        color: #00FF00;
-        border: 1px solid #00FF00;
-        border-radius: 5px;
+    to {
+        text-shadow: 0 0 20px #FF0000, 0 0 30px #FF0000, 0 0 40px #FF0000, 0 0 50px #FF0000, 0 0 60px #FF0000, 0 0 70px #FF0000, 0 0 80px #FF0000;
     }
-    .stTextInput>div>div>input {
-        background-color: #1F1F1F;
-        color: #00FF00;
-        border: 1px solid #00FF00;
-    }
-    .stTextArea>div>textarea {
-        background-color: #1F1F1F;
-        color: #00FF00;
-        border: 1px solid #00FF00;
-    }
-    .stFileUploader>div>div>input {
-        background-color: #1F1F1F;
-        color: #00FF00;
-    }
-    h1, h2, h3, h4, h5, h6 {
-        color: #000000;
-        animation: neon 1.0s ease-in-out infinite alternate;
-        text-align: center;
-    }
-    @keyframes neon {
-        from {
-            text-shadow: 0 0 5px #FF0000, 0 0 10px #FF0000, 0 0 20px #FF0000, 0 0 30px #FF0000, 0 0 40px #FF0000, 0 0 50px #FF0000, 0 0 60px #FF0000;
-        }
-        to {
-            text-shadow: 0 0 25px #FF0000, 0 0 30px #FF0000, 0 0 40px #FF0000, 0 0 50px #FF0000, 0 0 60px #FF0000, 0 0 70px #FF0000, 0 0 80px #FF0000;
-        }
-    }
-    p, ol, ul, dl {
-        margin: 0px 0px 1rem;
-        padding: 0px;
-        font-size: 1rem;
-        font-weight: 400;
-        color: #02ff02;
-    }
-    .st-ed {
-        background-color: rgb(0 0 0 / 20%);
-    }
-    .stApp {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+}
+
+p, ol, ul, dl {
+    color: #02ff02; /* Lime green for paragraph text */
+}
+
+.stButton>button {
+    background-color: #1F1F1F; /* Dark background for buttons */
+    color: #00FF00; /* Lime green text for buttons */
+    border: 1px solid #00FF00;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.stButton>button:hover {
+    background-color: #00FF00;
+    color: #000000;
+    transform: scale(1.05);
+}
+
+.stTextInput>div>div>input, .stTextArea>div>textarea, .stFileUploader>div>div>input {
+    background-color: #1F1F1F; /* Dark background for inputs */
+    color: #00FF00; /* Lime green text for inputs */
+    border: 1px solid #00FF00;
+    border-radius: 5px;
+    transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.stTextInput>div>div>input:hover, .stTextArea>div>textarea:hover, .stFileUploader>div>div>input:hover {
+    background-color: #5c5f6b;
+    border-color: #16a370;
+}
+
+.stTextInput>div>div>input:focus, .stTextArea>div>textarea:focus, .stFileUploader>div>div>input:focus {
+    background-color: #5c5f6b;
+    border-color: #16a370;
+    outline: none;
+}
+
+.stApp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+}
+
+.st-ed {
+    background-color: rgb(0 0 0 / 20%);
+}
+
+.stMarkdown p {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #02ff02;
+    margin: 0 0 1rem;
+    padding: 0;
+}
