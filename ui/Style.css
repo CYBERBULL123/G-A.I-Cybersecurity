@@ -1,14 +1,14 @@
 /* style.css */
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #343541; /* Dark gray background */
+    background-color: #000000; /* Dark gray background */
     color: white;
     margin: 0;
     padding: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: #19C37D; /* ChatGPT green title */
+    color: #d2042d; /* ChatGPT green title */
     text-align: center; /* Center align the title */
     text-shadow: none;
 }
