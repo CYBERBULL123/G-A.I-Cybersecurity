@@ -1,69 +1,112 @@
-/* style.css */
+/* Base Styles */
 body {
-    background-color: #000000; /* Dark black background */
-    color: #00FF00; /* Lime green text */
-    font-family: 'Courier New', Courier, monospace; /* Monospace font */
+    background-color: #0b0c10; /* Very dark background */
+    color: #66fcf1; /* Bright cyan text */
+    font-family: 'Roboto', Arial, sans-serif; /* Modern sans-serif font */
     margin: 0;
     padding: 0;
 }
 
+/* Headers */
 h1, h2, h3, h4, h5, h6 {
-    color: #FF0000; /* Neon red for titles */
+    color: #45a29e; /* Muted cyan for titles */
     text-align: center;
+    font-weight: 300; /* Light font weight */
+    margin-bottom: 0.5rem;
 }
 
+/* Paragraph and List Styles */
 p, ol, ul, dl {
-    color: #02ff02; /* Lime green for paragraph text */
+    color: #c5c6c7; /* Light gray for paragraph text */
+    line-height: 1.6; /* Improved readability */
+    margin: 0 0 1.5rem;
 }
 
+/* Buttons */
 .stButton>button {
-    background-color: #1F1F1F; /* Dark background for buttons */
-    color: #00FF00; /* Lime green text for buttons */
-    border: 1px solid #00FF00;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    background-color: #1f2833; /* Dark background for buttons */
+    color: #66fcf1; /* Cyan text for buttons */
+    border: 1px solid #66fcf1;
+    border-radius: 8px; /* Slightly rounded corners */
+    padding: 0.5rem 1rem; /* Padding for better clickability */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
 }
 
+.stButton>button:hover {
+    background-color: #45a29e; /* Hover effect */
+    color: #0b0c10;
+    transform: scale(1.05);
+}
 
+/* Input Fields */
 .stTextInput>div>div>input, .stTextArea>div>textarea, .stFileUploader>div>div>input {
-    background-color: #1F1F1F; /* Dark background for inputs */
-    color: #00FF00; /* Lime green text for inputs */
-    border: 1px solid #00FF00;
+    background-color: #1f2833; /* Dark background for inputs */
+    color: #66fcf1; /* Cyan text for inputs */
+    border: 1px solid #66fcf1;
     border-radius: 5px;
-    transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+    padding: 0.5rem;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 .stTextInput>div>div>input:focus, .stTextArea>div>textarea:focus, .stFileUploader>div>div>input:focus {
-    color: #FFFF00; /* Yellow text when input is focused */
-    background-color: #1F1F1F;
-    border-color: #16a370;
+    color: #66fcf1; /* Keep cyan text when focused */
+    background-color: #0b0c10; /* Maintain dark background when focused */
+    border-color: #45a29e;
     outline: none;
 }
 
 .stTextInput>div>div>input:hover, .stTextArea>div>textarea:hover, .stFileUploader>div>div>input:hover {
-    background-color: #5c5f6b;
-    border-color: #16a370;
+    background-color: #0b0c10;
+    border-color: #45a29e;
 }
 
 .stTextInput>div>div>input::placeholder, .stTextArea>div>textarea::placeholder {
-    color: #888; /* Placeholder color */
+    color: #c5c6c7; /* Light gray placeholder color */
 }
 
+/* App Container */
 .stApp {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 2rem;
+    background-color: #0b0c10;
 }
 
 .st-ed {
-    background-color: rgb(0 0 0 / 20%);
+    background-color: rgba(0, 0, 0, 0.2); /* Slightly transparent background */
 }
 
+/* Markdown */
 .stMarkdown p {
     font-size: 1rem;
     font-weight: 400;
-    color: #02ff02;
+    color: #c5c6c7;
     margin: 0 0 1rem;
     padding: 0;
+}
+
+/* Advanced Animations */
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 5px #66fcf1, 0 0 10px #66fcf1, 0 0 20px #66fcf1, 0 0 40px #45a29e;
+    }
+    50% {
+        box-shadow: 0 0 10px #66fcf1, 0 0 20px #66fcf1, 0 0 30px #66fcf1, 0 0 50px #45a29e;
+    }
+    100% {
+        box-shadow: 0 0 5px #66fcf1, 0 0 10px #66fcf1, 0 0 20px #66fcf1, 0 0 40px #45a29e;
+    }
+}
+
+.stButton>button {
+    animation: glow 1.5s infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .stApp {
+        padding: 1rem;
+    }
 }
