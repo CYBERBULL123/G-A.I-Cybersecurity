@@ -88,6 +88,11 @@ def extract_text_from_url(url):
         st.error(f"An error occurred while extracting text from URL: {e}")
         return ""
 
+# Remove Special characters
+def clean_text(text):
+    # Retain only alphabetic characters and spaces
+    return re.sub(r'[^a-zA-Z ]', '', text)
+
 # Streamlit main framework
 st.header('OxSecure ImaGen 🎨')
 st.divider()
@@ -135,9 +140,11 @@ if submit:
         if response:
             st.subheader("The Response is:")
             st.write(response)
+            
+            clean_response = clean_text(response)
 
             # Text-to-Speech conversion
-            tts = gTTS(response)
+            tts = gTTS(clean_response)
             audio_file = BytesIO()
             tts.write_to_fp(audio_file)
             st.audio(audio_file, format='audio/mp3')
