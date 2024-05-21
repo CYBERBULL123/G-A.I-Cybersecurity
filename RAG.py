@@ -9,6 +9,7 @@ import google.generativeai as genai
 from constants import gemini_key
 from bs4 import BeautifulSoup
 import urllib.request
+from google.api_core.exceptions import GoogleAPIError
 
 # Streamlit configuration
 st.set_page_config(
@@ -23,12 +24,16 @@ genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
 
 # Function to query Gemini model
 def query_gemini(prompt, image=None):
-    model = genai.GenerativeModel('gemini-pro-vision')
-    if image:
-        response = model.generate_content([prompt, image])
-    else:
-        response = model.generate_content(prompt)
-    return response.text
+    try:
+        model = genai.GenerativeModel('gemini-pro-vision')
+        if image:
+            response = model.generate_content([prompt, image])
+        else:
+            response = model.generate_content(prompt)
+        return response.text
+    except GoogleAPIError as e:
+        st.error(f"An error occurred while querying the Gemini API: {e}")
+        return None
 
 # Function to extract text from PDF
 def extract_text_from_pdf(file):
@@ -77,14 +82,16 @@ submit = st.button("Tell me about the image/text")
 if submit:
     if input_prompt or file_text:
         prompt = input_prompt if input_prompt else file_text
+        st.write(f"Prompt being sent to Gemini API: {prompt}")  # Debugging line to see the prompt content
         response = query_gemini(prompt, image)
-        st.subheader("The Response is:")
-        st.write(response)
+        if response:
+            st.subheader("The Response is:")
+            st.write(response)
 
-        # Text-to-Speech conversion
-        tts = gTTS(response)
-        audio_file = BytesIO()
-        tts.write_to_fp(audio_file)
-        st.audio(audio_file, format='audio/mp3')
+            # Text-to-Speech conversion
+            tts = gTTS(response)
+            audio_file = BytesIO()
+            tts.write_to_fp(audio_file)
+            st.audio(audio_file, format='audio/mp3')
     else:
         st.warning("Please provide an input prompt or upload a file.")
