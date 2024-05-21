@@ -139,6 +139,7 @@ if submit:
         # Stop spinner after processing
         if response:
             st.subheader("Extracting Data 📡")
+            st.divider()
             st.write(response)
             
             clean_response = clean_text(response)
