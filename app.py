@@ -55,12 +55,12 @@ load_css("ui/Style.css")
 
 def render_login_page():
     st.title("Oxsecure 🧠 - Your Companion! 🔒")
+    st.image('ui/Ox.jpg', width=200, use_column_width='always')
     st.markdown("---")
     st.write("Unlock the realm of cybersecurity expertise with OxSecure 🧠 🚀 Safeguarding your data. 🔒 Let's chat about security topics and empower your knowledge! Product of CyberBULL 👁️")
     st.markdown("---")
     st.write("Please log in to continue.")
     st.write("💳 Default Credentials  Username = Oxsecure , Password = Oxsecure@123 ")
-    st.image('ui/Ox.jpg', width=200, use_column_width='always')
     st.markdown("---")
     linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
     st.markdown("  Created with 🤗💖 By Aditya Pandey  " f"[  LinkedIn 🔗]({linkedin_url})")
