@@ -13,6 +13,7 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
     font-weight: 300; /* Light font weight */
     margin-bottom: 0.5rem;
+    animation: glow 1.5s infinite; /* Add the glow animation */
     
 }
 
