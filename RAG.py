@@ -92,7 +92,7 @@ def extract_text_from_url(url):
 # Remove Special characters
 def clean_text(text):
     # Retain only alphabetic characters and spaces
-    return re.sub(r'[^a-zA-Z ]', '', text)
+    return re.sub(r'[^a-zA-Z0-9 ]', '', text)
 
 # Streamlit main framework
 st.header('OxSecure ImaGen 🎨')
