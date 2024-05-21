@@ -98,7 +98,7 @@ st.header('OxSecure ImaGen 🎨')
 st.divider()
 st.title('GenAI ImaGen powers ♨️')
 st.divider()
-st.write('By :- Aadi 🧑‍💻')
+st.write('By :- Aditya (AADI) 🧑‍💻')
 
 input_prompt = st.text_input("Input Prompt: ", key="input")
 
@@ -124,7 +124,7 @@ if uploaded_url:
 if "context" not in st.session_state:
     st.session_state.context = ""
 
-submit = st.button("Tell me about the image/text")
+submit = st.button("Start Deep Diving 🤿")
 
 if submit:
     if input_prompt or file_text:
@@ -138,7 +138,7 @@ if submit:
         
         # Stop spinner after processing
         if response:
-            st.subheader("The Response is:")
+            st.subheader("Extracting Data 📡")
             st.write(response)
             
             clean_response = clean_text(response)
