@@ -1,3 +1,20 @@
+# =============================================================================
+# COPYRIGHT NOTICE
+# -----------------------------------------------------------------------------
+# This source code is the intellectual property of Aditya Pandey.
+# Any unauthorized reproduction, distribution, or modification of this code
+# is strictly prohibited.
+# If you wish to use or modify this code for your project, please ensure
+# to give full credit to Aditya Pandey.
+#
+# PROJECT DESCRIPTION
+# -----------------------------------------------------------------------------
+# This code is for a chatbot crafted with powerful prompts, designed to
+# utilize the Gemini API. It is tailored to assist cybersecurity researchers.
+#
+# Author: Aditya Pandey
+# =============================================================================
+
 import os
 import requests
 from PIL import Image
