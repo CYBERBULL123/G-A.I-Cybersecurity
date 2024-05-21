@@ -13,11 +13,7 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
     font-weight: 300; /* Light font weight */
     margin-bottom: 0.5rem;
-    border: 1px solid #66fcf1;
-    border-radius: 8px; /* Slightly rounded corners */
-    padding: 0.5rem 1rem; /* Padding for better clickability */
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
-    cursor: pointer;
+    
 }
 
 /* Paragraph and List Styles */
