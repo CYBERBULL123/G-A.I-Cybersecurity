@@ -72,8 +72,10 @@ def extract_text_from_url(url):
 
 # Streamlit main framework
 st.header('OxSecure ImaGen 🎨')
+st.divider()
 st.title('GenAI ImaGen powers ♨️')
-st.subheader('By :- Aadi 🧑‍💻')
+st.divider()
+st.write('By :- Aadi 🧑‍💻')
 
 input_prompt = st.text_input("Input Prompt: ", key="input")
 
