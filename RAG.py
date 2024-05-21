@@ -38,20 +38,28 @@ def query_gemini(context, prompt, image=None):
 
 # Function to extract text from PDF
 def extract_text_from_pdf(file):
-    pdf_reader = PdfReader(file)
-    text = ""
-    for page in pdf_reader.pages:
-        text += page.extract_text()
-    return text
+    try:
+        pdf_reader = PdfReader(file)
+        text = ""
+        for page in pdf_reader.pages:
+            text += page.extract_text()
+        return text
+    except Exception as e:
+        st.error(f"An error occurred while extracting text from PDF: {e}")
+        return ""
 
 # Function to extract text from URL
 def extract_text_from_url(url):
-    response = urllib.request.urlopen(url)
-    html = response.read()
-    soup = BeautifulSoup(html, 'html.parser')
-    paragraphs = soup.find_all('p')
-    text = ' '.join([para.get_text() for para in paragraphs])
-    return text
+    try:
+        response = urllib.request.urlopen(url)
+        html = response.read()
+        soup = BeautifulSoup(html, 'html.parser')
+        paragraphs = soup.find_all('p')
+        text = ' '.join([para.get_text() for para in paragraphs])
+        return text
+    except Exception as e:
+        st.error(f"An error occurred while extracting text from URL: {e}")
+        return ""
 
 # Streamlit main framework
 st.header('OxSecure ImaGen 🎨')
@@ -104,6 +112,3 @@ if submit:
 st.markdown("---")
 linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
 st.markdown("  Created with 🤗 💖 By Aditya Pandey  "  f"[ LinkedIn 🔗 ]({linkedin_url})")
-
-
-
