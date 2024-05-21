@@ -11,6 +11,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
     color: #45a29e; /* Muted cyan for titles */
     text-align: center;
+    font-family: 'Raleway', Arial, sans-serif; 
     font-weight: 300; /* Light font weight */
     margin-bottom: 0.5rem;
     animation: glow 1.5s infinite; /* Add the glow animation */
