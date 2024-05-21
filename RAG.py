@@ -1,8 +1,7 @@
 import os
-import pathlib
 import requests
 from PIL import Image
-from PyPDF2 import PdfFileReader
+from PyPDF2 import PdfReader
 import streamlit as st
 from gtts import gTTS
 from io import BytesIO
@@ -33,10 +32,10 @@ def query_gemini(prompt, image=None):
 
 # Function to extract text from PDF
 def extract_text_from_pdf(file):
-    pdf_reader = PdfFileReader(file)
+    pdf_reader = PdfReader(file)
     text = ""
-    for page_num in range(pdf_reader.numPages):
-        text += pdf_reader.getPage(page_num).extract_text()
+    for page in pdf_reader.pages:
+        text += page.extract_text()
     return text
 
 # Function to extract text from URL
