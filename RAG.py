@@ -26,6 +26,7 @@ import google.generativeai as genai
 from constants import gemini_key
 from bs4 import BeautifulSoup
 import urllib.request
+import re
 from google.api_core.exceptions import GoogleAPIError
 
 
