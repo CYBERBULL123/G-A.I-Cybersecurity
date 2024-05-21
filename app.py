@@ -88,7 +88,7 @@ def get_gemini_response(input_prompt, image):
 
 def render_main_program():
     st.markdown("# 🔒 Unlock the Future of Cybersecurity with OxSecure ")
-    st.divider("-----")
+    st.divider()
     st.markdown("**Where Knowledge Meets Innovation! 🚀 Dive into Cyber Brilliance with OxSecure** 🤖 🌟")
     st.markdown("----")
     app_choice = st.sidebar.radio("Choose App", ("OxSecure Chat 🤖", "OxSecure ImaGen 🎨"))
