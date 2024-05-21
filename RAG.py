@@ -101,3 +101,11 @@ if submit:
             st.audio(audio_file, format='audio/mp3')
     else:
         st.warning("Please provide an input prompt or upload a file.")
+
+
+st.markdown("---")
+    linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
+    st.markdown("  Created with 🤗 💖 By Aditya Pandey  "  f"[ LinkedIn 🔗 ]({linkedin_url})")
+
+
+
