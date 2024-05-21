@@ -25,10 +25,11 @@ genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
 # Function to query Gemini model
 def query_gemini(prompt, image=None):
     try:
-        model = genai.GenerativeModel('gemini-pro-vision')
         if image:
+            model = genai.GenerativeModel('gemini-pro-vision')
             response = model.generate_content([prompt, image])
         else:
+            model = genai.GenerativeModel('gemini-pro')  # Assuming a text-only model is available
             response = model.generate_content(prompt)
         return response.text
     except GoogleAPIError as e:
