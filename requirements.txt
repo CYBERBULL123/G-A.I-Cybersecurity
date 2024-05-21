@@ -56,6 +56,7 @@ pyasn1-modules==0.3.0
 pydantic==2.5.3
 pydantic_core==2.14.6
 pydeck==0.8.1b0
+PyPDF2
 Pygments==2.17.2
 python-dateutil==2.8.2
 python-dotenv==1.0.0
