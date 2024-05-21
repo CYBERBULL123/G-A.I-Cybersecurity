@@ -15,7 +15,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 300; /* Light font weight */
     margin-bottom: 0.5rem;
     animation: glow 1.5s infinite; /* Add the glow animation */
-    
+    border-radius: 10px
 }
 
 /* Paragraph and List Styles */
