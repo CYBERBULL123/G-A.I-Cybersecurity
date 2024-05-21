@@ -98,8 +98,13 @@ if submit:
     if input_prompt or file_text:
         prompt = input_prompt if input_prompt else ""
         st.session_state.context += " " + file_text  # Update the context with new extracted text
-        st.spinner(f"Processing..... Getting Results ⏳: {prompt}")
-        response = query_gemini(st.session_state.context, prompt, image)
+        
+        # Start spinner before processing
+        spinner = st.spinner("Processing..... Getting Results ⏳")
+        with spinner:
+            response = query_gemini(st.session_state.context, prompt, image)
+        
+        # Stop spinner after processing
         if response:
             st.subheader("The Response is:")
             st.write(response)
