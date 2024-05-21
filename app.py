@@ -97,7 +97,6 @@ def render_gemini_api_app():
     st.markdown("---")
 
     st.title("OxSecure Intelligence 🧠")
-    st.subheader('By :- Aadi 🧑‍💻')
     input_text = st.text_input("Search your Security Related Topic 🔍")
 
     # Prompt Templates
@@ -186,7 +185,6 @@ def render_gemini_api_app():
 
 def render_gemini_vision_app():
     st.title('OxSecure ImaGen 🎨')
-    st.subheader('By :- Aadi 🧑‍💻')
     input_prompt = st.text_input("Input Prompt: ", key="input")
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
     image = ""
