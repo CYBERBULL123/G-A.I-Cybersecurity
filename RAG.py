@@ -98,7 +98,8 @@ if submit:
     if input_prompt or file_text:
         prompt = input_prompt if input_prompt else ""
         st.session_state.context += " " + file_text  # Update the context with new extracted text
-        st.write(f"Prompt being sent to Gemini API: {prompt}")  # Debugging line to see the prompt content
+        st.write(f"Prompt being sent to Gemini API: {prompt}")
+        st.spinner('Processing.... ⏳')# Debugging line to see the prompt content
         response = query_gemini(st.session_state.context, prompt, image)
         if response:
             st.subheader("The Response is:")
