@@ -23,14 +23,14 @@ os.environ["GOOGLE_API_KEY"] = gemini_key
 genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
 
 # Function to query Gemini model
-def query_gemini(prompt, image=None):
+def query_gemini(context, prompt, image=None):
     try:
         if image:
             model = genai.GenerativeModel('gemini-pro-vision')
-            response = model.generate_content([prompt, image])
+            response = model.generate_content([context + prompt, image])
         else:
-            model = genai.GenerativeModel('gemini-pro')  # Assuming a text-only model is available
-            response = model.generate_content(prompt)
+            model = genai.GenerativeModel('gemini-pro')
+            response = model.generate_content(context + prompt)
         return response.text
     except GoogleAPIError as e:
         st.error(f"An error occurred while querying the Gemini API: {e}")
@@ -78,13 +78,18 @@ if uploaded_url:
     file_text = extract_text_from_url(uploaded_url)
     st.text_area("Extracted Text from URL:", file_text, height=300)
 
+# Initialize or update session state for context
+if "context" not in st.session_state:
+    st.session_state.context = ""
+
 submit = st.button("Tell me about the image/text")
 
 if submit:
     if input_prompt or file_text:
-        prompt = input_prompt if input_prompt else file_text
+        prompt = input_prompt if input_prompt else ""
+        st.session_state.context += " " + file_text  # Update the context with new extracted text
         st.write(f"Prompt being sent to Gemini API: {prompt}")  # Debugging line to see the prompt content
-        response = query_gemini(prompt, image)
+        response = query_gemini(st.session_state.context, prompt, image)
         if response:
             st.subheader("The Response is:")
             st.write(response)
