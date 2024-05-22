@@ -214,8 +214,8 @@ if qa_button:
         with spinner:
             response = handle_qa(query, st.session_state.faiss_index, st.session_state.document_chunks, top_k)
         if response:
-            st.markdown("**Q&A Response 🤖**")
             st.divider()
+            st.markdown("**Q&A Response 🤖**")
             st.write(response)
             
             clean_response = clean_text(response)
