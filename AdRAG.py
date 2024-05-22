@@ -17,18 +17,17 @@
 
 import os
 import faiss
-import requests
 from PIL import Image
 from PyPDF2 import PdfReader
 import streamlit as st
-from gtts import gTTS
 from io import BytesIO
-import google.generativeai as genai
-from constants import gemini_key
+from google.generativeai import genai
+from gtts import gTTS
 from bs4 import BeautifulSoup
 import urllib.request
 import re
 from google.api_core.exceptions import GoogleAPIError
+from constants import gemini_key
 
 # Streamlit configuration
 st.set_page_config(
@@ -104,16 +103,16 @@ def store_embeddings(text):
     return index, chunks
 
 # Function to search embeddings and retrieve relevant text
-def search_embeddings(index, query):
+def search_embeddings(index, query, top_k):
     model = genai.GenerativeModel('gemini-pro')
     query_vector = model.embed_text(query)
-    D, I = index.search([query_vector], k=5)
+    D, I = index.search([query_vector], k=top_k)
     return I[0]
 
 # Function to handle Q&A
-def handle_qa(query, faiss_index, document_chunks):
+def handle_qa(query, faiss_index, document_chunks, top_k):
     if faiss_index:
-        retrieved_indices = search_embeddings(faiss_index, query)
+        retrieved_indices = search_embeddings(faiss_index, query, top_k)
         context = " ".join([document_chunks[i] for i in retrieved_indices])
         response = query_gemini(context, query)
     else:
@@ -173,6 +172,7 @@ if submit:
         # Stop spinner after processing
         if response:
             st.subheader("Extracted Data 📡")
+            st.divider()
             st.write(response)
             
             clean_response = clean_text(response)
@@ -185,27 +185,33 @@ if submit:
     else:
         st.warning("Please provide an input prompt or upload a file.")
 
-# Q&A section
+# Q&A section with slider and radio button
 st.markdown("### Q&A Section")
+
 query = st.text_input("Enter your query:", key="qa_query")
+top_k = st.slider("Select the number of document chunks to retrieve:", min_value=1, max_value=10, value=5, step=1)
+response_mode = st.radio("Select response mode:", ("Text", "Text-to-Speech"))
+
 qa_button = st.button("Ask")
 
 if qa_button:
     if query:
         spinner = st.spinner("Processing your query...")
         with spinner:
-            response = handle_qa(query, st.session_state.faiss_index, st.session_state.document_chunks)
+            response = handle_qa(query, st.session_state.faiss_index, st.session_state.document_chunks, top_k)
         if response:
-            st.subheader("Q&A Response 📡")
+            st.subheader("Q&A Response 🤖")
             st.write(response)
             
             clean_response = clean_text(response)
             
-            # Text-to-Speech conversion
-            tts = gTTS(clean_response)
-            audio_file = BytesIO()
-            tts.write_to_fp(audio_file)
-            st.audio(audio_file, format='audio/mp3')
+            if response_mode == "Text":
+                st.write(clean_response)
+            else:
+                tts = gTTS(clean_response)
+                audio_file = BytesIO()
+                tts.write_to_fp(audio_file)
+                st.audio(audio_file, format='audio/mp3')
     else:
         st.warning("Please enter a query to ask.")
 
