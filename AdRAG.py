@@ -35,7 +35,7 @@ from google.api_core.exceptions import GoogleAPIError
 # Streamlit configuration
 st.set_page_config(
     page_title="OxSecure ImaGen",
-    page_icon="🥸👾",
+    page_icon="🖼️",
     layout="wide"
 )
 
