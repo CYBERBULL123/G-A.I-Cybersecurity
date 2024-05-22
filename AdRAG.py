@@ -21,7 +21,7 @@ from PIL import Image
 from PyPDF2 import PdfReader
 import streamlit as st
 from io import BytesIO
-from google.generativeai import genai
+import google.generativeai as genai
 from gtts import gTTS
 from bs4 import BeautifulSoup
 import urllib.request
