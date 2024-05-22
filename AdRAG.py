@@ -15,8 +15,9 @@
 # Author: Aditya Pandey
 # =============================================================================
 
+# Import library
 import os
-import faiss
+import foiss
 import requests
 from PIL import Image
 from PyPDF2 import PdfReader
@@ -32,8 +33,8 @@ from google.api_core.exceptions import GoogleAPIError
 
 # Streamlit configuration
 st.set_page_config(
-    page_title="OxSecure Images & Text",
-    page_icon="🎨",
+    page_title="OxSecure ImaGen",
+    page_icon="🥸👾",
     layout="wide"
 )
 
@@ -155,10 +156,17 @@ if "faiss_index" not in st.session_state:
 if "document_chunks" not in st.session_state:
     st.session_state.document_chunks = []
 
+def clear_previous_data():
+    st.session_state.faiss_index = None
+    st.session_state.document_chunks = []
+    st.session_state.context = ""
+
 submit = st.button("Start Deep Diving 🤿")
 
 if submit:
     if input_prompt or file_text:
+        clear_previous_data()
+        
         prompt = input_prompt if input_prompt else ""
         st.session_state.context += " " + file_text  # Update the context with new extracted text
         
@@ -173,7 +181,6 @@ if submit:
         # Stop spinner after processing
         if response:
             st.subheader("Extracted Data 📡")
-            st.divider()
             st.write(response)
             
             clean_response = clean_text(response)
@@ -197,6 +204,8 @@ qa_button = st.button("Ask")
 
 if qa_button:
     if query:
+        clear_previous_data()  # Clear previous data before processing the new query
+        
         spinner = st.spinner("Processing your query...")
         with spinner:
             response = handle_qa(query, st.session_state.faiss_index, st.session_state.document_chunks, top_k)
@@ -218,4 +227,4 @@ if qa_button:
 
 st.markdown("---")
 linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
-st.markdown("Created with 🤗 💖 By Aditya Pandey [ LinkedIn 🔗 ]({linkedin_url})")
+st.markdown(f"Created with 🤗 💖 By Aditya Pandey [ LinkedIn 🔗 ]({linkedin_url})")
