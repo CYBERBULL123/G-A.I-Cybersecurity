@@ -17,7 +17,7 @@
 
 # Import library
 import os
-import foiss
+import faiss
 import requests
 from PIL import Image
 from PyPDF2 import PdfReader
