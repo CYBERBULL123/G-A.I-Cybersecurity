@@ -58,8 +58,8 @@ safety_settings = {
     'DANGEROUS': 'ALLOW'
 }
 
-st.header('OxSecure Intelligence 🧠')
-st.title('Cybersecurity Best practices for Infrastructure')
+st.title('OxSecure Intelligence 🧠')
+st.caption('Cybersecurity Best practices for Infrastructure')
 st.subheader('By :- Aadi 🧑‍💻')
 st.text('🚀 Empower Tomorrow, 🛡️ Secure Today: Unleash the Power of Cybersecurity Brilliance! 💻✨ ')
 input_text=st.text_input("Search Your Desire Security Related Topic 🔍")
