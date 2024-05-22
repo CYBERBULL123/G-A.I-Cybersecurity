@@ -187,7 +187,7 @@ if submit:
         st.warning("Please provide an input prompt or upload a file.")
 
 # Q&A section with slider and radio button
-st.markdown("### Q&A Section")
+st.markdown("-----")
 
 query = st.text_input("Enter your query:", key="qa_query")
 top_k = st.slider("Select the number of document chunks to retrieve:", min_value=1, max_value=10, value=5, step=1)
