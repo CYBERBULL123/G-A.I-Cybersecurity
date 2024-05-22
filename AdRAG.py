@@ -18,6 +18,7 @@
 # Import library
 import os
 import faiss
+import numpy as np
 import requests
 from PIL import Image
 from PyPDF2 import PdfReader
@@ -95,20 +96,25 @@ def clean_text(text):
     # Retain only alphabetic characters and spaces
     return re.sub(r'[^a-zA-Z0-9 ]', '', text)
 
+# Placeholder function to create embeddings
+def embed_text(text):
+    # This should be replaced with the actual embedding generation logic
+    # For demonstration, return a dummy vector
+    return np.random.rand(512).astype('float32')
+
 # Function to create embeddings and store in FAISS
 def store_embeddings(text):
-    model = genai.GenerativeModel('gemini-pro')
     chunks = [text[i:i+512] for i in range(0, len(text), 512)]
-    vectors = [model.embed_text(chunk) for chunk in chunks]
-    index = faiss.IndexFlatL2(len(vectors[0]))
-    index.add(vectors)
+    vectors = [embed_text(chunk) for chunk in chunks]
+    dimension = vectors[0].shape[0]
+    index = faiss.IndexFlatL2(dimension)
+    index.add(np.array(vectors))
     return index, chunks
 
 # Function to search embeddings and retrieve relevant text
 def search_embeddings(index, query, top_k):
-    model = genai.GenerativeModel('gemini-pro')
-    query_vector = model.embed_text(query)
-    D, I = index.search([query_vector], k=top_k)
+    query_vector = embed_text(query)  # Replace with actual embedding generation
+    D, I = index.search(np.array([query_vector]), k=top_k)
     return I[0]
 
 # Function to handle Q&A
@@ -204,8 +210,6 @@ qa_button = st.button("Ask")
 
 if qa_button:
     if query:
-        clear_previous_data()  # Clear previous data before processing the new query
-        
         spinner = st.spinner("Processing your query...")
         with spinner:
             response = handle_qa(query, st.session_state.faiss_index, st.session_state.document_chunks, top_k)
