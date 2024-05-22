@@ -132,7 +132,7 @@ st.header('OxSecure ImaGen 👀')
 st.divider()
 st.title('GenAI ImaGen powers ♨️')
 st.divider()
-st.mardown('**By :- Aditya  🧑‍💻**')
+st.markdown('**By :- Aditya  🧑‍💻**')
 
 input_prompt = st.text_input("Input Prompt: ", key="input")
 
