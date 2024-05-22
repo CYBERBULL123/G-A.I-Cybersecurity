@@ -17,17 +17,18 @@
 
 import os
 import faiss
+import requests
 from PIL import Image
 from PyPDF2 import PdfReader
 import streamlit as st
-from io import BytesIO
-from google.generativeai import genai
 from gtts import gTTS
+from io import BytesIO
+import google.generativeai as genai
+from constants import gemini_key
 from bs4 import BeautifulSoup
 import urllib.request
 import re
 from google.api_core.exceptions import GoogleAPIError
-from constants import gemini_key
 
 # Streamlit configuration
 st.set_page_config(
