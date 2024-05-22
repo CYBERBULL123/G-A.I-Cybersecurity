@@ -128,11 +128,11 @@ def handle_qa(query, faiss_index, document_chunks, top_k):
     return response
 
 # Streamlit main framework
-st.header('OxSecure ImaGen 🎨')
+st.header('OxSecure ImaGen 👀')
 st.divider()
 st.title('GenAI ImaGen powers ♨️')
 st.divider()
-st.write('By :- Aditya (AADI) 🧑‍💻')
+st.mardown('**By :- Aditya  🧑‍💻**')
 
 input_prompt = st.text_input("Input Prompt: ", key="input")
 
