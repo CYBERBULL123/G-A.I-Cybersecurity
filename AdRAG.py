@@ -31,12 +31,13 @@ from constants import gemini_key
 from bs4 import BeautifulSoup
 import urllib.request
 import re
+import json
 from google.api_core.exceptions import GoogleAPIError
 
 # Streamlit configuration
 st.set_page_config(
     page_title="OxSecure RAG",
-    page_icon="🦸🏻",
+    page_icon="🤿",
     layout="wide"
 )
 
@@ -61,9 +62,8 @@ def query_gemini(context, prompt, image=None):
             model = genai.GenerativeModel('gemini-pro')
             response = model.generate_content(context + prompt)
         
-        if hasattr(response, 'parts'):
-            # Join the parts of the response
-            return ' '.join(part.text for part in response.parts)
+        if hasattr(response, 'candidates') and response.candidates:
+            return ' '.join(part.text for part in response.candidates[0].content.parts)
         else:
             st.error("Unexpected response format from Gemini API.")
             return None
@@ -164,7 +164,7 @@ def handle_qa(query, faiss_index, document_chunks, top_k):
 # Streamlit main framework
 st.title('OxSecure RAG ♨️')
 st.divider()
-st.markdown('**By :- Aditya 🧑‍💻 (CyberBULL)**')
+st.markdown('**By :- Aditya Pandey 🧑🏻‍💻**')
 
 input_prompt = st.text_input("Input Prompt: ", key="input")
 
@@ -182,14 +182,17 @@ if uploaded_file is not None:
         file_text = extract_text_from_pdf(uploaded_file)
         st.text_area("Extracted Text from PDF:", file_text, height=300)
     elif uploaded_file.type == "text/csv":
-        file_text = extract_text_from_csv(uploaded_file)
-        st.text_area("Extracted Text from CSV:", file_text, height=300)
+        df = pd.read_csv(uploaded_file)
+        st.dataframe(df)
+        file_text = df.to_string(index=False)
     elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
-        file_text = extract_text_from_excel(uploaded_file)
-        st.text_area("Extracted Text from Excel:", file_text, height=300)
+        df = pd.read_excel(uploaded_file)
+        st.dataframe(df)
+        file_text = df.to_string(index=False)
     elif uploaded_file.type == "application/json":
-        file_text = extract_text_from_json(uploaded_file)
-        st.text_area("Extracted Text from JSON:", file_text, height=300)
+        df = pd.read_json(uploaded_file)
+        st.json(df.to_dict())
+        file_text = df.to_string(index=False)
 
 if uploaded_url:
     file_text = extract_text_from_url(uploaded_url)
@@ -239,6 +242,7 @@ if submit:
             st.audio(audio_file, format='audio/mp3')
     else:
         st.warning("Please provide an input prompt or upload a file.")
+
 
 # Q&A section with slider and radio button
 st.markdown("-----")
