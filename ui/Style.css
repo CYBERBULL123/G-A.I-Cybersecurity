@@ -145,51 +145,24 @@ p, ol, ul, dl {
     margin-bottom: 2rem; /* Add space below the title */
 }
 
-/* Sidebar Menu Items */
-.css-1lrc8co .stCheckbox {
-    padding: 0.75rem 1rem; /* Add padding for menu items */
-    border-radius: 8px; /* Rounded corners for menu items */
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.css-1lrc8co .stCheckbox:hover {
-    background-color: #45a29e; /* Hover effect */
-    color: #0b0c10; /* Dark text on hover */
-}
-
-/* Sidebar Scrollbar */
-.css-1lrc8co::-webkit-scrollbar {
-    width: 10px; /* Set scrollbar width */
-}
-
-.css-1lrc8co::-webkit-scrollbar-thumb {
-    background-color: #45a29e; /* Scrollbar thumb color */
-    border-radius: 5px; /* Rounded thumb */
-}
-
-.css-1lrc8co::-webkit-scrollbar-thumb:hover {
-    background-color: #66fcf1; /* Hover effect on thumb */
-}
-
 /* Choose App Section */
-.css-1wz4q7f {
-    background-color: #0b0c10; /* Very dark background */
-    color: #66fcf1; /* Cyan text */
-    padding: 2rem; /* Add padding for content */
+.css-1lrc8co .stCheckbox {
+    background-color: #1f2833; /* Dark background for section */
     border-radius: 10px; /* Rounded corners for futuristic look */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+    padding: 1.5rem; /* Add padding for content */
+    margin-bottom: 2rem; /* Add space below the section */
 }
 
 /* Choose App Title */
-.css-1wz4q7f .stCgG > div > div > div > div > div {
+.css-1lrc8co .stCheckbox .stCgG > div > div > div > div > div {
     color: #45a29e; /* Muted cyan for title */
     font-size: 1.5rem; /* Increase font size for emphasis */
     font-weight: bold; /* Bold font weight */
-    margin-bottom: 2rem; /* Add space below the title */
+    margin-bottom: 1rem; /* Add space below the title */
 }
 
 /* Choose App Buttons */
-.css-1wz4q7f .stButton>button {
+.css-1lrc8co .stCheckbox .stButton>button {
     background-color: #1f2833; /* Dark background for buttons */
     color: #66fcf1; /* Cyan text for buttons */
     border: 1px solid #66fcf1;
@@ -201,7 +174,7 @@ p, ol, ul, dl {
     font-weight: 500; /* Slightly bolder font weight */
 }
 
-.css-1wz4q7f .stButton>button:hover {
+.css-1lrc8co .stCheckbox .stButton>button:hover {
     background-color: #45a29e; /* Hover effect */
     color: #0b0c10;
     transform: scale(1.1);
