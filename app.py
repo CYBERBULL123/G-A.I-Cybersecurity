@@ -63,8 +63,6 @@ def render_login_page():
     st.write("💳 Default Credentials  Username = Oxsecure , Password = Oxsecure@123 ")
     st.divider()
     st.markdown("""
-    ### OxSecure Intelligence 🧠
-
     Welcome to OxSecure Intelligence, your ultimate destination for comprehensive and up-to-date information on cybersecurity. Whether you're a professional, student, or enthusiast, our app is designed to empower you with the knowledge and tools needed to navigate the complex world of cybersecurity.
 
     **Features**
@@ -87,7 +85,7 @@ def render_login_page():
     **Image Analysis with Imagen**
     Utilize our Imagen feature to extract detailed information from images. Simply upload an image, and our app will analyze it and provide responses tailored to your queries. This tool is perfect for identifying vulnerabilities, assessing security measures, and more.
 
-    #### Why Choose OxSecure Intelligence?
+    **Why Choose OxSecure Intelligence?**
     - **Comprehensive Coverage:** From basic concepts to advanced practices, our app covers all aspects of cybersecurity.
     - **Expert Guidance:** Learn from detailed articles and guides written by cybersecurity experts.
     - **Advanced Tools:** Use powerful AI tools like Gemini LLM and Imagen to enhance your learning and problem-solving capabilities.
