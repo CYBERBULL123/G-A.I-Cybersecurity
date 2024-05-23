@@ -35,8 +35,8 @@ from google.api_core.exceptions import GoogleAPIError
 
 # Streamlit configuration
 st.set_page_config(
-    page_title="OxSecure ImaGen",
-    page_icon="🖼️",
+    page_title="OxSecure RAG",
+    page_icon="🦸🏻",
     layout="wide"
 )
 
@@ -162,7 +162,7 @@ def handle_qa(query, faiss_index, document_chunks, top_k):
     return response
 
 # Streamlit main framework
-st.title('RAG ImaGen ♨️')
+st.title('OxSecure 👾 RAG ♨️')
 st.divider()
 st.markdown('**By :- Aditya  🧑‍💻**')
 
