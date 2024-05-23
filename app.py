@@ -63,7 +63,7 @@ def render_login_page():
     st.write("💳 Default Credentials  Username = Oxsecure , Password = Oxsecure@123 ")
     st.divider()
     st.markdown("""
-    Welcome to OxSecure Intelligence, your ultimate destination for comprehensive and up-to-date information on cybersecurity. Whether you're a professional, student, or enthusiast, This app is designed to empower you with the knowledge and tools needed to navigate the complex world of cybersecurity.
+    **Welcome to OxSecure Intelligence**, your ultimate destination for comprehensive and up-to-date information on cybersecurity. Whether you're a professional, student, or enthusiast, This app is designed to empower you with the knowledge and tools needed to navigate the complex world of cybersecurity.
 
     **Features**
 
