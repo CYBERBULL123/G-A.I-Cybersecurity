@@ -19,6 +19,7 @@
 import os
 import faiss
 import numpy as np
+import pandas as pd
 import requests
 from PIL import Image
 from PyPDF2 import PdfReader
@@ -91,6 +92,33 @@ def extract_text_from_url(url):
         st.error(f"An error occurred while extracting text from URL: {e}")
         return ""
 
+# Function to extract text from CSV
+def extract_text_from_csv(file):
+    try:
+        df = pd.read_csv(file)
+        return df.to_string(index=False)
+    except Exception as e:
+        st.error(f"An error occurred while extracting text from CSV: {e}")
+        return ""
+
+# Function to extract text from Excel
+def extract_text_from_excel(file):
+    try:
+        df = pd.read_excel(file)
+        return df.to_string(index=False)
+    except Exception as e:
+        st.error(f"An error occurred while extracting text from Excel: {e}")
+        return ""
+
+# Function to extract text from JSON
+def extract_text_from_json(file):
+    try:
+        df = pd.read_json(file)
+        return df.to_string(index=False)
+    except Exception as e:
+        st.error(f"An error occurred while extracting text from JSON: {e}")
+        return ""
+
 # Remove special characters
 def clean_text(text):
     # Retain only alphabetic characters and spaces
@@ -134,7 +162,7 @@ st.markdown('**By :- Aditya  🧑‍💻**')
 
 input_prompt = st.text_input("Input Prompt: ", key="input")
 
-uploaded_file = st.file_uploader("Choose an image or PDF file...", type=["jpg", "jpeg", "png", "pdf"])
+uploaded_file = st.file_uploader("Choose an image, PDF, CSV, Excel, or JSON file...", type=["jpg", "jpeg", "png", "pdf", "csv", "xlsx", "json"])
 uploaded_url = st.text_input("Or enter an article URL:")
 
 image = None
@@ -147,6 +175,15 @@ if uploaded_file is not None:
     elif uploaded_file.type == "application/pdf":
         file_text = extract_text_from_pdf(uploaded_file)
         st.text_area("Extracted Text from PDF:", file_text, height=300)
+    elif uploaded_file.type == "text/csv":
+        file_text = extract_text_from_csv(uploaded_file)
+        st.text_area("Extracted Text from CSV:", file_text, height=300)
+    elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+        file_text = extract_text_from_excel(uploaded_file)
+        st.text_area("Extracted Text from Excel:", file_text, height=300)
+    elif uploaded_file.type == "application/json":
+        file_text = extract_text_from_json(uploaded_file)
+        st.text_area("Extracted Text from JSON:", file_text, height=300)
 
 if uploaded_url:
     file_text = extract_text_from_url(uploaded_url)
@@ -205,7 +242,7 @@ top_k = st.slider("Select the number of document chunks to retrieve:", min_value
 response_mode = st.radio("Select response mode:", ("Text", "Text-to-Speech"))
 
 qa_button = st.button("Ask")
-
+ 
 if qa_button:
     if query:
         spinner = st.spinner("Processing your query...")
