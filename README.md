@@ -7,8 +7,8 @@
 
 [![Oxsecure Chat 📡](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://oxsecure-aadi.streamlit.app/)
 
-### **[OxSecure Intelligence V1 Updated](https://oxsecure-aadi.streamlit.app/)**
-### **[OxSecure Intelligence V2](https://oxsecure-g-a-i.onrender.com/)**
+### **[OxSecure Intelligence Updated](https://oxsecure-aadi.streamlit.app/)**
+### **[OxSecure Intelligence](https://oxsecure-g-a-i.onrender.com/)**
 ### **[OxSecure RAG](https://oxsecure-rag.streamlit.app/)**
 for a firsthand experience of cutting-edge cyber vigilance! 🚀
 
