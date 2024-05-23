@@ -128,9 +128,7 @@ def handle_qa(query, faiss_index, document_chunks, top_k):
     return response
 
 # Streamlit main framework
-st.header('OxSecure ImaGen 👀')
-st.divider()
-st.title('GenAI ImaGen powers ♨️')
+st.title('RAG ImaGen ♨️')
 st.divider()
 st.markdown('**By :- Aditya  🧑‍💻**')
 
