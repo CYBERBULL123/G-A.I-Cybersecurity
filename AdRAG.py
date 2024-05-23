@@ -216,12 +216,11 @@ if qa_button:
         if response:
             st.divider()
             st.markdown("**Q&A Response 🤖**")
-            st.write(response)
             
             clean_response = clean_text(response)
             
             if response_mode == "Text":
-                st.write(clean_response)
+                st.write(response)
             else:
                 tts = gTTS(clean_response)
                 audio_file = BytesIO()
