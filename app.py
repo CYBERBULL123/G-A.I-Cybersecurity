@@ -61,6 +61,40 @@ def render_login_page():
     st.markdown("---")
     st.write("Please log in to continue.")
     st.write("💳 Default Credentials  Username = Oxsecure , Password = Oxsecure@123 ")
+    st.divider()
+    st.markdown("""
+    # OxSecure Intelligence 🧠
+
+    Welcome to OxSecure Intelligence, your ultimate destination for comprehensive and up-to-date information on cybersecurity. Whether you're a professional, student, or enthusiast, our app is designed to empower you with the knowledge and tools needed to navigate the complex world of cybersecurity.
+
+    ## Features
+
+    ### In-Depth Information on Cybersecurity Topics
+    Explore a wide range of topics in cybersecurity with detailed articles and guides. Our app covers everything from basic concepts to advanced techniques, ensuring you have access to the information you need to stay informed and secure.
+
+    ### Secure Coding Principles
+    Learn the best practices for secure coding to protect your software from vulnerabilities. Our guides provide practical tips and examples to help you write code that is both functional and secure.
+
+    ### Major Cyberattacks
+    Stay updated on major cyberattacks and learn from real-world cases. Understand the methods used by attackers, the impact of these attacks, and the measures you can take to protect yourself and your organization.
+
+    ### Security Misconfiguration
+    Identify common security misconfigurations and learn how to fix them. Our resources help you ensure that your systems are configured correctly to prevent breaches and unauthorized access.
+
+    ### Powered by Gemini LLM
+    Our app leverages the powerful Gemini LLM to provide you with accurate and relevant information. Gemini LLM enhances our content with cutting-edge insights and helps you get the answers you need quickly and efficiently.
+
+    ### Image Analysis with Imagen
+    Utilize our Imagen feature to extract detailed information from images. Simply upload an image, and our app will analyze it and provide responses tailored to your queries. This tool is perfect for identifying vulnerabilities, assessing security measures, and more.
+
+    ## Why Choose OxSecure Intelligence?
+    - **Comprehensive Coverage:** From basic concepts to advanced practices, our app covers all aspects of cybersecurity.
+    - **Expert Guidance:** Learn from detailed articles and guides written by cybersecurity experts.
+    - **Advanced Tools:** Use powerful AI tools like Gemini LLM and Imagen to enhance your learning and problem-solving capabilities.
+    - **Stay Updated:** Keep up with the latest trends, threats, and best practices in the cybersecurity field.
+
+    Join OxSecure Intelligence today and take your cybersecurity knowledge to the next level!
+    """)
     st.markdown("---")
     linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
     st.markdown("  Created with 🤗💖 By Aditya Pandey  " f"[  LinkedIn 🔗]({linkedin_url})")
