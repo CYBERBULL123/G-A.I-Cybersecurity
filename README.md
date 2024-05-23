@@ -9,7 +9,7 @@
 
 ### **[OxSecure Intelligence V1 Updated](https://oxsecure-aadi.streamlit.app/)**
 ### **[OxSecure Intelligence V2](https://oxsecure-g-a-i.onrender.com/)**
-### **[OxSecure Imagen](https://oxsecure-rag.streamlit.app/)**
+### **[OxSecure RAG](https://oxsecure-rag.streamlit.app/)**
 for a firsthand experience of cutting-edge cyber vigilance! 🚀
 
 
