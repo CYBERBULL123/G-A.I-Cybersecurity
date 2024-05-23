@@ -222,6 +222,7 @@ if qa_button:
             if response_mode == "Text":
                 st.write(response)
             else:
+                st.write(response)
                 tts = gTTS(clean_response)
                 audio_file = BytesIO()
                 tts.write_to_fp(audio_file)
