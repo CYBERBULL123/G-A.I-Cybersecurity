@@ -162,9 +162,9 @@ def handle_qa(query, faiss_index, document_chunks, top_k):
     return response
 
 # Streamlit main framework
-st.title('OxSecure 👾 RAG ♨️')
+st.title('OxSecure RAG ♨️')
 st.divider()
-st.markdown('**By :- Aditya  🧑‍💻**')
+st.markdown('**By :- Aditya 🧑‍💻 (CyberBULL)**')
 
 input_prompt = st.text_input("Input Prompt: ", key="input")
 
