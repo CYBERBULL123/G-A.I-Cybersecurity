@@ -60,7 +60,13 @@ def query_gemini(context, prompt, image=None):
         else:
             model = genai.GenerativeModel('gemini-pro')
             response = model.generate_content(context + prompt)
-        return response.text
+        
+        if hasattr(response, 'parts'):
+            # Join the parts of the response
+            return ' '.join(part.text for part in response.parts)
+        else:
+            st.error("Unexpected response format from Gemini API.")
+            return None
     except GoogleAPIError as e:
         st.error(f"An error occurred while querying the Gemini API: {e}")
         return None
