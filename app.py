@@ -67,22 +67,22 @@ def render_login_page():
 
     **Features**
 
-    **In-Depth Information on Cybersecurity Topics**
+    **In-Depth Information on Cybersecurity Topics:**
     Explore a wide range of topics in cybersecurity with detailed articles and guides. Our app covers everything from basic concepts to advanced techniques, ensuring you have access to the information you need to stay informed and secure.
 
-    **Secure Coding Principles**
+    **Secure Coding Principles:**
     Learn the best practices for secure coding to protect your software from vulnerabilities. Our guides provide practical tips and examples to help you write code that is both functional and secure.
 
-    **Major Cyberattacks**
+    **Major Cyberattacks:**
     Stay updated on major cyberattacks and learn from real-world cases. Understand the methods used by attackers, the impact of these attacks, and the measures you can take to protect yourself and your organization.
 
-    **Security Misconfiguration**
+    **Security Misconfiguration:**
     Identify common security misconfigurations and learn how to fix them. Our resources help you ensure that your systems are configured correctly to prevent breaches and unauthorized access.
 
-    **Powered by Gemini LLM**
+    **Powered by Gemini LLM:**
     Our app leverages the powerful Gemini LLM to provide you with accurate and relevant information. Gemini LLM enhances our content with cutting-edge insights and helps you get the answers you need quickly and efficiently.
 
-    **Image Analysis with Imagen**
+    **Image Analysis with Imagen:**
     Utilize our Imagen feature to extract detailed information from images. Simply upload an image, and our app will analyze it and provide responses tailored to your queries. This tool is perfect for identifying vulnerabilities, assessing security measures, and more.
 
     **Why Choose OxSecure Intelligence?**
