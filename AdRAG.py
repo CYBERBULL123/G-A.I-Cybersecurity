@@ -285,8 +285,10 @@ def render_main_app():
 # Description and Framework Section
 def render_description_and_framework():
     st.title("OxSecure RAG - Detailed Description and Framework")
+    st.markdown("----")
     st.markdown("""
     **Project Description**
+    
     OxSecure RAG is a chatbot designed to assist cybersecurity researchers by utilizing the Gemini API with powerful prompts. It can handle various document types, extract text, create embeddings, and facilitate question-answering (Q&A).
 
     **Framework Used**
