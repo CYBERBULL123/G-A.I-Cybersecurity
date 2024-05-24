@@ -240,15 +240,7 @@ def render_main_app():
                 clean_response = clean_text(response)
 
                 # Text-to-Speech conversion
-                speed = 0.8
-                pitch = 0.6
-                voice_code = 'en-us+m1'
-                
-                tts = gTTS(clean_response, lang='en-us', slow=False)
-                tts.speed = speed
-                tts.pitch = pitch
-                tts.voice = voice_code
-                
+                tts = gTTS(clean_response)
                 audio_file = BytesIO()
                 tts.write_to_fp(audio_file)
                 st.audio(audio_file, format='audio/mp3')
