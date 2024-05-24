@@ -245,9 +245,9 @@ def render_main_app():
                 voice_code = 'en-us+m1'
                 
                 tts = gTTS(clean_response, lang='en-us', slow=False)
-                tts.speed(speed)
-                tts.pitch(pitch)
-                tts.voice(voice_code)
+                tts.speed = speed
+                tts.pitch = pitch
+                tts.voice = voice_code
                 
                 audio_file = BytesIO()
                 tts.write_to_fp(audio_file)
