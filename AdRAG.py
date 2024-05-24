@@ -119,17 +119,19 @@ def extract_text_from_excel(file):
 # Function to extract text from JSON
 def extract_text_from_json(file):
     try:
-        df = pd.read_json(file)
-        return df.to_string(index=False)
+        json_data = json.load(file)
+        formatted_text = json.dumps(json_data, indent=4)
+        return formatted_text
     except Exception as e:
         st.error(f"An error occurred while extracting text from JSON: {e}")
         return ""
 
-# Remove special characters
+# Remove special characters and improve formatting
 def clean_text(text):
-    # Retain only alphabetic characters and spaces
-    return re.sub(r'[^a-zA-Z0-9 ]', '', text)
-
+    # Retain only alphabetic characters, numbers, punctuation, and spaces
+    clean_text = re.sub(r'[^a-zA-Z0-9.,!?;:()\'\" \n]', '', text)
+    return re.sub(r'\s+', ' ', clean_text).strip()
+    
 # Placeholder function to create embeddings
 def embed_text(text):
     # This should be replaced with the actual embedding generation logic
