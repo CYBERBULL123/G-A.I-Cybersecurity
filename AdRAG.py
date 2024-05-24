@@ -286,10 +286,10 @@ def render_main_app():
 def render_description_and_framework():
     st.title("OxSecure RAG - Detailed Description and Framework")
     st.markdown("""
-    ## Project Description
+    ##### Project Description
     OxSecure RAG is a chatbot designed to assist cybersecurity researchers by utilizing the Gemini API with powerful prompts. It can handle various document types, extract text, create embeddings, and facilitate question-answering (Q&A).
 
-    ## Framework Used
+    ##### Framework Used
     - **Streamlit**: For building the web application interface.
     - **FAISS**: For efficient similarity search and clustering of dense vectors.
     - **Pandas**: For handling and processing data files like CSV and Excel.
@@ -298,7 +298,7 @@ def render_description_and_framework():
     - **gTTS**: For converting text to speech.
     - **Google Generative AI (genai)**: For querying the Gemini API.
 
-    ## Architecture
+    ##### Architecture
     1. **Input Handling**:
         - Users can upload various file types (PDF, CSV, Excel, JSON) or provide a URL.
         - Users can also input text prompts directly.
@@ -314,7 +314,7 @@ def render_description_and_framework():
         - The response from the Gemini API is displayed.
         - Text-to-speech conversion is available as an option.
 
-    ## Instructions for Use
+     ##### Instructions for Use
     1. **Input**:
         - Enter a prompt or upload a file (image, PDF, CSV, Excel, or JSON) or provide a URL.
     2. **Processing**:
@@ -345,6 +345,6 @@ if st.session_state.show_main_app:
     render_main_app()
 else:
     render_description_and_framework()
-    if st.button("Go to Main App", key="framework_go_to_main_app"):
-        st.session_state.show_main_app = True
-        st.experimental_rerun()
+    #if st.button("Go to Main App", key="framework_go_to_main_app"):
+        #st.session_state.show_main_app = True
+        #st.experimental_rerun()
