@@ -28,7 +28,6 @@ from gtts import gTTS
 from io import BytesIO
 import google.generativeai as genai
 from constants import gemini_key
-from voice_component import get_voice_input
 from bs4 import BeautifulSoup
 import urllib.request
 import re
@@ -302,7 +301,7 @@ def render_main_app():
     
     # Voice recognition section
     st.markdown("### Voice Input 🗣️")
-    query = get_voice_input()
+    query = recognize_speech()
     if st.button("Start Voice Recognition") and query:
         with st.spinner("Processing your voice query..."):
             response = handle_qa(query, st.session_state.faiss_index, st.session_state.document_chunks, top_k)
@@ -315,7 +314,6 @@ def render_main_app():
             tts = gTTS(clean_response)
             audio_file = BytesIO()
             tts.write_to_fp(audio_file)
-            audio_file.seek(0)
             st.audio(audio_file, format='audio/mp3')
     st.markdown("---")
     linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
