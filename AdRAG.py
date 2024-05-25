@@ -270,7 +270,7 @@ def render_main_app():
 
     # Q&A section with slider and radio button
     st.markdown("-----")
-    st.markdown("### Q/A Section 🤔")
+    st.markdown("**Q/A Section 🤔**")
 
     query = st.text_input("Enter your query:", key="qa_query")
     top_k = st.slider("Select the number of document chunks to retrieve:", min_value=1, max_value=10, value=5, step=1)
@@ -303,7 +303,7 @@ def render_main_app():
     st.markdown("-----")
     
     # Voice recognition section
-    st.markdown("### Voice Input 🗣️")
+    st.markdown("**Voice Input 🗣️**")
     query = recognize_speech()
     if st.button("Start Voice Recognition") and query:
         with st.spinner("Processing your voice query..."):
