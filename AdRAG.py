@@ -16,7 +16,6 @@
 # =============================================================================
 
 # Import library
-
 import os
 import faiss
 import numpy as np
@@ -34,6 +33,7 @@ import urllib.request
 import re
 import json
 from google.api_core.exceptions import GoogleAPIError
+import speech_recognition as sr
 
 # Streamlit configuration
 st.set_page_config(
@@ -164,6 +164,24 @@ def handle_qa(query, faiss_index, document_chunks, top_k):
         response = query_gemini(st.session_state.context, query)
     return response
 
+# Function for speech recognition
+def recognize_speech():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        st.info("Listening...")
+        audio = r.listen(source)
+        try:
+            text = r.recognize_google(audio)
+            st.success(f"You said: {text}")
+            return text
+        except sr.UnknownValueError:
+            st.error("Could not understand audio")
+            return None
+        except sr.RequestError as e:
+            st.error(f"Could not request results from Google Speech Recognition service; {e}")
+            return None
+
+
 # Main App Function
 def render_main_app():
     st.title('OxSecure RAG ♨️')
@@ -249,6 +267,7 @@ def render_main_app():
 
     # Q&A section with slider and radio button
     st.markdown("-----")
+    st.markdown("### Q/A Section 🤔")
 
     query = st.text_input("Enter your query:", key="qa_query")
     top_k = st.slider("Select the number of document chunks to retrieve:", min_value=1, max_value=10, value=5, step=1)
@@ -277,6 +296,27 @@ def render_main_app():
                     st.audio(audio_file, format='audio/mp3')
         else:
             st.warning("Please enter a query to ask.")
+    
+    st.markdown("-----")
+    
+    # Voice recognition section
+    st.markdown("### Voice Input 🗣️")
+    if st.button("Start Voice Recognition"):
+        query = recognize_speech()
+        if query:
+            spinner = st.spinner("Processing your voice query...")
+            with spinner:
+                response = handle_qa(query, st.session_state.faiss_index, st.session_state.document_chunks, top_k)
+            if response:
+                st.divider()
+                st.markdown("**Voice Q&A Response 🤖**")
+                
+                clean_response = clean_text(response)
+                st.write(response)
+                tts = gTTS(clean_response)
+                audio_file = BytesIO()
+                tts.write_to_fp(audio_file)
+                st.audio(audio_file, format='audio/mp3')
 
     st.markdown("---")
     linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
@@ -284,7 +324,7 @@ def render_main_app():
 
 # Description and Framework Section
 def render_description_and_framework():
-    st.title("OxSecure RAG - Detailed Description and Framework")
+    st.title("OxSecure RAG - Description and Framework")
     st.markdown("----")
     st.markdown("""
     **Project Description**
@@ -299,11 +339,13 @@ def render_description_and_framework():
     - **BeautifulSoup**: For web scraping and extracting text from URLs.
     - **gTTS**: For converting text to speech.
     - **Google Generative AI (genai)**: For querying the Gemini API.
+    - **SpeechRecognition**: For recognizing speech input.
 
     **Architecture**
     1. **Input Handling**:
         - Users can upload various file types (PDF, CSV, Excel, JSON) or provide a URL.
         - Users can also input text prompts directly.
+        - Users can provide voice input using speech recognition.
     2. **Text Extraction**:
         - Text is extracted from the uploaded files or the provided URL using appropriate libraries.
     3. **Text Embedding**:
@@ -325,7 +367,10 @@ def render_description_and_framework():
         - Enter a query in the Q&A section.
         - Select the number of document chunks to retrieve and the response mode (Text or Text-to-Speech).
         - Click "Ask" to get the response.
-    4. **Results**:
+    4. **Voice Input**:
+        - Click "Start Voice Recognition" to provide a voice query.
+        - The response will be generated and spoken aloud.
+    5. **Results**:
         - The extracted data and Q&A responses will be displayed.
         - If Text-to-Speech is selected, you can listen to the response.
 
@@ -347,6 +392,4 @@ if st.session_state.show_main_app:
     render_main_app()
 else:
     render_description_and_framework()
-    #if st.button("Go to Main App", key="framework_go_to_main_app"):
-        #st.session_state.show_main_app = True
-        #st.experimental_rerun()
+
