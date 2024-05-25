@@ -28,6 +28,7 @@ from gtts import gTTS
 from io import BytesIO
 import google.generativeai as genai
 from constants import gemini_key
+from voice_component import get_voice_input
 from bs4 import BeautifulSoup
 import urllib.request
 import re
@@ -302,7 +303,7 @@ def render_main_app():
     # Voice recognition section
     st.markdown("### Voice Input 🗣️")
     if st.button("Start Voice Recognition"):
-        query = recognize_speech()
+        query = get_voice_input()
         if query:
             spinner = st.spinner("Processing your voice query...")
             with spinner:
