@@ -165,24 +165,24 @@ def handle_qa(query, faiss_index, document_chunks, top_k):
     return response
 
 # Function for speech recognition
-def recognize_speech():
-    r = sr.Recognizer()
-    try:
-        with sr.Microphone() as source:
-            st.info("Listening...")
-            audio = r.listen(source)
-            text = r.recognize_google(audio)
-            st.success(f"You said: {text}")
-            return text
-    except sr.UnknownValueError:
-        st.error("Could not understand audio")
-        return None
-    except sr.RequestError as e:
-        st.error(f"Could not request results from Google Speech Recognition service; {e}")
-        return None
-    except Exception as e:
-        st.error(f"An error occurred: {e}")
-        return None
+#def recognize_speech():
+#    r = sr.Recognizer()
+#    try:
+#        with sr.Microphone() as source:
+#            st.info("Listening...")
+#            audio = r.listen(source)
+#            text = r.recognize_google(audio)
+#            st.success(f"You said: {text}")
+#            return text
+#    except sr.UnknownValueError:
+#        st.error("Could not understand audio")
+#        return None
+#    except sr.RequestError as e:
+#        st.error(f"Could not request results from Google Speech Recognition service; {e}")
+#        return None
+#    except Exception as e:
+#        st.error(f"An error occurred: {e}")
+#        return None
 
 
 # Main App Function
@@ -303,22 +303,22 @@ def render_main_app():
     st.markdown("-----")
     
     # Voice recognition section
-    st.markdown("**Voice Input 🗣️**")
-    query = recognize_speech()
-    if st.button("Start Voice Recognition") and query:
-        with st.spinner("Processing your voice query..."):
-            response = handle_qa(query, st.session_state.faiss_index, st.session_state.document_chunks, top_k)
-        if response:
-            st.divider()
-            st.markdown("**Voice Q&A Response 🤖**")
+#    st.markdown("**Voice Input 🗣️**")
+#    query = recognize_speech()
+#    if st.button("Start Voice Recognition") and query:
+#        with st.spinner("Processing your voice query..."):
+#            response = handle_qa(query, st.session_state.faiss_index, st.session_state.document_chunks, top_k)
+#        if response:
+#            st.divider()
+#            st.markdown("**Voice Q&A Response 🤖**")
             
-            clean_response = clean_text(response)
-            st.write(clean_response)
-            tts = gTTS(clean_response)
-            audio_file = BytesIO()
-            tts.write_to_fp(audio_file)
-            st.audio(audio_file, format='audio/mp3')
-    st.markdown("---")
+#            clean_response = clean_text(response)
+#            st.write(clean_response)
+#            tts = gTTS(clean_response)
+#            audio_file = BytesIO()
+#            tts.write_to_fp(audio_file)
+#            st.audio(audio_file, format='audio/mp3')
+#    st.markdown("---")
     linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
     st.markdown(f"Created with 🤗 💖 By Aditya Pandey [ LinkedIn 🔗 ]({linkedin_url})")
 
