@@ -167,19 +167,22 @@ def handle_qa(query, faiss_index, document_chunks, top_k):
 # Function for speech recognition
 def recognize_speech():
     r = sr.Recognizer()
-    with sr.Microphone() as source:
-        st.info("Listening...")
-        audio = r.listen(source)
-        try:
+    try:
+        with sr.Microphone() as source:
+            st.info("Listening...")
+            audio = r.listen(source)
             text = r.recognize_google(audio)
             st.success(f"You said: {text}")
             return text
-        except sr.UnknownValueError:
-            st.error("Could not understand audio")
-            return None
-        except sr.RequestError as e:
-            st.error(f"Could not request results from Google Speech Recognition service; {e}")
-            return None
+    except sr.UnknownValueError:
+        st.error("Could not understand audio")
+        return None
+    except sr.RequestError as e:
+        st.error(f"Could not request results from Google Speech Recognition service; {e}")
+        return None
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
+        return None
 
 
 # Main App Function
