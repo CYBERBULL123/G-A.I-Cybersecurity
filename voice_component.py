@@ -1,9 +1,16 @@
+import os
 import streamlit.components.v1 as components
 
-# Declare the component ( HTML file is in a 'public' folder)
+# Get the current directory
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Construct the path to the 'public' directory
+build_dir = os.path.join(current_dir, "public")
+
+# Declare the component
 voice_recognition_component = components.declare_component(
     "voice_recognition",
-    path="public"
+    path=build_dir
 )
 
 def get_voice_input():
