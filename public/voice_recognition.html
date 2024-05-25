@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Voice Recognition</title>
+</head>
+<body>
+  <h3>Click the button and speak</h3>
+  <button id="start-recognition">Start Voice Recognition</button>
+  <p id="result"></p>
+  
+  <script>
+    const startButton = document.getElementById('start-recognition');
+    const resultParagraph = document.getElementById('result');
+    
+    startButton.addEventListener('click', () => {
+      if ('webkitSpeechRecognition' in window) {
+        const recognition = new webkitSpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.continuous = false;
+        recognition.interimResults = false;
+
+        recognition.onstart = () => {
+          resultParagraph.innerText = "Listening...";
+        };
+
+        recognition.onresult = (event) => {
+          const transcript = event.results[0][0].transcript;
+          resultParagraph.innerText = transcript;
+          streamlitComponent.setComponentValue(transcript);
+        };
+
+        recognition.onerror = (event) => {
+          resultParagraph.innerText = "Error occurred in recognition: " + event.error;
+        };
+
+        recognition.onend = () => {
+          resultParagraph.innerText += " (Recognition ended)";
+        };
+
+        recognition.start();
+      } else {
+        resultParagraph.innerText = "Web Speech API not supported in this browser.";
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/streamlit-component-lib/dist/index.js"></script>
+</body>
+</html>
