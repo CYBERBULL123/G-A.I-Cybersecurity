@@ -142,5 +142,5 @@ if input_text:
     with st.expander('Major Practices'): 
         st.info(Practice_memory.buffer)
 st.markdown("---")
-st.text("                           Created with ❤️ by Aditya Pandey ")
+st.markdown("                           Created with ❤️ by Aditya Pandey ")
 
