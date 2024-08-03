@@ -118,7 +118,7 @@ def render_login_page():
 
 ## Function to load Gemini vision model and get response
 def get_gemini_response(input_prompt, image):
-    Model = genai.GenerativeModel('gemini-1.5-flash-latest')
+    Model = genai.GenerativeModel('gemini-1.5-pro')
     if input_prompt != "":
         response = Model.generate_content([input_prompt, image])
     else:
