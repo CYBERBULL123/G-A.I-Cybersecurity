@@ -40,7 +40,7 @@ genai.configure(api_key = os.environ['GOOGLE_API_KEY'])
 ## Function to load OpenAI model and get respones
 
 def get_gemini_response(input,image):
-    model = genai.GenerativeModel('gemini-pro-vision')
+    model = genai.GenerativeModel('gemini-1.5-pro-latest')
     safety_settings={
         HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
         HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
@@ -57,13 +57,6 @@ def get_gemini_response(input,image):
        response = model.generate_content(image)
     return response.text
 
-
-# Configure safety settings
-safety_settings = {
-    'HATE': 'ALLOW',
-    'HARASSMENT': 'ALLOW',
-    'SEXUAL': 'ALLOW',
-    'DANGEROUS': 'ALLOW'
 }
 
 st.title('OxSecure Intelligence 🧠')
@@ -98,7 +91,7 @@ Policy_memory = ConversationBufferMemory(input_key='security policies', memory_k
 Practice_memory = ConversationBufferMemory(input_key='Practice', memory_key='description_history')
 
 ## GEMINI LLMS
-llm = ChatGoogleGenerativeAI(model="gemini-pro")
+llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro-latest")
 safety_settings={
         HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
         HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
