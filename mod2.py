@@ -39,25 +39,32 @@ genai.configure(api_key = os.environ['GOOGLE_API_KEY'])
 
 ## Function to load OpenAI model and get respones
 
-def get_gemini_response(input,image):
+def get_gemini_response(input, image):
     model = genai.GenerativeModel('gemini-1.5-pro-latest')
-    safety_settings={
-        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_DANGEROUS: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_SEXUAL: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_TOXICITY: HarmBlockThreshold.BLOCK_NONE
-    }
-    if input!="":
-       response = model.generate_content([input,image])
+    if input != "":
+        response = model.generate_content(
+            [input, image],
+            safety_settings={
+                HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+                HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+                HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+                HarmProbability:HarmBlockThreshold.BLOCK_NONE,
+                HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE
+            }
+        )
     else:
-       response = model.generate_content(image)
+        response = model.generate_content(
+            image,
+            safety_settings={
+                HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+                HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+                HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+                HarmProbability:HarmBlockThreshold.BLOCK_NONE,
+                HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE
+            }
+        )
     return response.text
 
-}
 
 st.title('OxSecure Intelligence 🧠')
 st.caption('Cybersecurity Best practices for Infrastructure')
@@ -90,21 +97,18 @@ Topic_memory = ConversationBufferMemory(input_key='Topic', memory_key='chat_hist
 Policy_memory = ConversationBufferMemory(input_key='security policies', memory_key='chat_history')
 Practice_memory = ConversationBufferMemory(input_key='Practice', memory_key='description_history')
 
-## GEMINI LLMS
-llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro-latest")
-safety_settings={
+# GEMINI LLMS
+llm = ChatGoogleGenerativeAI(
+    model="gemini-1.5-pro-latest",
+    safety_settings={
         HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
         HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_DANGEROUS: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_SEXUAL: HarmBlockThreshold.BLOCK_NONE,
         HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_TOXICITY: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT:HarmProbability.HIGH
+        HarmProbability:HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE
     }
-chain=LLMChain(
-    llm=llm,prompt=first_input_prompt,verbose=True,output_key='security policies',memory=Topic_memory)
+)
+chain=LLMChain(llm=llm,prompt=first_input_prompt,verbose=True,output_key='security policies',memory=Topic_memory)
 
 # Prompt Templates
 
