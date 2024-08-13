@@ -57,10 +57,10 @@ genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
 def query_gemini(context, prompt, image=None):
     try:
         if image:
-            model = genai.GenerativeModel('gemini-1.5-pro-latest')
+            model = genai.GenerativeModel('gemini-1.5-pro')
             response = model.generate_content([context + prompt, image])
         else:
-            model = genai.GenerativeModel('gemini-1.5-pro-latest')
+            model = genai.GenerativeModel('gemini-1.5-pro')
             response = model.generate_content(context + prompt)
         
         if hasattr(response, 'candidates') and response.candidates:
