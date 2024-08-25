@@ -14,10 +14,12 @@
 #
 # Author: Aditya Pandey
 # =============================================================================
+
 import os
 import streamlit as st
 from PIL import Image
 import textwrap
+from io import BytesIO
 from constants import gemini_key
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.llms import OpenAI
@@ -28,16 +30,18 @@ from langchain.memory import ConversationBufferMemory
 from google.generativeai.types import HarmCategory, HarmBlockThreshold, HarmProbability
 from google.generativeai import GenerativeModel
 from langchain.chains import SequentialChain
+import plotly.graph_objects as go
+import requests
 
-#API configuration
-os.environ["GOOGLE_API_KEY"]=gemini_key
-genai.configure(api_key = os.environ['GOOGLE_API_KEY'])
+# API configuration
+os.environ["GOOGLE_API_KEY"] = gemini_key
+genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
 
 # Define correct username and password
 CORRECT_USERNAME = "Oxsecure"
 CORRECT_PASSWORD = "Oxsecure@123"
 
-# streamlit framework
+# Streamlit framework
 st.set_page_config(
     page_title="OxSecure",
     page_icon="🔒",
@@ -51,7 +55,6 @@ def load_css(file_name):
 
 # Load the CSS file
 load_css("ui/Style.css")
-
 
 def render_login_page():
     st.title("Oxsecure 🧠 - Your Companion! 🔒")
@@ -125,17 +128,49 @@ def get_gemini_response(input_prompt, image):
         response = Model.generate_content(image)
     return response.text
 
+def analyze_file_with_virustotal(file):
+    api_key = 'ed48e6407e0b7975be7d19c797e1217f500183c9ae84d1119af8628ba4c98c3d'  # Replace with your actual VirusTotal API key
+    headers = {
+        'x-apikey': api_key
+    }
+    files = {
+        'file': (file.name, file, file.type)
+    }
+
+    try:
+        # Step 1: Upload the file
+        upload_response = requests.post('https://www.virustotal.com/api/v3/files', headers=headers, files=files)
+        upload_response.raise_for_status()
+        upload_result = upload_response.json()
+        analysis_id = upload_result['data']['id']
+        
+        # Step 2: Retrieve the analysis report
+        report_response = requests.get(f'https://www.virustotal.com/api/v3/analyses/{analysis_id}', headers=headers)
+        report_response.raise_for_status()
+        report = report_response.json()
+        
+        # Print the full report for debugging
+        st.write("Full Report:", report)
+        
+        return report
+
+    except requests.exceptions.RequestException as e:
+        st.error(f"Error during API request: {e}")
+        return None
+
 def render_main_program():
     st.markdown("# 🔒 Unlock the Future of Cybersecurity with OxSecure ")
     st.divider()
     st.markdown("**Where Knowledge Meets Innovation! 🚀 Dive into Cyber Brilliance with OxSecure** 🤖 🌟")
     st.markdown("----")
-    app_choice = st.sidebar.radio("Choose App", ("OxSecure Chat 🤖", "OxSecure ImaGen 🎨"))
+    app_choice = st.sidebar.radio("Choose App", ("OxSecure Chat 🤖", "OxSecure ImaGen 🎨", "File Analysis 📁"))
 
     if app_choice == "OxSecure Chat 🤖":
         render_gemini_api_app()
     elif app_choice == "OxSecure ImaGen 🎨":
         render_gemini_vision_app()
+    elif app_choice == "File Analysis 📁":
+        render_file_analysis_app()
 
 def render_gemini_api_app():
     st.caption("🚀 Empower Tomorrow, 🛡️ Secure Today: Unleash the Power of Cybersecurity Brilliance! 💻✨ 🛡️💬  ")
@@ -148,7 +183,7 @@ def render_gemini_api_app():
     # Prompt Templates
     first_input_prompt = PromptTemplate(
         input_variables=['Topic'],
-        template = textwrap.dedent("""
+        template=textwrap.dedent("""
             As an experienced cybersecurity researcher, provide a comprehensive and detailed explanation about {Topic}. Cover the following aspects:
             1. Introduction and Importance in well informative
             2. Key Concepts and Terminologies
@@ -164,7 +199,7 @@ def render_gemini_api_app():
     )
 
     # Select the model
-    model = genai.GenerativeModel('gemini-pro')
+    model = genai.GenerativeModel('gemini-1.5-pro')
     safety_settings = {
         HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
         HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
@@ -183,7 +218,7 @@ def render_gemini_api_app():
     Practice_memory = ConversationBufferMemory(input_key='Practice', memory_key='description_history')
 
     ## GEMINI LLMS
-    llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash")
+    llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro")
     chain = LLMChain(
         llm=llm, prompt=first_input_prompt, verbose=True, output_key='secure coding', memory=Topic_memory)
     safety_settings = {
@@ -197,7 +232,6 @@ def render_gemini_api_app():
         HarmCategory.HARM_CATEGORY_TOXICITY: HarmBlockThreshold.BLOCK_NONE,
         HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmProbability.HIGH
     }
-
     # Prompt Templates
     second_input_prompt = PromptTemplate(
         input_variables=['secure coding'],
@@ -229,6 +263,7 @@ def render_gemini_api_app():
     linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
     st.markdown("  Created with 🤗💖 By Aditya Pandey   "  f"[  LinkedIn 🔗]({linkedin_url})")
 
+
 def render_gemini_vision_app():
     st.title('OxSecure ImaGen 🎨')
     st.markdown("----")
@@ -251,16 +286,85 @@ def render_gemini_vision_app():
     linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
     st.markdown("  Created with 🤗💖 By Aditya Pandey  " f"[  LinkedIn 🔗]({linkedin_url})")
 
+def render_file_analysis_app():
+    st.title("OxSecure File Analysis 🗂️")
+    st.markdown("---")
+    st.image('ui/antivirus.png', width=80, use_column_width='none')
+    
+    uploaded_file = st.file_uploader("Upload a file for analysis...", type=["apk", "exe", "dll", "txt", "log", "zip"])
+    
+    if uploaded_file is not None:
+        st.spinner("Analyzing file... ⏳")
+        
+        # Check if the file is an image
+        if uploaded_file.type.startswith('image/'):
+            try:
+                image = Image.open(BytesIO(uploaded_file.read()))
+                st.image(image, caption="Uploaded Image.", use_column_width=True)
+            except Exception as e:
+                st.error(f"Error displaying the image: {e}")
+        else:
+            # Analyze the file
+            report = analyze_file_with_virustotal(uploaded_file)
+            
+            if report:
+                st.subheader("VirusTotal Report")
+                
+                try:
+                    # Inspect and print the full report response
+                    st.write("**Full Report Data:**")
+                    st.json(report)
+
+                    data = report.get('data', {})
+                    attributes = data.get('attributes', {})
+                    
+                    # Safely access fields and provide default values if they are missing
+                    file_name = attributes.get('names', ['N/A'])[0]  # Default to 'N/A' if names is missing
+                    scan_date = attributes.get('scan_date', 'N/A')
+                    analysis_stats = attributes.get('last_analysis_stats', {})
+                    
+                    st.write(f"**File Name:** {file_name}")
+                    st.write(f"**Scan Date:** {scan_date}")
+                    
+                    malicious = analysis_stats.get('malicious', '0')
+                    undetected = analysis_stats.get('undetected', '0')
+                    suspicious = analysis_stats.get('suspicious', '0')
+                    
+                    st.write(f"**Malicious Score:** {malicious}")
+                    
+                    # Display detailed analysis
+                    st.write("**Detailed Analysis:**")
+                    st.json(report)
+                    
+                    # Example: Display file analysis statistics with Plotly
+                    fig = go.Figure(data=[
+                        go.Bar(name='Malicious', x=['Malicious'], y=[malicious]),
+                        go.Bar(name='Undetected', x=['Undetected'], y=[undetected]),
+                        go.Bar(name='Suspicious', x=['Suspicious'], y=[suspicious])
+                    ])
+                    fig.update_layout(barmode='stack', title='File Analysis Statistics')
+                    st.plotly_chart(fig)
+                    
+                except KeyError as e:
+                    st.error(f"Error processing report data: {e}")
+                    
+            else:
+                st.error("Failed to retrieve file analysis report.")
+                
+
+    st.markdown("---")
+    linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
+    st.markdown("  Created with 🤗💖 By Aditya Pandey  " f"[  LinkedIn 🔗]({linkedin_url})")
+
+
 def main():
-    # Initialize session state
     if 'authenticated' not in st.session_state:
         st.session_state.authenticated = False
 
-    # If not authenticated, display login portal
-    if not st.session_state.authenticated:
-        render_login_page()
-    else:
+    if st.session_state.authenticated:
         render_main_program()
+    else:
+        render_login_page()
 
 if __name__ == "__main__":
     main()
