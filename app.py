@@ -9,7 +9,7 @@
 #
 # PROJECT DESCRIPTION
 # -----------------------------------------------------------------------------
-# This code is for a chatbot crafted with powerful prompts, designed to
+# This code is for a chatbot , Malware check crafted with powerful prompts, designed to
 # utilize the Gemini API. It is tailored to assist cybersecurity researchers.
 #
 # Author: Aditya Pandey
@@ -30,8 +30,17 @@ from langchain.memory import ConversationBufferMemory
 from google.generativeai.types import HarmCategory, HarmBlockThreshold, HarmProbability
 from google.generativeai import GenerativeModel
 from langchain.chains import SequentialChain
-import plotly.graph_objects as go
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
 import requests
+from pefile import PE, PEFormatError
+import re
+import hashlib
+
+# VirusTotal API details
+VIRUSTOTAL_API_KEY = 'ed48e6407e0b7975be7d19c797e1217f500183c9ae84d1119af8628ba4c98c3d'
+
 
 # API configuration
 os.environ["GOOGLE_API_KEY"] = gemini_key
@@ -128,35 +137,6 @@ def get_gemini_response(input_prompt, image):
         response = Model.generate_content(image)
     return response.text
 
-def analyze_file_with_virustotal(file):
-    api_key = 'ed48e6407e0b7975be7d19c797e1217f500183c9ae84d1119af8628ba4c98c3d'  # Replace with your actual VirusTotal API key
-    headers = {
-        'x-apikey': api_key
-    }
-    files = {
-        'file': (file.name, file, file.type)
-    }
-
-    try:
-        # Step 1: Upload the file
-        upload_response = requests.post('https://www.virustotal.com/api/v3/files', headers=headers, files=files)
-        upload_response.raise_for_status()
-        upload_result = upload_response.json()
-        analysis_id = upload_result['data']['id']
-        
-        # Step 2: Retrieve the analysis report
-        report_response = requests.get(f'https://www.virustotal.com/api/v3/analyses/{analysis_id}', headers=headers)
-        report_response.raise_for_status()
-        report = report_response.json()
-        
-        # Print the full report for debugging
-        st.write("Full Report:", report)
-        
-        return report
-
-    except requests.exceptions.RequestException as e:
-        st.error(f"Error during API request: {e}")
-        return None
 
 def render_main_program():
     st.markdown("# 🔒 Unlock the Future of Cybersecurity with OxSecure ")
@@ -286,70 +266,175 @@ def render_gemini_vision_app():
     linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
     st.markdown("  Created with 🤗💖 By Aditya Pandey  " f"[  LinkedIn 🔗]({linkedin_url})")
 
+
+def get_file_hash(file):
+    file.seek(0)  # Reset file pointer to the beginning
+    file_hash = hashlib.sha256(file.read()).hexdigest()
+    file.seek(0)  # Reset file pointer to the beginning
+    return file_hash
+
+# Function to analyze the file using VirusTotal
+def virustotal_analysis(file_hash):
+    url = f"https://www.virustotal.com/api/v3/files/{file_hash}"
+    headers = {"x-apikey": VIRUSTOTAL_API_KEY}
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        st.error("Error with VirusTotal API request. Please check your API key or the file hash.")
+        return None
+
+# Function to extract metadata from PE files
+def extract_metadata(file):
+    try:
+        pe = PE(data=file.read())
+        metadata = {
+            "Number of Sections": pe.FILE_HEADER.NumberOfSections,
+            "Time Date Stamp": pe.FILE_HEADER.TimeDateStamp,
+            "Characteristics": pe.FILE_HEADER.Characteristics,
+        }
+        return metadata
+    except PEFormatError:
+        st.error("Uploaded file is not a valid PE format.")
+        return None
+
+# Function to analyze log files
+def analyze_log_file(log_content):
+    errors = re.findall(r'ERROR.*', log_content)
+    return pd.DataFrame(errors, columns=["Errors"])
+
+# Function to create charts from VirusTotal results
+def create_virus_total_charts(virus_total_results):
+    if not virus_total_results:
+        return None
+    
+    stats = virus_total_results['data']['attributes']['last_analysis_stats']
+    labels = list(stats.keys())
+    values = list(stats.values())
+
+    fig, ax = plt.subplots(figsize=(10, 5))
+    sns.barplot(x=labels, y=values, palette="viridis", ax=ax)
+    ax.set_title("VirusTotal Analysis Results", fontsize=16, fontweight='bold')
+    ax.set_xlabel("Analysis Types", fontsize=14)
+    ax.set_ylabel("Count", fontsize=14)
+
+    return fig
+
+# Function to create detailed tables from JSON data
+def create_detailed_table(data, title):
+    st.write(f"{title}")
+    
+    # Normalize JSON data into a DataFrame
+    df = pd.json_normalize(data)
+    
+    # Debug: Show raw data and DataFrame
+    st.write("Raw Data:", data)
+
+    if df.empty:
+        st.write("No data available.")
+    else:
+        # Apply minimal styling for debugging
+        styled_df = df.style.background_gradient(cmap='viridis') \
+                          .format(na_rep='N/A', precision=2)
+        
+        # Display the styled DataFrame
+        st.dataframe(styled_df)
+
+# Function to display the analysis results on the dashboard
+def display_analysis_results(metadata, virus_total_results, log_analysis=None):
+    st.write("## Analysis Results")
+
+    # Metadata
+    if metadata:
+        st.write("### 📂 PE File Metadata")
+        create_detailed_table(metadata, "PE File Metadata")
+
+    # VirusTotal Results
+    if virus_total_results:
+        st.write("### 🦠 VirusTotal Results")
+        create_detailed_table(virus_total_results['data'], "VirusTotal Results")
+        st.write("#### 📊 VirusTotal Analysis Stats")
+        fig = create_virus_total_charts(virus_total_results)
+        if fig:
+            st.pyplot(fig)
+
+    # Log Analysis
+    if log_analysis is not None:
+        st.write("### 📝 Log Analysis")
+        st.table(log_analysis)
+
+
 def render_file_analysis_app():
-    st.title("OxSecure File Analysis 🗂️")
+    st.title("🔍 File Analysis Dashboard")
     st.markdown("---")
     st.image('ui/antivirus.png', width=80, use_column_width='none')
-    
-    uploaded_file = st.file_uploader("Upload a file for analysis...", type=["apk", "exe", "dll", "txt", "log", "zip"])
-    
-    if uploaded_file is not None:
-        st.spinner("Analyzing file... ⏳")
-        
-        # Check if the file is an image
-        if uploaded_file.type.startswith('image/'):
-            try:
-                image = Image.open(BytesIO(uploaded_file.read()))
-                st.image(image, caption="Uploaded Image.", use_column_width=True)
-            except Exception as e:
-                st.error(f"Error displaying the image: {e}")
-        else:
-            # Analyze the file
-            report = analyze_file_with_virustotal(uploaded_file)
-            
-            if report:
-                st.subheader("VirusTotal Report")
-                
-                try:
-                    # Inspect and print the full report response
-                    st.write("**Full Report Data:**")
-                    st.json(report)
 
-                    data = report.get('data', {})
-                    attributes = data.get('attributes', {})
-                    
-                    # Safely access fields and provide default values if they are missing
-                    file_name = attributes.get('names', ['N/A'])[0]  # Default to 'N/A' if names is missing
-                    scan_date = attributes.get('scan_date', 'N/A')
-                    analysis_stats = attributes.get('last_analysis_stats', {})
-                    
-                    st.write(f"**File Name:** {file_name}")
-                    st.write(f"**Scan Date:** {scan_date}")
-                    
-                    malicious = analysis_stats.get('malicious', '0')
-                    undetected = analysis_stats.get('undetected', '0')
-                    suspicious = analysis_stats.get('suspicious', '0')
-                    
-                    st.write(f"**Malicious Score:** {malicious}")
-                    
-                    # Display detailed analysis
-                    st.write("**Detailed Analysis:**")
-                    st.json(report)
-                    
-                    # Example: Display file analysis statistics with Plotly
-                    fig = go.Figure(data=[
-                        go.Bar(name='Malicious', x=['Malicious'], y=[malicious]),
-                        go.Bar(name='Undetected', x=['Undetected'], y=[undetected]),
-                        go.Bar(name='Suspicious', x=['Suspicious'], y=[suspicious])
-                    ])
-                    fig.update_layout(barmode='stack', title='File Analysis Statistics')
-                    st.plotly_chart(fig)
-                    
-                except KeyError as e:
-                    st.error(f"Error processing report data: {e}")
-                    
-            else:
-                st.error("Failed to retrieve file analysis report.")
+    uploaded_file = st.file_uploader("Upload any file for analysis", type=["exe", "dll", "log", "pdf", "png", "jpg", "jpeg", "gif", "txt", "zip", "rar", "apk"])
+
+    if uploaded_file:
+        file_hash = get_file_hash(uploaded_file)
+        st.write(f"SHA-256 Hash: {file_hash}")
+
+        file_extension = uploaded_file.name.split('.')[-1].lower()
+
+        # Handle different file types
+        if file_extension in ['png', 'jpg', 'jpeg', 'gif']:
+            st.write("### 📄 Image Preview")
+            image = Image.open(uploaded_file)
+            image.thumbnail((150, 150))  # Resize for preview
+            st.image(image, caption='Uploaded Image', use_column_width=True)
+            metadata = None
+            virus_total_results = None
+            log_analysis = None
+
+        elif file_extension == 'pdf':
+            st.write("### 📄 PDF File")
+            st.write("PDF preview is not supported. Please use other tools to view.")
+            st.download_button(label="Download PDF", data=uploaded_file, file_name=uploaded_file.name)
+            metadata = None
+            virus_total_results = None
+            log_analysis = None
+
+        elif file_extension in ['txt', 'log']:
+            st.write("### 📝 Log File Content")
+            log_content = uploaded_file.getvalue().decode("utf-8")
+            log_analysis = analyze_log_file(log_content)
+            metadata = None
+            virus_total_results = None
+
+        elif file_extension in ['zip', 'rar']:
+            st.write("### 📦 Compressed File")
+            st.write("Compressed files require further extraction and analysis.")
+            metadata = None
+            virus_total_results = None
+            log_analysis = None
+
+        elif file_extension in ['apk', 'exe', 'dll']:
+            # Save uploaded file temporarily
+            file_path = f"./temp/{uploaded_file.name}"
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            with open(file_path, "wb") as f:
+                f.write(uploaded_file.getbuffer())
+
+            try:
+                with open(file_path, "rb") as file:
+                    file_hash = get_file_hash(file)
+                    metadata = extract_metadata(file)
+                    virus_total_results = virustotal_analysis(file_hash)
+
+            finally:
+                # Clean up
+                os.remove(file_path)
+            
+            log_analysis = None
+
+        else:
+            st.error("Unsupported file type.")
+            metadata = None
+            virus_total_results = None
+            log_analysis = None
+
+        display_analysis_results(metadata, virus_total_results, log_analysis)
                 
 
     st.markdown("---")
