@@ -51,6 +51,7 @@ numpy==1.26.3
 openai==1.8.0
 packaging==23.2
 pandas==2.1.4
+pe
 Pillow==10.2.0
 plotly==5.17.0
 proto-plus==1.23.0
