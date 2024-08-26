@@ -381,7 +381,7 @@ def render_file_analysis_app():
         if file_extension in ['png', 'jpg', 'jpeg', 'gif']:
             st.write("### 📄 Image Preview")
             image = Image.open(uploaded_file)
-            image.thumbnail((150, 150))  # Resize for preview
+            image.thumbnail((512, 512))  # Resize for preview
             st.image(image, caption='Uploaded Image', use_column_width=True)
             metadata = None
             virus_total_results = None
