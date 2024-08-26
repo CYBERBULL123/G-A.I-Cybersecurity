@@ -300,9 +300,22 @@ def extract_metadata(file):
 
 # Function to analyze log files
 def analyze_log_file(log_content):
-    errors = re.findall(r'ERROR.*', log_content)
-    return pd.DataFrame(errors, columns=["Errors"])
+    # Simplified regex to capture any log entry
+    log_entry_regex = re.compile(r'(.*)')
 
+    log_entries = []
+
+    for line in log_content.splitlines():
+        match = log_entry_regex.match(line)
+        if match:
+            log_entries.append({'Log Entry': match.group(1)})
+
+    # Convert to DataFrame
+    log_df = pd.DataFrame(log_entries)
+
+    # Return the DataFrame with all log entries
+    return log_df
+    
 # Function to create charts from VirusTotal results
 def create_virus_total_charts(virus_total_results):
     if not virus_total_results:
