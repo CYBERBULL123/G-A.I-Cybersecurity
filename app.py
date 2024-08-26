@@ -9,7 +9,7 @@
 #
 # PROJECT DESCRIPTION
 # -----------------------------------------------------------------------------
-# This code is for a chatbot , Malware check crafted with powerful prompts, designed to
+# This code is for a chatbot crafted with powerful prompts, File analysis designed to
 # utilize the Gemini API. It is tailored to assist cybersecurity researchers.
 #
 # Author: Aditya Pandey
@@ -382,35 +382,89 @@ def render_file_analysis_app():
             st.write("### 📄 Image Preview")
             image = Image.open(uploaded_file)
             image.thumbnail((512, 512))  # Resize for preview
-            st.image(image, caption='Uploaded Image', use_column_width=True)
-            metadata = None
-            file_hash = get_file_hash(file)
-            virus_total_results = virustotal_analysis(file_hash)
+            st.image(image, width=240, caption='Uploaded Image', use_column_width=True)
+            # Save uploaded file temporarily
+            file_path = f"./temp/{uploaded_file.name}"
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            with open(file_path, "wb") as f:
+                f.write(uploaded_file.getbuffer())
+
+            try:
+                with open(file_path, "rb") as file:
+                    file_hash = get_file_hash(file)
+                    metadata = extract_metadata(file)
+                    virus_total_results = virustotal_analysis(file_hash)
+
+            finally:
+                # Clean up
+                os.remove(file_path)
+            
             log_analysis = None
+
 
         elif file_extension == 'pdf':
             st.write("### 📄 PDF File")
             st.write("PDF preview is not supported. Please use other tools to view.")
             st.download_button(label="Download PDF", data=uploaded_file, file_name=uploaded_file.name)
-            metadata = None
-            file_hash = get_file_hash(file)
-            virus_total_results = virustotal_analysis(file_hash)
+            # Save uploaded file temporarily
+            file_path = f"./temp/{uploaded_file.name}"
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            with open(file_path, "wb") as f:
+                f.write(uploaded_file.getbuffer())
+
+            try:
+                with open(file_path, "rb") as file:
+                    file_hash = get_file_hash(file)
+                    metadata = extract_metadata(file)
+                    virus_total_results = virustotal_analysis(file_hash)
+
+            finally:
+                # Clean up
+                os.remove(file_path)
+            
             log_analysis = None
 
         elif file_extension in ['txt', 'log']:
             st.write("### 📝 Log File Content")
             log_content = uploaded_file.getvalue().decode("utf-8")
             log_analysis = analyze_log_file(log_content)
-            metadata = None
-            file_hash = get_file_hash(file)
-            virus_total_results = virustotal_analysis(file_hash)
+            # Save uploaded file temporarily
+            file_path = f"./temp/{uploaded_file.name}"
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            with open(file_path, "wb") as f:
+                f.write(uploaded_file.getbuffer())
+
+            try:
+                with open(file_path, "rb") as file:
+                    file_hash = get_file_hash(file)
+                    metadata = extract_metadata(file)
+                    virus_total_results = virustotal_analysis(file_hash)
+
+            finally:
+                # Clean up
+                os.remove(file_path)
+            
+            log_analysis = analyze_log_file(log_content)
 
         elif file_extension in ['zip', 'rar']:
             st.write("### 📦 Compressed File")
             st.write("Compressed files require further extraction and analysis.")
-            metadata = None
-            file_hash = get_file_hash(file)
-            virus_total_results = virustotal_analysis(file_hash)
+            # Save uploaded file temporarily
+            file_path = f"./temp/{uploaded_file.name}"
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            with open(file_path, "wb") as f:
+                f.write(uploaded_file.getbuffer())
+
+            try:
+                with open(file_path, "rb") as file:
+                    file_hash = get_file_hash(file)
+                    metadata = extract_metadata(file)
+                    virus_total_results = virustotal_analysis(file_hash)
+
+            finally:
+                # Clean up
+                os.remove(file_path)
+            
             log_analysis = None
 
         elif file_extension in ['apk', 'exe', 'dll']:
