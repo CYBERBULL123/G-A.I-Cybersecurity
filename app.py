@@ -384,7 +384,8 @@ def render_file_analysis_app():
             image.thumbnail((512, 512))  # Resize for preview
             st.image(image, caption='Uploaded Image', use_column_width=True)
             metadata = None
-            virus_total_results = None
+            file_hash = get_file_hash(file)
+            virus_total_results = virustotal_analysis(file_hash)
             log_analysis = None
 
         elif file_extension == 'pdf':
@@ -392,7 +393,8 @@ def render_file_analysis_app():
             st.write("PDF preview is not supported. Please use other tools to view.")
             st.download_button(label="Download PDF", data=uploaded_file, file_name=uploaded_file.name)
             metadata = None
-            virus_total_results = None
+            file_hash = get_file_hash(file)
+            virus_total_results = virustotal_analysis(file_hash)
             log_analysis = None
 
         elif file_extension in ['txt', 'log']:
@@ -400,13 +402,15 @@ def render_file_analysis_app():
             log_content = uploaded_file.getvalue().decode("utf-8")
             log_analysis = analyze_log_file(log_content)
             metadata = None
-            virus_total_results = None
+            file_hash = get_file_hash(file)
+            virus_total_results = virustotal_analysis(file_hash)
 
         elif file_extension in ['zip', 'rar']:
             st.write("### 📦 Compressed File")
             st.write("Compressed files require further extraction and analysis.")
             metadata = None
-            virus_total_results = None
+            file_hash = get_file_hash(file)
+            virus_total_results = virustotal_analysis(file_hash)
             log_analysis = None
 
         elif file_extension in ['apk', 'exe', 'dll']:
