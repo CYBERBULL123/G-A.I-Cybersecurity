@@ -465,7 +465,7 @@ def analyze_log_file(log_content):
     # Return the DataFrame with all log entries
     return log_df
 
-# Function to create charts from VirusTotal results
+# Function to create improved charts from VirusTotal results
 def create_virus_total_charts(virus_total_results):
     if not virus_total_results:
         return None
@@ -474,30 +474,45 @@ def create_virus_total_charts(virus_total_results):
     labels = list(stats.keys())
     values = list(stats.values())
 
-    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(15, 5))  # Three plots side by side
+    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 6))  # Larger figure size for spacing
 
     # Bar Chart
     sns.barplot(x=labels, y=values, palette="viridis", ax=ax1)
     ax1.set_title("VirusTotal Analysis Results (Bar Chart)", fontsize=14, fontweight='bold')
     ax1.set_xlabel("Analysis Types", fontsize=12)
     ax1.set_ylabel("Count", fontsize=12)
-    ax1.tick_params(axis='x', rotation=45)
+    ax1.tick_params(axis='x', rotation=45, labelsize=10)  # Rotate x-axis labels and adjust size
+    
+    # Add value labels on the bar chart
+    for p in ax1.patches:
+        ax1.annotate(f'{int(p.get_height())}', (p.get_x() + p.get_width() / 2., p.get_height()), 
+                     ha='center', va='baseline', fontsize=10, color='black', xytext=(0, 3), 
+                     textcoords='offset points')
 
     # Pie Chart
-    ax2.pie(values, labels=labels, autopct='%1.1f%%', colors=sns.color_palette("viridis", len(labels)), startangle=90)
+    ax2.pie(values, labels=labels, autopct='%1.1f%%', pctdistance=0.85,
+            colors=sns.color_palette("viridis", len(labels)), startangle=90)
     ax2.set_title("VirusTotal Analysis Results (Pie Chart)", fontsize=14, fontweight='bold')
     ax2.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+    # Adjust label distance on pie chart to avoid collisions
+    ax2.legend(loc="best", bbox_to_anchor=(1, 0.5), fontsize=10)  # Move legend outside pie chart
 
     # Horizontal Bar Chart
     sns.barplot(y=labels, x=values, palette="magma", ax=ax3, orient='h')
     ax3.set_title("VirusTotal Analysis Results (Horizontal Bar)", fontsize=14, fontweight='bold')
     ax3.set_xlabel("Count", fontsize=12)
     ax3.set_ylabel("Analysis Types", fontsize=12)
+    
+    # Add value labels on horizontal bar chart
+    for p in ax3.patches:
+        ax3.annotate(f'{int(p.get_width())}', (p.get_width(), p.get_y() + p.get_height() / 2), 
+                     ha='center', va='center_baseline', fontsize=10, color='black', xytext=(5, 0),
+                     textcoords='offset points')
 
-    fig.tight_layout()
+    fig.tight_layout(pad=3.0)  # Adjust layout for better spacing
     
     return fig
-
 
 # Function to create detailed tables from JSON data
 def create_detailed_table(data, title):
