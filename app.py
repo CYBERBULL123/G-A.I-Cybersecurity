@@ -523,6 +523,16 @@ def display_analysis_results(metadata, virus_total_results, log_analysis=None):
         st.write("### 📝 Log Analysis")
         st.table(log_analysis)
 
+def read_file_with_fallback(file):
+    try:
+        # Attempt to read the file with UTF-8 encoding
+        return file.decode("utf-8")
+    except UnicodeDecodeError:
+        # If UTF-8 decoding fails, try to detect encoding
+        file.seek(0)  # Reset file pointer to start
+        detected_encoding = chardet.detect(file.read())['encoding']
+        file.seek(0)  # Reset file pointer again
+        return file.decode(detected_encoding, errors='replace')  # Replace undecodable bytes
 
 def render_file_analysis_app():
     st.title("🔍 File Analysis 🗃️")
@@ -586,7 +596,7 @@ def render_file_analysis_app():
 
         elif file_extension in ['txt', 'log']:
             st.write("### 📝 Log File Content")
-            log_content = uploaded_file.getvalue().decode("utf-8")
+            log_content = read_file_with_fallback(uploaded_file.getvalue())
             log_analysis = analyze_log_file(log_content)
             # Save uploaded file temporarily
             file_path = f"./temp/{uploaded_file.name}"
