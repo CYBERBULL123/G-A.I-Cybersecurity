@@ -201,32 +201,58 @@ def features():
 def use_app():
     st.write("***📋 How to Use OxSecure Intelligence***")
     
-    st.write("""
-    **Step 1: Upload Your File**  
-    Use the 'Upload any file for analysis' button to upload a file (supported types: PDF, image, log, executable, etc.). 
-    The app will automatically detect the file type and proceed with the appropriate analysis.
-    
-    **Step 2: Run File Analysis**  
-    - **Images:** Preview your image, view metadata, and run image content analysis.
-    - **PDFs/Logs:** Extract content and analyze logs for any potential threats.
-    - **Executable Files (EXE, DLL):** Perform in-depth malware scanning with VirusTotal integration to ensure your file is clean.
-    
-    **Step 3: View the Results**  
-    After the analysis, you'll receive a comprehensive report that includes:
-    - Metadata extraction
-    - Threat reports (for executables via VirusTotal)
-    - Log analysis and key security findings
-    
-    **Step 4: Explore Additional Features**  
-    Take advantage of the expandable "Features" section to explore secure coding practices, learn about real-world attacks, 
-    and dive deeper into specific tools and techniques.
-    
-    **Step 5: Leverage AI-Powered Tools**  
-    Use the integrated **Gemini LLM** for expert-level cybersecurity insights and **Imagen** for advanced image analysis, 
-    ensuring you have the tools to make informed security decisions.
-    
-    **Stay Updated:**  
-    Regularly check the "Major Cyberattacks" section to stay informed on the latest cyber threats and trends affecting the global landscape.
+     st.write("""
+     🚀 **OxSecure Intelligence: Use Cases**
+
+OxSecure Intelligence is a comprehensive cybersecurity tool designed to provide in-depth information on various security topics, analyze images, and perform detailed file analysis. The app consists of three powerful tools:
+
+🛡️ **1. OxSecure Chat**
+
+ ***Use Case:***
+**OxSecure Chat** allows users to gain a deep understanding of cybersecurity topics by generating detailed outputs based on the entered topics. This tool is ideal for:
+
+- **Learning and Research:** Enter any cybersecurity topic to receive a thorough explanation, including secure coding principles and major attack vectors.
+- **Training and Development:** Use the detailed outputs to educate teams or individuals about specific security concepts and practices.
+- **Consultation and Advisory:** Provide clients or stakeholders with well-researched and comprehensive information on cybersecurity issues.
+
+**How It Works:**
+1. Enter a security topic related to cybersecurity.
+2. Receive a detailed response including:
+   - **Secure Coding Principles:** Best practices and guidelines.
+   - **Major Attacks:** Common threats and attack methods.
+
+🖼️ **2. OxSecure ImaGen**
+
+ ***Use Case:***
+**OxSecure ImaGen** offers advanced image analysis by allowing users to input prompts and retrieve detailed information about the image. This tool is perfect for:
+
+- **Image Verification:** Analyze images to extract metadata and ensure they are authentic and unaltered.
+- **Content Analysis:** Understand the content and context of images through custom prompts.
+- **Forensic Analysis:** Utilize the tool in digital forensics to scrutinize image details for investigative purposes.
+
+ **How It Works:**
+1. Upload an image.
+2. Enter prompts to specify the desired output.
+3. Receive detailed information and insights based on the image content.
+
+ 📂 **3. File Analysis**
+
+***Use Case:***
+**File Analysis** is designed for thorough examination of files, providing essential metadata, hash information, and integrating with VirusTotal for comprehensive security analysis. This tool is valuable for:
+
+- **File Verification:** Extract metadata and hash information to verify file integrity and authenticity.
+- **Threat Detection:** Communicate with VirusTotal API to assess the file’s security status and identify potential threats.
+- **Visual Analytics:** Obtain graphical representations of file analysis results to visualize threat levels and security metrics.
+
+**How It Works:**
+1. Upload a file.
+2. Extract metadata and hash information.
+3. Integrate with VirusTotal API for detailed security analysis.
+4. View graphical reports and insights about the file.
+
+---
+
+**OxSecure Intelligence** empowers you with detailed insights and robust analysis tools to enhance your cybersecurity practices and ensure data integrity. Explore these tools to stay ahead of potential threats and make informed decisions!
     
     **Why Choose OxSecure Intelligence?**
     - **💡 Expert-Level Knowledge:** Powered by cutting-edge AI tools and deep research.
