@@ -200,8 +200,7 @@ def features():
 # Help and Use Section
 def use_app():
     st.write("***📋 How to Use OxSecure Intelligence***")
-    
-     st.write("""
+    st.write("""
      🚀 **OxSecure Intelligence: Use Cases**
 
 OxSecure Intelligence is a comprehensive cybersecurity tool designed to provide in-depth information on various security topics, analyze images, and perform detailed file analysis. The app consists of three powerful tools:
