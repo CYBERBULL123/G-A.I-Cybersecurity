@@ -20,6 +20,7 @@ import streamlit as st
 from PIL import Image
 import textwrap
 from io import BytesIO
+import io
 from constants import gemini_key
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.llms import OpenAI
@@ -523,16 +524,16 @@ def display_analysis_results(metadata, virus_total_results, log_analysis=None):
         st.write("### 📝 Log Analysis")
         st.table(log_analysis)
 
-def read_file_with_fallback(file):
+def read_file_with_fallback(byte_data):
     try:
         # Attempt to read the file with UTF-8 encoding
-        return file.decode("utf-8")
+        return byte_data.decode("utf-8")
     except UnicodeDecodeError:
         # If UTF-8 decoding fails, try to detect encoding
-        file.seek(0)  # Reset file pointer to start
-        detected_encoding = chardet.detect(file.read())['encoding']
-        file.seek(0)  # Reset file pointer again
-        return file.decode(detected_encoding, errors='replace')  # Replace undecodable bytes
+        byte_stream = io.BytesIO(byte_data)
+        detected_encoding = chardet.detect(byte_data)['encoding']
+        byte_stream.seek(0)  # Reset stream pointer
+        return byte_stream.read().decode(detected_encoding, errors='replace')
 
 def render_file_analysis_app():
     st.title("🔍 File Analysis 🗃️")
