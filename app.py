@@ -250,10 +250,8 @@ OxSecure Intelligence is a comprehensive cybersecurity tool designed to provide 
 4. View graphical reports and insights about the file.
 
 ---
-
 **OxSecure Intelligence** empowers you with detailed insights and robust analysis tools to enhance your cybersecurity practices and ensure data integrity. Explore these tools to stay ahead of potential threats and make informed decisions!
-    
-    **Why Choose OxSecure Intelligence?**
+     **Why Choose OxSecure Intelligence?**
     - **💡 Expert-Level Knowledge:** Powered by cutting-edge AI tools and deep research.
     - **🔍 Thorough File Analysis:** Scanning and reporting for multiple file types.
     - **🔐 Stay Secure:** Stay ahead of threats with real-time insights and expert guidance.
