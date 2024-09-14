@@ -502,7 +502,7 @@ def display_analysis_results(metadata, virus_total_results, log_analysis=None):
 
 
 def render_file_analysis_app():
-    st.title("🔍 File Analysis Dashboard")
+    st.title("🔍 File Analysis 🗃️")
     st.markdown("---")
     st.image('ui/antivirus.png', width=80, use_column_width='none')
 
