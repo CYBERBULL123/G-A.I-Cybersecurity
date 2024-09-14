@@ -621,6 +621,7 @@ def display_analysis_results(metadata, virus_total_results, log_analysis=None):
     # VirusTotal Results
     if virus_total_results:
         st.write("### 🦠 VirusTotal Results")
+        st.markdown("------")
         create_detailed_table(virus_total_results['data'], "VirusTotal Results")
         st.write("#### 📊 VirusTotal Analysis Stats")
         fig = create_virus_total_charts(virus_total_results)
