@@ -68,7 +68,7 @@ load_css("ui/Style.css")
 def render_login_page():
     st.title("Oxsecure 🧠 - Your Companion! 🔒")
     st.markdown("---")
-    st.image('ui/Ox.jpg', width=100, use_column_width='none')
+    st.image('ui/Ox.jpg', width=512, height=512 use_column_width='none')
     st.write("Unlock the realm of cybersecurity expertise with OxSecure 🧠 🚀 Safeguarding your data. 🔒 Let's chat about security topics and empower your knowledge! Product of CyberBULL 👁️")
     st.markdown("---")
     st.write("Please log in to continue.")
