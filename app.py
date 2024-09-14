@@ -137,6 +137,103 @@ def render_login_page():
         else:
             st.error("Invalid username or password. Please try again.")
 
+# Features Section
+def features():
+    st.write("***🔑 Key Features of OxSecure Intelligence***")
+    
+    with st.expander("📖 In-Depth Information on Cybersecurity Topics"):
+        st.write("""
+            **Expand Your Cybersecurity Knowledge**  
+            Stay informed with detailed articles and guides covering a wide range of cybersecurity topics. Whether you're 
+            learning basic concepts or exploring advanced techniques, this resource ensures you're well-equipped to handle 
+            the latest cybersecurity challenges.
+        """)
+        
+    with st.expander("💻 Secure Coding Principles"):
+        st.write("""
+            **Write Code that Stands the Test of Time**  
+            Learn essential best practices for writing secure, reliable code. Our secure coding guides offer practical tips 
+            and real-world examples to help you minimize vulnerabilities in your software.
+        """)
+        
+    with st.expander("🚨 Major Cyberattacks"):
+        st.write("""
+            **Stay Informed on Critical Threats**  
+            Keep up-to-date on the most significant cyberattacks around the world. Analyze real-world incidents, learn the 
+            attack vectors used, and discover defensive strategies to protect against similar threats.
+        """)
+        
+    with st.expander("⚙️ Security Misconfiguration"):
+        st.write("""
+            **Configure with Confidence**  
+            Learn how to avoid common misconfigurations that leave systems exposed. This section provides a comprehensive 
+            guide to correctly configuring security settings, protecting your organization from unnecessary risks.
+        """)
+        
+    with st.expander("🔎 VirusTotal File Analysis"):
+        st.write("""
+            **Instant Malware Scanning**  
+            Upload your files to run advanced malware scans via VirusTotal API. Get real-time reports with detailed threat 
+            intelligence and analysis, ensuring your files are secure before you use or share them.
+        """)
+        
+    with st.expander("🔐 Comprehensive File Analysis"):
+        st.write("""
+            **Analyze Multiple File Types**  
+            OxSecure Intelligence allows you to scan PDFs, images, executables, and logs with ease. From extracting metadata 
+            to conducting thorough file content analysis, you'll have all the tools you need to secure your files.
+        """)
+        
+    with st.expander("🤖 Powered by Gemini LLM"):
+        st.write("""
+            **AI-Powered Insights**  
+            Harness the cutting-edge power of Gemini LLM to get instant, accurate answers to your cybersecurity queries. 
+            With AI-driven insights, you can navigate complex data and extract valuable knowledge faster than ever before.
+        """)
+        
+    with st.expander("🖼️ Image Analysis with Imagen"):
+        st.write("""
+            **Visual Intelligence at Your Fingertips**  
+            Upload images for detailed analysis using the Imagen feature. Whether you're assessing a security measure or 
+            scanning for vulnerabilities, this tool ensures you get the most out of every image.
+        """)
+# Help and Use Section
+def use_app():
+    st.write("***📋 How to Use OxSecure Intelligence***")
+    
+    st.write("""
+    **Step 1: Upload Your File**  
+    Use the 'Upload any file for analysis' button to upload a file (supported types: PDF, image, log, executable, etc.). 
+    The app will automatically detect the file type and proceed with the appropriate analysis.
+    
+    **Step 2: Run File Analysis**  
+    - **Images:** Preview your image, view metadata, and run image content analysis.
+    - **PDFs/Logs:** Extract content and analyze logs for any potential threats.
+    - **Executable Files (EXE, DLL):** Perform in-depth malware scanning with VirusTotal integration to ensure your file is clean.
+    
+    **Step 3: View the Results**  
+    After the analysis, you'll receive a comprehensive report that includes:
+    - Metadata extraction
+    - Threat reports (for executables via VirusTotal)
+    - Log analysis and key security findings
+    
+    **Step 4: Explore Additional Features**  
+    Take advantage of the expandable "Features" section to explore secure coding practices, learn about real-world attacks, 
+    and dive deeper into specific tools and techniques.
+    
+    **Step 5: Leverage AI-Powered Tools**  
+    Use the integrated **Gemini LLM** for expert-level cybersecurity insights and **Imagen** for advanced image analysis, 
+    ensuring you have the tools to make informed security decisions.
+    
+    **Stay Updated:**  
+    Regularly check the "Major Cyberattacks" section to stay informed on the latest cyber threats and trends affecting the global landscape.
+    
+    **Why Choose OxSecure Intelligence?**
+    - **💡 Expert-Level Knowledge:** Powered by cutting-edge AI tools and deep research.
+    - **🔍 Thorough File Analysis:** Scanning and reporting for multiple file types.
+    - **🔐 Stay Secure:** Stay ahead of threats with real-time insights and expert guidance.
+    """)
+
 ## Function to load Gemini vision model and get response
 def get_gemini_response(input_prompt, image):
     Model = genai.GenerativeModel('gemini-1.5-pro')
@@ -146,20 +243,38 @@ def get_gemini_response(input_prompt, image):
         response = Model.generate_content(image)
     return response.text
 
-
+# Main App section
 def render_main_program():
-    st.markdown("# 🔒 Unlock the Future of Cybersecurity with OxSecure ")
+    st.markdown("# 🔒 Unlock the Future of Cybersecurity with OxSecure")
     st.divider()
     st.markdown("**Where Knowledge Meets Innovation! 🚀 Dive into Cyber Brilliance with OxSecure** 🤖 🌟")
     st.markdown("----")
-    app_choice = st.sidebar.radio("Choose App", ("OxSecure Chat 🤖", "OxSecure ImaGen 🎨", "File Analysis 📁"))
 
+    # Sidebar for navigation
+    app_choice = st.sidebar.radio("Choose App", 
+         ("Features 🤹🏻‍♀️", 
+          "OxSecure Chat 🤖", 
+          "OxSecure ImaGen 🎨", 
+          "File Analysis 📁", 
+          "Help & Uses 💁🏻"))
+    
+    #Main content selector
+    # app_choice = st.selectbox(
+    #     "Choose App",
+    #     ["Features 🤹🏻‍♀️", "OxSecure Chat 🤖", "OxSecure ImaGen 🎨", "File Analysis 📁", "Help & Uses 💁🏻"]
+    # )
+
+    # Render the selected app based on user's choice
     if app_choice == "OxSecure Chat 🤖":
         render_gemini_api_app()
     elif app_choice == "OxSecure ImaGen 🎨":
         render_gemini_vision_app()
     elif app_choice == "File Analysis 📁":
         render_file_analysis_app()
+    elif app_choice == "Features 🤹🏻‍♀️":
+        features()
+    elif app_choice == "Help & Uses 💁🏻":
+        use_app()
 
 def render_gemini_api_app():
     st.caption("🚀 Empower Tomorrow, 🛡️ Secure Today: Unleash the Power of Cybersecurity Brilliance! 💻✨ 🛡️💬  ")
