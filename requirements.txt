@@ -9,6 +9,7 @@ bs4
 cachetools==5.3.2
 certifi==2023.11.17
 charset-normalizer==3.3.2
+chardet
 click==8.1.7
 dataclasses-json==0.6.3
 distro==1.9.0
