@@ -464,7 +464,7 @@ def analyze_log_file(log_content):
 
     # Return the DataFrame with all log entries
     return log_df
-    
+
 # Function to create charts from VirusTotal results
 def create_virus_total_charts(virus_total_results):
     if not virus_total_results:
@@ -474,13 +474,30 @@ def create_virus_total_charts(virus_total_results):
     labels = list(stats.keys())
     values = list(stats.values())
 
-    fig, ax = plt.subplots(figsize=(10, 5))
-    sns.barplot(x=labels, y=values, palette="viridis", ax=ax)
-    ax.set_title("VirusTotal Analysis Results", fontsize=9, fontweight='bold')
-    ax.set_xlabel("Analysis Types", fontsize=8)
-    ax.set_ylabel("Count", fontsize=10)
+    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(15, 5))  # Three plots side by side
 
+    # Bar Chart
+    sns.barplot(x=labels, y=values, palette="viridis", ax=ax1)
+    ax1.set_title("VirusTotal Analysis Results (Bar Chart)", fontsize=14, fontweight='bold')
+    ax1.set_xlabel("Analysis Types", fontsize=12)
+    ax1.set_ylabel("Count", fontsize=12)
+    ax1.tick_params(axis='x', rotation=45)
+
+    # Pie Chart
+    ax2.pie(values, labels=labels, autopct='%1.1f%%', colors=sns.color_palette("viridis", len(labels)), startangle=90)
+    ax2.set_title("VirusTotal Analysis Results (Pie Chart)", fontsize=14, fontweight='bold')
+    ax2.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+    # Horizontal Bar Chart
+    sns.barplot(y=labels, x=values, palette="magma", ax=ax3, orient='h')
+    ax3.set_title("VirusTotal Analysis Results (Horizontal Bar)", fontsize=14, fontweight='bold')
+    ax3.set_xlabel("Count", fontsize=12)
+    ax3.set_ylabel("Analysis Types", fontsize=12)
+
+    fig.tight_layout()
+    
     return fig
+
 
 # Function to create detailed tables from JSON data
 def create_detailed_table(data, title):
