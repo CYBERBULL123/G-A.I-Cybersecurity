@@ -474,7 +474,7 @@ def create_virus_total_charts(virus_total_results):
     labels = list(stats.keys())
     values = list(stats.values())
 
-    fig, ax = plt.subplots(figsize=(7, 5))
+    fig, ax = plt.subplots(figsize=(7.1, 7.1))
     sns.barplot(x=labels, y=values, palette="viridis", ax=ax)
     ax.set_title("VirusTotal Analysis Results", fontsize=16, fontweight='bold')
     ax.set_xlabel("Analysis Types", fontsize=14)
