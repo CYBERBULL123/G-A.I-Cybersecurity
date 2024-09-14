@@ -468,7 +468,6 @@ def analyze_log_file(log_content):
 
 # Function to create charts from VirusTotal results with theme selection
 def create_virus_total_charts(virus_total_results, theme="light"):
-    st.spinner("Loading 😵‍💫")
     if not virus_total_results:
         return None
     
@@ -489,7 +488,7 @@ def create_virus_total_charts(virus_total_results, theme="light"):
         text_color = 'black'
     
     # Create a container (figure) with 3 rows and 2 columns of charts
-    fig, axs = plt.subplots(3, 2, figsize=(24, 16))  # 3 rows and 2 columns of charts
+    fig, axs = plt.subplots(3, 2, figsize=(18, 18))  # 3 rows and 2 columns of charts
     
     # --- Bar Chart ---
     sns.barplot(x='Analysis Types', y='Count', data=df, palette="coolwarm", ax=axs[0, 0])
@@ -499,7 +498,7 @@ def create_virus_total_charts(virus_total_results, theme="light"):
     # Add value labels on the bar chart
     for p in axs[0, 0].patches:
         axs[0, 0].annotate(f'{int(p.get_height())}', (p.get_x() + p.get_width() / 2., p.get_height()), 
-                           ha='center', va='baseline', fontsize=12, color=text_color, xytext=(0, 3), 
+                           ha='center', va='baseline', fontsize=10, color=text_color, xytext=(0, 3), 
                            textcoords='offset points')
     
     # --- Horizontal Bar Chart ---
@@ -510,17 +509,17 @@ def create_virus_total_charts(virus_total_results, theme="light"):
     # Add value labels on horizontal bar chart
     for p in axs[0, 1].patches:
         axs[0, 1].annotate(f'{int(p.get_width())}', (p.get_width(), p.get_y() + p.get_height() / 2), 
-                           ha='center', va='center_baseline', fontsize=12, color=text_color, xytext=(5, 0),
+                           ha='center', va='center_baseline', fontsize=10, color=text_color, xytext=(5, 0),
                            textcoords='offset points')
     
     # --- Pie Chart ---
     wedges, texts, autotexts = axs[1, 0].pie(values, labels=labels, autopct='%1.1f%%', startangle=90,
                                              colors=sns.color_palette("coolwarm", len(labels)),
                                              wedgeprops=dict(edgecolor=text_color))
-
+    
     # Format the text and labels
     for text in texts:
-        text.set_fontsize(12)
+        text.set_fontsize(10)
         text.set_color(text_color)
     
     for autotext in autotexts:
@@ -536,7 +535,7 @@ def create_virus_total_charts(virus_total_results, theme="light"):
     
     # Format the text and labels for Donut Chart
     for text in texts:
-        text.set_fontsize(12)
+        text.set_fontsize(10)
         text.set_color(text_color)
     
     for autotext in autotexts:
@@ -561,7 +560,7 @@ def create_virus_total_charts(virus_total_results, theme="light"):
     axs[2, 1].tick_params(axis='y', labelcolor=text_color)
     
     # Adjust layout for better spacing and clarity
-    fig.tight_layout(pad=1.0)
+    fig.tight_layout(pad=4.0)
     
     # Set background based on theme
     fig.patch.set_facecolor('black' if theme == "dark" else 'white')
