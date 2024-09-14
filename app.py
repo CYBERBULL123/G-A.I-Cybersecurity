@@ -35,6 +35,7 @@ from langchain.chains import SequentialChain
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
+import numpy as np
 import requests
 from pefile import PE, PEFormatError
 import re
@@ -465,55 +466,129 @@ def analyze_log_file(log_content):
     # Return the DataFrame with all log entries
     return log_df
 
-# Function to create improved charts from VirusTotal results
-def create_virus_total_charts(virus_total_results):
+# Function to create charts from VirusTotal results with theme selection
+def create_virus_total_charts(virus_total_results, theme="light"):
+    st.spinner("Loading 😵‍💫")
     if not virus_total_results:
         return None
     
+    # Extract the data for the charts
     stats = virus_total_results['data']['attributes']['last_analysis_stats']
     labels = list(stats.keys())
     values = list(stats.values())
-
-    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 6))  # Larger figure size for spacing
-
-    # Bar Chart
-    sns.barplot(x=labels, y=values, palette="viridis", ax=ax1)
-    ax1.set_title("VirusTotal Analysis Results (Bar Chart)", fontsize=14, fontweight='bold')
-    ax1.set_xlabel("Analysis Types", fontsize=12)
-    ax1.set_ylabel("Count", fontsize=12)
-    ax1.tick_params(axis='x', rotation=45, labelsize=10)  # Rotate x-axis labels and adjust size
+    
+    # Convert data to DataFrame for better handling
+    df = pd.DataFrame({'Analysis Types': labels, 'Count': values})
+    
+    # Set the background color theme based on user input
+    if theme == "dark":
+        plt.style.use("dark_background")
+        text_color = 'white'
+    else:
+        plt.style.use("default")
+        text_color = 'black'
+    
+    # Create a container (figure) with 3 rows and 2 columns of charts
+    fig, axs = plt.subplots(3, 2, figsize=(24, 16))  # 3 rows and 2 columns of charts
+    
+    # --- Bar Chart ---
+    sns.barplot(x='Analysis Types', y='Count', data=df, palette="coolwarm", ax=axs[0, 0])
+    axs[0, 0].set_title("VirusTotal Analysis Results (Bar Chart)", fontsize=14, fontweight='bold', color=text_color)
+    axs[0, 0].tick_params(axis='x', rotation=45, labelsize=10, labelcolor=text_color)  # Rotate x-axis labels
     
     # Add value labels on the bar chart
-    for p in ax1.patches:
-        ax1.annotate(f'{int(p.get_height())}', (p.get_x() + p.get_width() / 2., p.get_height()), 
-                     ha='center', va='baseline', fontsize=10, color='black', xytext=(0, 3), 
-                     textcoords='offset points')
-
-    # Pie Chart
-    ax2.pie(values, labels=labels, autopct='%1.1f%%', pctdistance=0.85,
-            colors=sns.color_palette("viridis", len(labels)), startangle=90)
-    ax2.set_title("VirusTotal Analysis Results (Pie Chart)", fontsize=14, fontweight='bold')
-    ax2.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-
-    # Adjust label distance on pie chart to avoid collisions
-    ax2.legend(loc="best", bbox_to_anchor=(1, 0.5), fontsize=10)  # Move legend outside pie chart
-
-    # Horizontal Bar Chart
-    sns.barplot(y=labels, x=values, palette="magma", ax=ax3, orient='h')
-    ax3.set_title("VirusTotal Analysis Results (Horizontal Bar)", fontsize=14, fontweight='bold')
-    ax3.set_xlabel("Count", fontsize=12)
-    ax3.set_ylabel("Analysis Types", fontsize=12)
+    for p in axs[0, 0].patches:
+        axs[0, 0].annotate(f'{int(p.get_height())}', (p.get_x() + p.get_width() / 2., p.get_height()), 
+                           ha='center', va='baseline', fontsize=12, color=text_color, xytext=(0, 3), 
+                           textcoords='offset points')
+    
+    # --- Horizontal Bar Chart ---
+    sns.barplot(y='Analysis Types', x='Count', data=df, palette="magma", ax=axs[0, 1], orient='h')
+    axs[0, 1].set_title("VirusTotal Analysis Results (Horizontal Bar)", fontsize=14, fontweight='bold', color=text_color)
+    axs[0, 1].tick_params(axis='y', labelsize=10, labelcolor=text_color)
     
     # Add value labels on horizontal bar chart
-    for p in ax3.patches:
-        ax3.annotate(f'{int(p.get_width())}', (p.get_width(), p.get_y() + p.get_height() / 2), 
-                     ha='center', va='center_baseline', fontsize=10, color='black', xytext=(5, 0),
-                     textcoords='offset points')
+    for p in axs[0, 1].patches:
+        axs[0, 1].annotate(f'{int(p.get_width())}', (p.get_width(), p.get_y() + p.get_height() / 2), 
+                           ha='center', va='center_baseline', fontsize=12, color=text_color, xytext=(5, 0),
+                           textcoords='offset points')
+    
+    # --- Pie Chart ---
+    wedges, texts, autotexts = axs[1, 0].pie(values, labels=labels, autopct='%1.1f%%', startangle=90,
+                                             colors=sns.color_palette("coolwarm", len(labels)),
+                                             wedgeprops=dict(edgecolor=text_color))
 
-    fig.tight_layout(pad=3.0)  # Adjust layout for better spacing
+    # Format the text and labels
+    for text in texts:
+        text.set_fontsize(12)
+        text.set_color(text_color)
+    
+    for autotext in autotexts:
+        autotext.set_color(text_color)
+    
+    axs[1, 0].set_title("VirusTotal Analysis Results (Pie Chart)", fontsize=14, fontweight='bold', color=text_color)
+    axs[1, 0].axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+    # --- Donut Chart ---
+    wedges, texts, autotexts = axs[1, 1].pie(values, labels=labels, autopct='%1.1f%%', startangle=90,
+                                             pctdistance=0.85, colors=sns.color_palette("Set2", len(labels)),
+                                             wedgeprops=dict(width=0.4, edgecolor=text_color))  # Donut chart
+    
+    # Format the text and labels for Donut Chart
+    for text in texts:
+        text.set_fontsize(12)
+        text.set_color(text_color)
+    
+    for autotext in autotexts:
+        autotext.set_color(text_color)
+    
+    axs[1, 1].set_title("VirusTotal Analysis Results (Donut Chart)", fontsize=14, fontweight='bold', color=text_color)
+    axs[1, 1].axis('equal')  # Equal aspect ratio for donut shape
+    
+    # --- Heatmap (Random Example) ---
+    random_data = np.random.rand(len(labels), len(labels))  # Create a dummy heatmap based on the stats
+    sns.heatmap(random_data, annot=True, cmap="Blues", ax=axs[2, 0], cbar_kws={'label': 'Intensity'})
+    axs[2, 0].set_title("Random Heatmap (Dummy)", fontsize=14, fontweight='bold', color=text_color)
+    axs[2, 0].set_xticklabels(labels, rotation=45, color=text_color)
+    axs[2, 0].set_yticklabels(labels, rotation=0, color=text_color)
+
+    # --- Scatter Plot ---
+    sns.scatterplot(x=labels, y=values, hue=values, palette="deep", s=100, ax=axs[2, 1], legend=False)
+    axs[2, 1].set_title("VirusTotal Analysis Results (Scatter Plot)", fontsize=14, fontweight='bold', color=text_color)
+    axs[2, 1].set_xlabel("Analysis Types", fontsize=12, color=text_color)
+    axs[2, 1].set_ylabel("Count", fontsize=12, color=text_color)
+    axs[2, 1].tick_params(axis='x', rotation=45, labelcolor=text_color)
+    axs[2, 1].tick_params(axis='y', labelcolor=text_color)
+    
+    # Adjust layout for better spacing and clarity
+    fig.tight_layout(pad=2.5)
+    
+    # Set background based on theme
+    fig.patch.set_facecolor('black' if theme == "dark" else 'white')
     
     return fig
 
+# Test data for demonstration (mocked VirusTotal results)
+virus_total_results = {
+    'data': {
+        'attributes': {
+            'last_analysis_stats': {
+                'malicious': 5,
+                'suspicious': 2,
+                'undetected': 50,
+                'harmless': 10,
+                'timeout': 14,
+                'confirmed-timeout': 0,
+                'failure': 0,
+                'type-unsupported': 18
+            }
+        }
+    }
+}
+
+# Call the function to create and display the charts
+fig = create_virus_total_charts(virus_total_results, theme="light")  # Use "dark" for dark mode
+plt.show()
 # Function to create detailed tables from JSON data
 def create_detailed_table(data, title):
     st.write(f"{title}")
