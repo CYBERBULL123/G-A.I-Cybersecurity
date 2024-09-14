@@ -132,6 +132,7 @@ def render_login_page():
         if username == CORRECT_USERNAME and password == CORRECT_PASSWORD:
             st.session_state.authenticated = True
             st.success("Login successful!")
+            st.experimental_rerun()
             render_main_program()
         else:
             st.error("Invalid username or password. Please try again.")
