@@ -21,6 +21,7 @@ from PIL import Image
 import textwrap
 from io import BytesIO
 import io
+import chardet
 from constants import gemini_key
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.llms import OpenAI
