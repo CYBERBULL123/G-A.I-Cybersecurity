@@ -561,7 +561,7 @@ def create_virus_total_charts(virus_total_results, theme="light"):
     axs[2, 1].tick_params(axis='y', labelcolor=text_color)
     
     # Adjust layout for better spacing and clarity
-    fig.tight_layout(pad=2.5)
+    fig.tight_layout(pad=1.0)
     
     # Set background based on theme
     fig.patch.set_facecolor('black' if theme == "dark" else 'white')
