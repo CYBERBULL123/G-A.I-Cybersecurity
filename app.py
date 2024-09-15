@@ -454,13 +454,13 @@ def analyze_log_file(log_content):
     ip_data = []
     domain_data = []
     header_data = []
-    session_data = []
+    id_data = []
 
     # Regular expressions for matching
     ip_regex = re.compile(r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b')
     domain_regex = re.compile(r'\b[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b')
     header_regex = re.compile(r'(User-Agent|Content-Type|Authorization):\s*(.*)', re.IGNORECASE)
-    session_regex = re.compile(r'SessionID:\s*([a-zA-Z0-9]+)')
+    id_regex = re.compile(r'\b(?:SessionID|UserID|ID|id|sessionid|userid)\s*[:=\s]\s*([a-zA-Z0-9-]+)', re.IGNORECASE)
 
     log_entries = []
 
@@ -480,10 +480,10 @@ def analyze_log_file(log_content):
         if headers:
             header_data.extend(headers)
 
-        # Match Sessions
-        sessions = session_regex.findall(line)
-        if sessions:
-            session_data.extend(sessions)
+        # Match IDs (Session IDs, User IDs, etc.)
+        ids = id_regex.findall(line)
+        if ids:
+            id_data.extend(ids)
 
         log_entries.append(line)
 
@@ -494,7 +494,7 @@ def analyze_log_file(log_content):
     ip_df = pd.DataFrame(ip_data, columns=["IP Addresses"])
     domain_df = pd.DataFrame(domain_data, columns=["Domains"])
     header_df = pd.DataFrame(header_data, columns=["Header Name", "Header Value"])
-    session_df = pd.DataFrame(session_data, columns=["Session IDs"])
+    id_df = pd.DataFrame(id_data, columns=["IDs"])
 
     # Summary of findings
     summary = {
@@ -502,7 +502,7 @@ def analyze_log_file(log_content):
         "ip_dataframe": ip_df,
         "domain_dataframe": domain_df,
         "header_dataframe": header_df,
-        "session_dataframe": session_df
+        "id_dataframe": id_df
     }
 
     return summary
@@ -671,27 +671,39 @@ def display_analysis_results(metadata, virus_total_results, log_analysis=None):
 
 # Log Analysis
     if log_analysis is not None:
-        st.write("### ***📝 Log Analysis***")
-        st.write("**Log Entries:**")
-        st.dataframe(log_analysis.get("log_dataframe"))
-
-        st.write("**IP Addresses:**")
-        st.dataframe(log_analysis.get("ip_dataframe"))
-
-        st.write("**Domains:**")
-        st.dataframe(log_analysis.get("domain_dataframe"))
-
-        if not log_analysis.get("header_dataframe").empty:
+        st.write("### 📝 Log Analysis")
+        st.markdown("------")
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.write("**IP Addresses:**")
+            st.dataframe(log_analysis.get("ip_dataframe"))
+            
+        with col2:
+            st.write("**Domains:**")
+            st.dataframe(log_analysis.get("domain_dataframe"))
+            
+        col3, col4, col5 = st.columns([2, 1, 1])
+        st.markdown("----------")
+        
+        with col3:
+            st.write("**Log Entries:**")
+            st.dataframe(log_analysis.get("log_dataframe"))
+            
+        with col4:
+            st.write("**IDs (Session/User/Generic):**")
+            if not log_analysis.get("id_dataframe").empty:
+                st.dataframe(log_analysis.get("id_dataframe"))
+            else:
+                st.write("No IDs found.")
+                
+                
+        with col5:
             st.write("**Headers:**")
-            st.dataframe(log_analysis.get("header_dataframe"))
-        else:
-            st.write("**Headers:** No headers found.")
-
-        if not log_analysis.get("session_dataframe").empty:
-            st.write("**Session IDs:**")
-            st.dataframe(log_analysis.get("session_dataframe"))
-        else:
-            st.write("**Session IDs:** No session IDs found.")
+            if not log_analysis.get("header_dataframe").empty:
+                st.dataframe(log_analysis.get("header_dataframe"))
+            else:
+                st.write("No headers found.")
 
 def read_file_with_fallback(byte_data):
     try:
