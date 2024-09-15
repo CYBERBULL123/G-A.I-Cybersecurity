@@ -450,21 +450,62 @@ def extract_metadata(file):
 
 # Function to analyze log files
 def analyze_log_file(log_content):
-    # Simplified regex to capture any log entry
-    log_entry_regex = re.compile(r'(.*)')
+    # Data storage structures for IPs, Domains, Headers, Sessions
+    ip_data = []
+    domain_data = []
+    header_data = []
+    session_data = []
+
+    # Regular expressions for matching
+    ip_regex = re.compile(r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b')
+    domain_regex = re.compile(r'\b[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b')
+    header_regex = re.compile(r'(User-Agent|Content-Type|Authorization):\s*(.*)', re.IGNORECASE)
+    session_regex = re.compile(r'SessionID:\s*([a-zA-Z0-9]+)')
 
     log_entries = []
 
     for line in log_content.splitlines():
-        match = log_entry_regex.match(line)
-        if match:
-            log_entries.append({'Log Entry': match.group(1)})
+        # Match IPs
+        ips = ip_regex.findall(line)
+        if ips:
+            ip_data.extend(ips)
+
+        # Match Domains
+        domains = domain_regex.findall(line)
+        if domains:
+            domain_data.extend(domains)
+
+        # Match Headers
+        headers = header_regex.findall(line)
+        if headers:
+            header_data.extend(headers)
+
+        # Match Sessions
+        sessions = session_regex.findall(line)
+        if sessions:
+            session_data.extend(sessions)
+
+        log_entries.append(line)
 
     # Convert to DataFrame
-    log_df = pd.DataFrame(log_entries)
+    log_df = pd.DataFrame(log_entries, columns=["Log Entries"])
 
-    # Return the DataFrame with all log entries
-    return log_df
+    # Additional DataFrames for captured data
+    ip_df = pd.DataFrame(ip_data, columns=["IP Addresses"])
+    domain_df = pd.DataFrame(domain_data, columns=["Domains"])
+    header_df = pd.DataFrame(header_data, columns=["Header Name", "Header Value"])
+    session_df = pd.DataFrame(session_data, columns=["Session IDs"])
+
+    # Summary of findings
+    summary = {
+        "log_dataframe": log_df,
+        "ip_dataframe": ip_df,
+        "domain_dataframe": domain_df,
+        "header_dataframe": header_df,
+        "session_dataframe": session_df
+    }
+
+    return summary
 
 # Function to create charts from VirusTotal results with theme selection
 def create_virus_total_charts(virus_total_results, theme="light"):
@@ -588,6 +629,7 @@ virus_total_results = {
 # Call the function to create and display the charts
 fig = create_virus_total_charts(virus_total_results, theme="light")  # Use "dark" for dark mode
 plt.show()
+
 # Function to create detailed tables from JSON data
 def create_detailed_table(data, title):
     st.write(f"{title}")
@@ -627,10 +669,29 @@ def display_analysis_results(metadata, virus_total_results, log_analysis=None):
         if fig:
             st.pyplot(fig)
 
-    # Log Analysis
+# Log Analysis
     if log_analysis is not None:
-        st.write("### 📝 Log Analysis")
-        st.table(log_analysis)
+        st.write("### ***📝 Log Analysis***")
+        st.write("**Log Entries:**")
+        st.dataframe(log_analysis.get("log_dataframe"))
+
+        st.write("**IP Addresses:**")
+        st.dataframe(log_analysis.get("ip_dataframe"))
+
+        st.write("**Domains:**")
+        st.dataframe(log_analysis.get("domain_dataframe"))
+
+        if not log_analysis.get("header_dataframe").empty:
+            st.write("**Headers:**")
+            st.dataframe(log_analysis.get("header_dataframe"))
+        else:
+            st.write("**Headers:** No headers found.")
+
+        if not log_analysis.get("session_dataframe").empty:
+            st.write("**Session IDs:**")
+            st.dataframe(log_analysis.get("session_dataframe"))
+        else:
+            st.write("**Session IDs:** No session IDs found.")
 
 def read_file_with_fallback(byte_data):
     try:
