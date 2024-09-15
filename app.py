@@ -488,7 +488,7 @@ def create_virus_total_charts(virus_total_results, theme="light"):
         text_color = 'black'
     
     # Create a container (figure) with 3 rows and 2 columns of charts
-    fig, axs = plt.subplots(3, 2, figsize=(18, 18))  # 3 rows and 2 columns of charts
+    fig, axs = plt.subplots(3, 2, figsize=(24, 18))  # 3 rows and 2 columns of charts
     
     # --- Bar Chart ---
     sns.barplot(x='Analysis Types', y='Count', data=df, palette="coolwarm", ax=axs[0, 0])
