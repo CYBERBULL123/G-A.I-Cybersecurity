@@ -327,53 +327,55 @@ def render_description_and_framework():
     st.title("OxSecure RAG - Description and Framework")
     st.markdown("----")
     st.markdown("""
-    **Project Description**
+    ## 🚀 ***Project Description*** 
+    ----------------
+    **OxSecure RAG** is your cybersecurity research companion! Powered by the Gemini API and crafted with smart prompts, it can analyze various documents, extract key insights, create embeddings, and support question-answering (Q&A) like never before. 🔍🛡️
     
-    OxSecure RAG is a chatbot designed to assist cybersecurity researchers by utilizing the Gemini API with powerful prompts. It can handle various document types, extract text, create embeddings, and facilitate question-answering (Q&A).
+     🛠️ ***Framework Used***
+    - **Streamlit**: The sleek and interactive interface 🎨.
+    - **FAISS**: Super-efficient similarity search and clustering for dense vectors ⚡.
+    - **Pandas**: Handling and processing data files like a pro (CSV, Excel) 📊.
+    - **PyPDF2**: Extracting text from PDFs with ease 📄.
+    - **BeautifulSoup**: Scraping web data with precision 🌐.
+    - **gTTS**: Giving the bot a voice with text-to-speech 🎙️.
+    - **Google Generative AI (genai)**: Querying the powerful Gemini API 🧠.
+    - **SpeechRecognition**: Turning your voice into input for hands-free interaction 🎧.
+                
+    ----------------
 
-    **Framework Used**
-    - **Streamlit**: For building the web application interface.
-    - **FAISS**: For efficient similarity search and clustering of dense vectors.
-    - **Pandas**: For handling and processing data files like CSV and Excel.
-    - **PyPDF2**: For extracting text from PDF documents.
-    - **BeautifulSoup**: For web scraping and extracting text from URLs.
-    - **gTTS**: For converting text to speech.
-    - **Google Generative AI (genai)**: For querying the Gemini API.
-    - **SpeechRecognition**: For recognizing speech input.
-
-    **Architecture**
+     🏗️ ***Architecture***
     1. **Input Handling**:
-        - Users can upload various file types (PDF, CSV, Excel, JSON) or provide a URL.
-        - Users can also input text prompts directly.
-        - Users can provide voice input using speech recognition.
+        - Upload various file types (PDF, CSV, Excel, JSON) or provide a URL 🔗.
+        - Input text prompts directly 📝.
+        - Speak your query using voice recognition 🎤.
     2. **Text Extraction**:
-        - Text is extracted from the uploaded files or the provided URL using appropriate libraries.
+        - Extract text from uploaded files or URLs using the right tools 📄🌐.
     3. **Text Embedding**:
-        - The extracted text is split into chunks and converted into embeddings using a placeholder function.
-        - The embeddings are stored in a FAISS index for efficient similarity search.
+        - Split extracted text into chunks and convert them into embeddings 🧩.
+        - Store embeddings in a FAISS index for fast, relevant search results 🚀.
     4. **Q&A System**:
-        - Users can ask questions based on the uploaded/entered context.
-        - Relevant text chunks are retrieved from the FAISS index and used to query the Gemini API.
+        - Ask questions based on uploaded or entered context ❓.
+        - Retrieve relevant text chunks from the FAISS index and query the Gemini API 🔍.
     5. **Response Generation**:
-        - The response from the Gemini API is displayed.
-        - Text-to-speech conversion is available as an option.
+        - View the response from the Gemini API 🧑‍💻.
+        - Convert the response to speech for audio playback 🔊.
+                
+    ----------------
 
-     **Instructions for Use**
+     📋 ***Instructions for Use***
     1. **Input**:
-        - Enter a prompt or upload a file (image, PDF, CSV, Excel, or JSON) or provide a URL.
+        - Upload a file (PDF, CSV, Excel, or JSON), provide a URL, or enter a text prompt 💻.
     2. **Processing**:
-        - Click "Start Deep Diving" to process the input and extract relevant data.
+        - Click "Start Deep Diving" to process the input and extract valuable insights 💡.
     3. **Q&A**:
-        - Enter a query in the Q&A section.
-        - Select the number of document chunks to retrieve and the response mode (Text or Text-to-Speech).
-        - Click "Ask" to get the response.
+        - Enter a query, choose how many document chunks to retrieve, and select response mode (Text or Text-to-Speech) 🎯.
+        - Click "Ask" to get your answer 🧠.
     4. **Voice Input**:
-        - Click "Start Voice Recognition" to provide a voice query.
-        - The response will be generated and spoken aloud.
+        - Use "Start Voice Recognition" to ask a question verbally 🎙️.
+        - The answer will be generated and spoken aloud 🗣️.
     5. **Results**:
-        - The extracted data and Q&A responses will be displayed.
-        - If Text-to-Speech is selected, you can listen to the response.
-
+        - View extracted data and responses in a clear, readable format 📑.
+        - If Text-to-Speech is selected, listen to the response 🎧.
     """)
 
     if st.button("Go to Main App", key="description_go_to_main_app"):
