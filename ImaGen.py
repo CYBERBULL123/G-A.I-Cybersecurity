@@ -118,29 +118,9 @@ with st.expander("⚙️ Advanced Parameters"):
             key="variance"
         )
 
-# File uploader for image
-uploaded_file = st.file_uploader("📂 Choose an image...", type=["jpg", "jpeg", "png"])
-image = None
-if uploaded_file is not None:
-    image = Image.open(uploaded_file)
-    st.image(image, caption="Uploaded Image.", use_column_width=True)
-
-# Button to get response about the image
-submit_analyze = st.button("🔍 Tell me about the image")
-if submit_analyze:
-    if input_text and image is not None:
-        response = get_gemini_response(input_text, image)
-    elif image is not None:
-        response = get_gemini_response("", image)
-    elif input_text:
-        response = get_gemini_response(input_text)
-    else:
-        response = "Please provide an input prompt or upload an image."
-    st.subheader("📝 The Response is")
-    st.write(response)
-
 # Button to generate images from a prompt
 submit_generate = st.button("🎨 Generate Images from Prompt")
+st.markdown("------")
 if submit_generate and input_text:
     progress_bar = st.progress(0)  # Initialize the progress bar
     with st.spinner('⏳ Generating images... Please wait...'):
@@ -188,6 +168,28 @@ else:
     if not input_text:
         st.write("Please provide an input prompt to generate images.")
 
+# File uploader for image
+uploaded_file = st.file_uploader("📂 Choose an image...", type=["jpg", "jpeg", "png"])
+image = None
+if uploaded_file is not None:
+    image = Image.open(uploaded_file)
+    st.image(image, caption="Uploaded Image.", use_column_width=True)
+
+# Button to get response about the image
+submit_analyze = st.button("🔍 Tell me about the image")
+if submit_analyze:
+    if input_text and image is not None:
+        response = get_gemini_response(input_text, image)
+    elif image is not None:
+        response = get_gemini_response("", image)
+    elif input_text:
+        response = get_gemini_response(input_text)
+    else:
+        response = "Please provide an input prompt or upload an image."
+    st.subheader("📝 Result ")
+    st.markdown("-----")
+    st.write(response)
+
 # Button to toggle full-screen images
 if st.session_state.generated_images:
     if st.button("🔍 Toggle Full-Screen Images"):
@@ -199,4 +201,4 @@ if st.session_state.generated_images:
             st.image(img, caption=f"Full-Screen Generated Image {i+1}", use_column_width=True)
     else:
         for i, img in enumerate(st.session_state.generated_images):
-            st.image(img, caption=f"Generated Image {i+1}", width=150)  # Thumbnail view
+            st.image(img, caption=f"Generated Image {i+1}", width=150)
