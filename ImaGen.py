@@ -46,10 +46,9 @@ def query_hf_model(prompt, theme=None, style=None, size="512x512", quality="high
             payload["quality"] = quality
         if creativity:
             payload["creativity"] = creativity
-        if temperature:
-            payload["temperature"] = temperature
-        if variance:
-            payload["variance"] = variance
+        # Apply slight random variation to temperature and variance
+        payload["temperature"] = temperature + (0.05 * _)
+        payload["variance"] = variance + (0.05 * _)
         payload["seed"] = str(uuid.uuid4())  # Ensure unique seed for different images
 
         try:
@@ -147,26 +146,27 @@ if submit_generate and input_text:
                 try:
                     img = Image.open(io.BytesIO(img_bytes))
                     st.session_state.generated_images.append(img)  # Save image to session state
-                    # Show thumbnail
-                    st.image(img, caption=f"Generated Image {i+1}", use_column_width=False, width=150)
-
-                    # Provide download link
-                    buf = io.BytesIO()
-                    img.save(buf, format="PNG")
-                    buf.seek(0)
-                    st.download_button(
-                        label=f"📥 Download Image {i+1}",
-                        data=buf,
-                        file_name=f"generated_image_{i+1}.png",
-                        mime="image/png"
-                    )
                 except Exception as e:
                     st.error(f"Error processing image: {e}")
-        else:
-            st.error("No image data received or unable to generate images.")
-else:
-    if not input_text:
-        st.write("Please provide an input prompt to generate images.")
+
+# Organize thumbnails in responsive columns
+if st.session_state.generated_images:
+    cols = st.columns(min(num_images, 5))  # Show in max 5 columns or fewer based on number of images
+    for idx, img in enumerate(st.session_state.generated_images):
+        with cols[idx]:
+            st.image(img, caption=f"Generated Image {idx+1}", use_column_width=True)
+
+            # Provide download link with a unique key for each button
+            buf = io.BytesIO()
+            img.save(buf, format="PNG")
+            buf.seek(0)
+            st.download_button(
+                label=f"📥 Download Image {idx+1}",
+                data=buf,
+                file_name=f"generated_image_{idx+1}.png",
+                mime="image/png",
+                key=f"download_button_{idx}"  # Unique key for each button
+            )
 
 # File uploader for image
 uploaded_file = st.file_uploader("📂 Choose an image...", type=["jpg", "jpeg", "png"])
@@ -186,9 +186,10 @@ if st.session_state.generated_images:
         for i, img in enumerate(st.session_state.generated_images):
             st.image(img, caption=f"Full-Screen Generated Image {i+1}", use_column_width=True)
     else:
-        for i, img in enumerate(st.session_state.generated_images):
-            st.image(img, caption=f"Generated Image {i+1}", width=150)
-
+        cols = st.columns(min(num_images, 5))  # Organize thumbnails in columns
+        for idx, img in enumerate(st.session_state.generated_images):
+            with cols[idx]:
+                st.image(img, caption=f"Generated Image {idx+1}", use_column_width=True)
 
 # Button to get response about the image
 submit_analyze = st.button("🔍 Tell me about the image")
