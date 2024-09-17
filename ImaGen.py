@@ -5,6 +5,7 @@ import google.generativeai as genai
 import requests
 import io
 import uuid
+import time
 from constants import gemini_key
 
 # Streamlit framework configuration
@@ -49,8 +50,6 @@ def query_hf_model(prompt, theme=None, style=None, size="512x512", quality="high
             payload["temperature"] = temperature
         if variance:
             payload["variance"] = variance
-        if num_images:
-            payload["num_images"] = num_images
         payload["seed"] = str(uuid.uuid4())  # Ensure unique seed for different images
 
         try:
@@ -76,9 +75,8 @@ if "full_screen_mode" not in st.session_state:
     st.session_state.full_screen_mode = False  # Add full-screen toggle state
 
 # Streamlit Main Framework
-st.header('OxSecure ImaGen 🎨')
+st.header('Oxsecure ImaGen 🎨/FLUX-Dev ♨️')
 st.markdown("--------")
-st.title('ImaGen/FLUX-Dev ♨️')
 
 # Text input for prompt
 input_text = st.text_input("🖋️ Input Prompt: ", key="input")
@@ -144,41 +142,48 @@ if submit_analyze:
 # Button to generate images from a prompt
 submit_generate = st.button("🎨 Generate Images from Prompt")
 if submit_generate and input_text:
-    images_bytes = query_hf_model(
-        input_text,
-        theme if theme != "None" else None,
-        style if style != "None" else None,
-        size,
-        quality,
-        creativity,
-        temperature,
-        variance,
-        num_images
-    )
+    progress_bar = st.progress(0)  # Initialize the progress bar
+    with st.spinner('⏳ Generating images... Please wait...'):
+        images_bytes = query_hf_model(
+            input_text,
+            theme if theme != "None" else None,
+            style if style != "None" else None,
+            size,
+            quality,
+            creativity,
+            temperature,
+            variance,
+            num_images
+        )
+        
+        # Simulate the progress percentage over time (Example: 10% increase each second)
+        for i in range(1, 11):
+            time.sleep(0.5)  # Simulate loading time
+            progress_bar.progress(i * 10)  # Update progress bar
+        
+        if images_bytes:
+            st.session_state.generated_images = []  # Clear previous images
+            for i, img_bytes in enumerate(images_bytes):
+                try:
+                    img = Image.open(io.BytesIO(img_bytes))
+                    st.session_state.generated_images.append(img)  # Save image to session state
+                    # Show thumbnail
+                    st.image(img, caption=f"Generated Image {i+1}", use_column_width=False, width=150)
 
-    if images_bytes:
-        st.session_state.generated_images = []  # Clear previous images
-        for i, img_bytes in enumerate(images_bytes):
-            try:
-                img = Image.open(io.BytesIO(img_bytes))
-                st.session_state.generated_images.append(img)  # Save image to session state
-                # Show thumbnail
-                st.image(img, caption=f"Generated Image {i+1}", use_column_width=False, width=150)
-
-                # Provide download link
-                buf = io.BytesIO()
-                img.save(buf, format="PNG")
-                buf.seek(0)
-                st.download_button(
-                    label=f"📥 Download Image {i+1}",
-                    data=buf,
-                    file_name=f"generated_image_{i+1}.png",
-                    mime="image/png"
-                )
-            except Exception as e:
-                st.error(f"Error processing image: {e}")
-    else:
-        st.error("No image data received or unable to generate images.")
+                    # Provide download link
+                    buf = io.BytesIO()
+                    img.save(buf, format="PNG")
+                    buf.seek(0)
+                    st.download_button(
+                        label=f"📥 Download Image {i+1}",
+                        data=buf,
+                        file_name=f"generated_image_{i+1}.png",
+                        mime="image/png"
+                    )
+                except Exception as e:
+                    st.error(f"Error processing image: {e}")
+        else:
+            st.error("No image data received or unable to generate images.")
 else:
     if not input_text:
         st.write("Please provide an input prompt to generate images.")
