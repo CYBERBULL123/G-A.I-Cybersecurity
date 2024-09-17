@@ -175,6 +175,21 @@ if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Image.", use_column_width=True)
 
+
+# Button to toggle full-screen images
+if st.session_state.generated_images:
+    if st.button("🔍 Toggle Full-Screen Images"):
+        st.session_state.full_screen_mode = not st.session_state.full_screen_mode
+
+    # Display images based on the toggle state
+    if st.session_state.full_screen_mode:
+        for i, img in enumerate(st.session_state.generated_images):
+            st.image(img, caption=f"Full-Screen Generated Image {i+1}", use_column_width=True)
+    else:
+        for i, img in enumerate(st.session_state.generated_images):
+            st.image(img, caption=f"Generated Image {i+1}", width=150)
+
+
 # Button to get response about the image
 submit_analyze = st.button("🔍 Tell me about the image")
 if submit_analyze:
@@ -189,16 +204,3 @@ if submit_analyze:
     st.subheader("📝 Result ")
     st.markdown("-----")
     st.write(response)
-
-# Button to toggle full-screen images
-if st.session_state.generated_images:
-    if st.button("🔍 Toggle Full-Screen Images"):
-        st.session_state.full_screen_mode = not st.session_state.full_screen_mode
-
-    # Display images based on the toggle state
-    if st.session_state.full_screen_mode:
-        for i, img in enumerate(st.session_state.generated_images):
-            st.image(img, caption=f"Full-Screen Generated Image {i+1}", use_column_width=True)
-    else:
-        for i, img in enumerate(st.session_state.generated_images):
-            st.image(img, caption=f"Generated Image {i+1}", width=150)
