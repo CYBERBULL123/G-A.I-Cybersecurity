@@ -1,3 +1,4 @@
+dth=True)
 import os
 import streamlit as st
 from PIL import Image
@@ -9,8 +10,8 @@ from constants import gemini_key
 
 # Streamlit framework configuration
 st.set_page_config(
-    page_title="OxSecure Images",
-    page_icon="🎨",
+    page_title="OxImaGen 🎨",
+    page_icon="🖼️",
     layout="wide"
 )
 
@@ -72,36 +73,37 @@ def get_gemini_response(input_text, image=None):
 # Initialize session state for images if not already done
 if "generated_images" not in st.session_state:
     st.session_state.generated_images = []
+if "full_screen_mode" not in st.session_state:
+    st.session_state.full_screen_mode = False  # Add full-screen toggle state
 
 # Streamlit Main Framework
 st.header('OxSecure ImaGen 🎨')
 st.markdown("--------")
-st.title('GenAI ImaGen Powers ♨️')
+st.title('ImaGen/FLUX-Dev ♨️')
 
 # Text input for prompt
-input_text = st.text_input("Input Prompt: ", key="input")
+input_text = st.text_input("🖋️ Input Prompt: ", key="input")
 
 # Layout for parameters
 col1, col2 = st.columns(2)
 
 with col1:
-    theme = st.selectbox("Select Theme:", ["None", "Nature", "Sci-Fi", "Abstract", "Fantasy"], key="theme")
-    size = st.selectbox("Select Image Size:", ["256x256", "512x512", "1024x1024"], key="size")
-    creativity = st.selectbox("Select Creativity Level:", ["low", "medium", "high"], key="creativity")
+    theme = st.selectbox("🎭 Select Theme:", ["None", "Nature 🌳", "Sci-Fi 🚀", "Abstract 🌀", "Fantasy 🧚‍♀️"], key="theme")
+    size = st.selectbox("📏 Select Image Size:", ["256x256", "512x512", "1024x1024"], key="size")
+    creativity = st.selectbox("🎨 Select Creativity Level:", ["low", "medium", "high"], key="creativity")
 
 with col2:
-    style = st.selectbox("Select Art Style:", ["None", "Impressionism", "Cubism", "Surrealism", "Pop Art"], key="style")
-    quality = st.selectbox("Select Quality:", ["low", "medium", "high"], key="quality")
-    num_images = st.selectbox("Number of Images to Generate:", options=[1, 2, 3, 4, 5], key="num_images")
-
+    style = st.selectbox("🖼️ Select Art Style:", ["None", "Impressionism 🎨", "Cubism 🎭", "Surrealism 🌀", "Pop Art 🌈"], key="style")
+    quality = st.selectbox("⭐ Select Quality:", ["low", "medium", "high"], key="quality")
+    num_images = st.selectbox("📸 Number of Images to Generate:", options=[1, 2, 3, 4, 5], key="num_images")
 
 # Advanced Parameters Section
-with st.expander("Advanced Parameters"):
+with st.expander("⚙️ Advanced Parameters"):
     st.markdown("-----")
     col3, col4 = st.columns(2)
     with col3:
         temperature = st.slider(
-            "Temperature:",
+            "🌡️ Temperature:",
             min_value=0.0,
             max_value=2.0,
             step=0.1,
@@ -111,7 +113,7 @@ with st.expander("Advanced Parameters"):
         
     with col4:
         variance = st.slider(
-            "Variance:",
+            "📊 Variance:",
             min_value=0.0,
             max_value=2.0,
             step=0.1,
@@ -120,14 +122,14 @@ with st.expander("Advanced Parameters"):
         )
 
 # File uploader for image
-uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
+uploaded_file = st.file_uploader("📂 Choose an image...", type=["jpg", "jpeg", "png"])
 image = None
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Image.", use_column_width=True)
 
 # Button to get response about the image
-submit_analyze = st.button("Tell me about the image")
+submit_analyze = st.button("🔍 Tell me about the image")
 if submit_analyze:
     if input_text and image is not None:
         response = get_gemini_response(input_text, image)
@@ -137,11 +139,11 @@ if submit_analyze:
         response = get_gemini_response(input_text)
     else:
         response = "Please provide an input prompt or upload an image."
-    st.subheader("The Response is")
+    st.subheader("📝 The Response is")
     st.write(response)
 
 # Button to generate images from a prompt
-submit_generate = st.button("Generate Images from Prompt")
+submit_generate = st.button("🎨 Generate Images from Prompt")
 if submit_generate and input_text:
     images_bytes = query_hf_model(
         input_text,
@@ -169,7 +171,7 @@ if submit_generate and input_text:
                 img.save(buf, format="PNG")
                 buf.seek(0)
                 st.download_button(
-                    label=f"Download Image {i+1}",
+                    label=f"📥 Download Image {i+1}",
                     data=buf,
                     file_name=f"generated_image_{i+1}.png",
                     mime="image/png"
@@ -182,8 +184,15 @@ else:
     if not input_text:
         st.write("Please provide an input prompt to generate images.")
 
-# Display full-screen images
+# Button to toggle full-screen images
 if st.session_state.generated_images:
-    if st.button("View Full-Screen Images"):
+    if st.button("🔍 Toggle Full-Screen Images"):
+        st.session_state.full_screen_mode = not st.session_state.full_screen_mode
+
+    # Display images based on the toggle state
+    if st.session_state.full_screen_mode:
         for i, img in enumerate(st.session_state.generated_images):
             st.image(img, caption=f"Full-Screen Generated Image {i+1}", use_column_width=True)
+    else:
+        for i, img in enumerate(st.session_state.generated_images):
+            st.image(img, caption=f"Generated Image {i+1}", width=150)  # Thumbnail view
