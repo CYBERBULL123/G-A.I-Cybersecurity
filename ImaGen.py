@@ -10,7 +10,7 @@ from constants import gemini_key
 
 # Streamlit framework configuration
 st.set_page_config(
-    page_title="OxImaGen 🎨",
+    page_title="ImaGen 🎨",
     page_icon="🖼️",
     layout="wide"
 )
