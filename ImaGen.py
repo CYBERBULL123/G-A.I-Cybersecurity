@@ -74,7 +74,7 @@ if "full_screen_mode" not in st.session_state:
     st.session_state.full_screen_mode = False  # Add full-screen toggle state
 
 # Streamlit Main Framework
-st.header('Oxsecure ImaGen 🎨/FLUX-Dev ♨️')
+st.header('Oxsecure ImaGen 🎨(FLUX-Dev ♨️)')
 st.markdown("--------")
 
 # Text input for prompt
