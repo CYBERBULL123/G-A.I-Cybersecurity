@@ -1,54 +1,189 @@
-## Integrate our code Gemini API
 import os
-import pathlib
-import textwrap
-from PIL import Image
-from constants import gemini_key
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain import PromptTemplate
-from langchain.chains import LLMChain
-from langchain.memory import ConversationBufferMemory
-from google.generativeai import GenerativeModel
-from langchain.chains import SequentialChain
-import google.generativeai as genai
 import streamlit as st
+from PIL import Image
+import google.generativeai as genai
+import requests
+import io
+import uuid
+from constants import gemini_key
 
-
-# streamlit framework
+# Streamlit framework configuration
 st.set_page_config(
     page_title="OxSecure Images",
     page_icon="🎨",
     layout="wide"
 )
 
-#API configuration
-os.environ["GOOGLE_API_KEY"]=gemini_key
-genai.configure(api_key = os.environ['GOOGLE_API_KEY'])
+# Load custom CSS
+def load_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
+# Load the CSS file
+load_css("ui/Style.css")
 
-## Function to load Gemini vision model and get respones
-def get_gemini_response(input,image):
-    model = genai.GenerativeModel('gemini-pro-vision')
-    if input!="":
-       response = model.generate_content([input,image])
+# API configuration
+os.environ["GOOGLE_API_KEY"] = gemini_key
+genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
+
+# Hugging Face API configuration
+HF_API_URL = "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-dev"
+HF_HEADERS = {"Authorization": "Bearer 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"}
+
+# Function to query Hugging Face model with parameters
+def query_hf_model(prompt, theme=None, style=None, size="512x512", quality="high", creativity="medium", temperature=1.0, variance=1.0, num_images=1):
+    images = []
+    for _ in range(num_images):
+        payload = {"inputs": prompt}
+        if theme:
+            payload["theme"] = theme
+        if style:
+            payload["style"] = style
+        if size:
+            payload["size"] = size
+        if quality:
+            payload["quality"] = quality
+        if creativity:
+            payload["creativity"] = creativity
+        if temperature:
+            payload["temperature"] = temperature
+        if variance:
+            payload["variance"] = variance
+        if num_images:
+            payload["num_images"] = num_images
+        payload["seed"] = str(uuid.uuid4())  # Ensure unique seed for different images
+
+        try:
+            response = requests.post(HF_API_URL, headers=HF_HEADERS, json=payload)
+            response.raise_for_status()
+            images.append(response.content)
+        except requests.exceptions.RequestException as e:
+            st.error(f"API request failed: {e}")
+    return images
+
+def get_gemini_response(input_text, image=None):
+    model = genai.GenerativeModel('gemini-1.5-pro')
+    if image is not None:
+        response = model.generate_content([input_text, image])
     else:
-       response = model.generate_content(image)
+        response = model.generate_content(input_text)
     return response.text
 
-#Streamlit Main Framework
+# Initialize session state for images if not already done
+if "generated_images" not in st.session_state:
+    st.session_state.generated_images = []
 
+# Streamlit Main Framework
 st.header('OxSecure ImaGen 🎨')
-st.title('GenAI ImaGen powers ♨️ ')
-st.subheader('By :- Aadi 🧑‍💻')
-input=st.text_input("Input Prompt: ",key="input")
+st.markdown("--------")
+st.title('GenAI ImaGen Powers ♨️')
+
+# Text input for prompt
+input_text = st.text_input("Input Prompt: ", key="input")
+
+# Layout for parameters
+col1, col2 = st.columns(2)
+
+with col1:
+    theme = st.selectbox("Select Theme:", ["None", "Nature", "Sci-Fi", "Abstract", "Fantasy"], key="theme")
+    size = st.selectbox("Select Image Size:", ["256x256", "512x512", "1024x1024"], key="size")
+    creativity = st.selectbox("Select Creativity Level:", ["low", "medium", "high"], key="creativity")
+
+with col2:
+    style = st.selectbox("Select Art Style:", ["None", "Impressionism", "Cubism", "Surrealism", "Pop Art"], key="style")
+    quality = st.selectbox("Select Quality:", ["low", "medium", "high"], key="quality")
+    num_images = st.selectbox("Number of Images to Generate:", options=[1, 2, 3, 4, 5], key="num_images")
+
+
+# Advanced Parameters Section
+with st.expander("Advanced Parameters"):
+    st.markdown("-----")
+    col3, col4 = st.columns(2)
+    with col3:
+        temperature = st.slider(
+            "Temperature:",
+            min_value=0.0,
+            max_value=2.0,
+            step=0.1,
+            value=1.0,
+            key="temperature"
+        )
+        
+    with col4:
+        variance = st.slider(
+            "Variance:",
+            min_value=0.0,
+            max_value=2.0,
+            step=0.1,
+            value=1.0,
+            key="variance"
+        )
+
+# File uploader for image
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
-image=""
+image = None
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
     st.image(image, caption="Uploaded Image.", use_column_width=True)
-submit=st.button("Tell me about the image")
-if submit:
-    
-    response=get_gemini_response(input,image)
+
+# Button to get response about the image
+submit_analyze = st.button("Tell me about the image")
+if submit_analyze:
+    if input_text and image is not None:
+        response = get_gemini_response(input_text, image)
+    elif image is not None:
+        response = get_gemini_response("", image)
+    elif input_text:
+        response = get_gemini_response(input_text)
+    else:
+        response = "Please provide an input prompt or upload an image."
     st.subheader("The Response is")
     st.write(response)
+
+# Button to generate images from a prompt
+submit_generate = st.button("Generate Images from Prompt")
+if submit_generate and input_text:
+    images_bytes = query_hf_model(
+        input_text,
+        theme if theme != "None" else None,
+        style if style != "None" else None,
+        size,
+        quality,
+        creativity,
+        temperature,
+        variance,
+        num_images
+    )
+
+    if images_bytes:
+        st.session_state.generated_images = []  # Clear previous images
+        for i, img_bytes in enumerate(images_bytes):
+            try:
+                img = Image.open(io.BytesIO(img_bytes))
+                st.session_state.generated_images.append(img)  # Save image to session state
+                # Show thumbnail
+                st.image(img, caption=f"Generated Image {i+1}", use_column_width=False, width=150)
+
+                # Provide download link
+                buf = io.BytesIO()
+                img.save(buf, format="PNG")
+                buf.seek(0)
+                st.download_button(
+                    label=f"Download Image {i+1}",
+                    data=buf,
+                    file_name=f"generated_image_{i+1}.png",
+                    mime="image/png"
+                )
+            except Exception as e:
+                st.error(f"Error processing image: {e}")
+    else:
+        st.error("No image data received or unable to generate images.")
+else:
+    if not input_text:
+        st.write("Please provide an input prompt to generate images.")
+
+# Display full-screen images
+if st.session_state.generated_images:
+    if st.button("View Full-Screen Images"):
+        for i, img in enumerate(st.session_state.generated_images):
+            st.image(img, caption=f"Full-Screen Generated Image {i+1}", use_column_width=True)
