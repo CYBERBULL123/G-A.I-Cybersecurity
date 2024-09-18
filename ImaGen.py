@@ -321,7 +321,7 @@ else:
                              st.error(f"Error processing image: {e}")
 
     # Full-Screen Toggle Button next to Generate Button
-    if st.button("🪟 Full-Screen Images"):
+    if st.button("🪟 Full-Screen View"):
         st.session_state.full_screen_mode = not st.session_state.full_screen_mode
     st.markdown("-----")
 
