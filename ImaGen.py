@@ -320,10 +320,32 @@ else:
                              st.error(f"Error processing image: {e}")
 
     # Full-Screen Toggle Button next to Generate Button
-    full_screen_toggle_col, _ = st.columns([3, 1])
-    with full_screen_toggle_col:
-        if st.button("🪟 Full-Screen Images"):
-            st.session_state.full_screen_mode = not st.session_state.full_screen_mode
+    if st.button("🪟 Full-Screen Images"):
+        st.session_state.full_screen_mode = not st.session_state.full_screen_mode
+    st.markdown("-----")
+
+    # File uploader for image
+    uploaded_file = st.file_uploader("📂 Choose an image...", type=["jpg", "jpeg", "png", "webp", "gif", "bmp", "tiff", "ico", "heif", "jfif", "svg", "exif", "psd", "raw"])
+    image = None
+    if uploaded_file is not None:
+        image = Image.open(uploaded_file)
+        st.image(image, caption="Uploaded Image.", width=512, use_column_width=False)
+        st.markdown("-----")
+
+    # Button to get response about the image
+    submit_analyze = st.button("🔍 Tell me about the image")
+    if submit_analyze:
+        if input_text and image is not None:
+            response = get_gemini_response(input_text, image)
+        elif image is not None:
+            response = get_gemini_response("", image)
+        elif input_text:
+            response = get_gemini_response(input_text)
+        else:
+            response = "Please provide an input prompt or upload an image."
+        st.markdown("***📝 Result*** ")
+        st.write(response)
+
 
 # Organize thumbnails in responsive columns
 if st.session_state.generated_images:
@@ -344,32 +366,11 @@ if st.session_state.generated_images:
                 key=f"download_button_{idx}"  # Unique key for each button
             )
          
-    # File uploader for image
-    uploaded_file = st.file_uploader("📂 Choose an image...", type=["jpg", "jpeg", "png", "webp", "gif", "bmp", "tiff", "ico", "heif", "jfif", "svg", "exif", "psd", "raw"])
-    image = None
-    if uploaded_file is not None:
-        image = Image.open(uploaded_file)
-        st.image(image, caption="Uploaded Image.", use_column_width=True)
 
     # Display images based on the toggle state
     if st.session_state.full_screen_mode:
         for i, img in enumerate(st.session_state.generated_images):
             st.image(img, caption=f"Full-Screen Generated Image {i+1}", use_column_width=True)
-
-    # Button to get response about the image
-    submit_analyze = st.button("🔍 Tell me about the image")
-    if submit_analyze:
-        if input_text and image is not None:
-            response = get_gemini_response(input_text, image)
-        elif image is not None:
-            response = get_gemini_response("", image)
-        elif input_text:
-            response = get_gemini_response(input_text)
-        else:
-            response = "Please provide an input prompt or upload an image."
-        st.subheader("📝 Result ")
-        st.markdown("-----")
-        st.write(response)
 
 
 st.markdown("---")
