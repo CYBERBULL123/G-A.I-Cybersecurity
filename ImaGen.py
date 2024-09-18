@@ -244,6 +244,7 @@ else:
     # Main App content (Once the user navigates from the info section)
     st.header('🎨 Oxsecure ImaGen 🎨 / FLUX-Dev ♨️')
     st.markdown("-----")
+    st.markdown("***Image Generation Section 🖼️***")
 
     # Text input for prompt
     input_text = st.text_input("🖋️ Input Prompt For Image Generation & Analysis", key="input")
@@ -325,6 +326,7 @@ else:
     st.markdown("-----")
 
     # File uploader for image
+    st.markdown("***File Analysis Section 😵‍💫***")
     uploaded_file = st.file_uploader("📂 Choose an image...", type=["jpg", "jpeg", "png", "webp", "gif", "bmp", "tiff", "ico", "heif", "jfif", "svg", "exif", "psd", "raw"])
     image = None
     if uploaded_file is not None:
