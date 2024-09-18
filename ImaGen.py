@@ -285,43 +285,45 @@ else:
                 key="variance"
             )
 
+    # Button to generate images from a prompt
+    submit_generate = st.button("🎨 Generate Images from Prompt")
+    if submit_generate and input_text:
+        progress_bar = st.progress(0)  # Initialize the progress bar
+        with st.spinner('⏳ Generating images... Please wait...'):
+            style_prompt, negative_prompt = get_style_prompts(style_name)
+            final_prompt = style_prompt.format(prompt=input_text)
 
-# Button to generate images from a prompt
-submit_generate = st.button("🎨 Generate Images from Prompt")
-if submit_generate and input_text:
-    progress_bar = st.progress(0)  # Initialize the progress bar
-    with st.spinner('⏳ Generating images... Please wait...'):
-        style_prompt, negative_prompt = get_style_prompts(style_name)
-        final_prompt = style_prompt.format(prompt=input_text)
+            images_bytes = query_hf_model(
+                final_prompt,
+                #input_text,
+                theme if theme != "None" else None,
+                style_name if style_name != "(No style)" else None,
+                size,
+                quality,
+                creativity,
+                temperature,
+                variance,
+                num_images
+            )
+            
+            # Simulate the progress percentage over time (Example: 10% increase each second)
+            for i in range(1, 11):
+                time.sleep(0.5)  # Simulate loading time
+                progress_bar.progress(i * 10)  # Update progress bar
+                if images_bytes:
+                    st.session_state.generated_images = []  # Clear previous images
+                    for i, img_bytes in enumerate(images_bytes):
+                        try:
+                            img = Image.open(io.BytesIO(img_bytes))
+                            st.session_state.generated_images.append(img)  # Save image to session state
+                        except Exception as e:
+                             st.error(f"Error processing image: {e}")
 
-        images_bytes = query_hf_model(
-            final_prompt,
-            #input_text,
-            theme if theme != "None" else None,
-            style_name if style_name != "(No style)" else None,
-            size,
-            quality,
-            creativity,
-            temperature,
-            variance,
-            num_images
-        )
-        
-        # Simulate the progress percentage over time (Example: 10% increase each second)
-        for i in range(1, 11):
-            time.sleep(0.5)  # Simulate loading time
-            progress_bar.progress(i * 10)  # Update progress bar
-            if images_bytes:
-                st.session_state.generated_images = []  # Clear previous images
-                for i, img_bytes in enumerate(images_bytes):
-                    try:
-                        img = Image.open(io.BytesIO(img_bytes))
-                        st.session_state.generated_images.append(img)  # Save image to session state
-                    except Exception as e:
-                        st.error(f"Error processing image: {e}")
-
-if st.button("🪟 Full-Screen Images"):
-                st.session_state.full_screen_mode = not st.session_state.full_screen_mode
+    # Full-Screen Toggle Button next to Generate Button
+    full_screen_toggle_col, _ = st.columns([3, 1])
+    with full_screen_toggle_col:
+        if st.button("🪟 Full-Screen Images"):
+            st.session_state.full_screen_mode = not st.session_state.full_screen_mode
 
 # Organize thumbnails in responsive columns
 if st.session_state.generated_images:
