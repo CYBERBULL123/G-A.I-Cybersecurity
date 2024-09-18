@@ -287,7 +287,7 @@ else:
             )
 
     # Button to generate images from a prompt
-    submit_generate = st.button("🎨 Generate Images from Prompt")
+    submit_generate = st.button("🎨 Generate Images")
     if submit_generate and input_text:
         progress_bar = st.progress(0)  # Initialize the progress bar
         with st.spinner('⏳ Generating images... Please wait...'):
