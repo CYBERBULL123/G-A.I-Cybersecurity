@@ -320,6 +320,8 @@ if submit_generate and input_text:
                     except Exception as e:
                         st.error(f"Error processing image: {e}")
 
+if st.button("🪟 Full-Screen Images"):
+                st.session_state.full_screen_mode = not st.session_state.full_screen_mode
 
 # Organize thumbnails in responsive columns
 if st.session_state.generated_images:
@@ -332,8 +334,6 @@ if st.session_state.generated_images:
             buf = io.BytesIO()
             img.save(buf, format="PNG")
             buf.seek(0)
-            if st.button("🪟 Full-Screen Images"):
-                st.session_state.full_screen_mode = not st.session_state.full_screen_mode
             st.download_button(
                 label=f"📥 Download {idx+1}",
                 data=buf,
