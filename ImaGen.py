@@ -23,6 +23,85 @@ def load_css(file_name):
 # Load the CSS file
 load_css("ui/Style.css")
 
+# Style list with different art styles
+style_list = [
+    {
+        "name": "None",
+        "prompt": "{prompt}",
+        "negative_prompt": "",
+    },
+    {
+        "name": "Cinematic 🎥",
+        "prompt": "cinematic still {prompt} . emotional, harmonious, vignette, highly detailed, high budget, bokeh, cinemascope, moody, epic, gorgeous, film grain, grainy",
+        "negative_prompt": "anime, cartoon, graphic, text, painting, crayon, graphite, abstract, glitch, deformed, mutated, ugly, disfigured",
+    },
+    {
+        "name": "Photographic 📸",
+        "prompt": "cinematic photo {prompt} . 35mm photograph, film, bokeh, professional, 4k, highly detailed",
+        "negative_prompt": "drawing, painting, crayon, sketch, graphite, impressionist, noisy, blurry, soft, deformed, ugly",
+    },
+    {
+        "name": "Anime 🎨",
+        "prompt": "anime artwork {prompt} . anime style, key visual, vibrant, studio anime, highly detailed",
+        "negative_prompt": "photo, deformed, black and white, realism, disfigured, low contrast",
+    },
+    {
+        "name": "Manga 📚",
+        "prompt": "manga style {prompt} . vibrant, high-energy, detailed, iconic, Japanese comic style",
+        "negative_prompt": "ugly, deformed, noisy, blurry, low contrast, realism, photorealistic, Western comic style",
+    },
+    {
+        "name": "Digital Art 🧑🏻‍🎨",
+        "prompt": "concept art {prompt} . digital artwork, illustrative, painterly, matte painting, highly detailed",
+        "negative_prompt": "photo, photorealistic, realism, ugly",
+    },
+    {
+        "name": "Pixel Art 🕹️",
+        "prompt": "pixel-art {prompt} . low-res, blocky, pixel art style, 8-bit graphics",
+        "negative_prompt": "sloppy, messy, blurry, noisy, highly detailed, ultra textured, photo, realistic",
+    },
+    {
+        "name": "Fantasy Art 🧚‍♀️",
+        "prompt": "ethereal fantasy concept art of {prompt} . magnificent, celestial, ethereal, painterly, epic, majestic, magical, fantasy art, cover art, dreamy",
+        "negative_prompt": "photographic, realistic, realism, 35mm film, dslr, cropped, frame, text, deformed, glitch, noise, noisy, off-center, deformed, cross-eyed, closed eyes, bad anatomy, ugly, disfigured, sloppy, duplicate, mutated, black and white",
+    },
+    {
+        "name": "Neonpunk 🌆",
+        "prompt": "neonpunk style {prompt} . cyberpunk, vaporwave, neon, vibes, vibrant, stunningly beautiful, crisp, detailed, sleek, ultramodern, magenta highlights, dark purple shadows, high contrast, cinematic, ultra detailed, intricate, professional",
+        "negative_prompt": "painting, drawing, illustration, glitch, deformed, mutated, cross-eyed, ugly, disfigured",
+    },
+    {
+        "name": "3D Model 🏆",
+        "prompt": "professional 3d model {prompt} . octane render, highly detailed, volumetric, dramatic lighting",
+        "negative_prompt": "ugly, deformed, noisy, low poly, blurry, painting",
+    },
+    {
+        "name": "Impressionism 🎨",
+        "prompt": "impressionist artwork {prompt} . vibrant, expressive brushstrokes, rich colors, painterly",
+        "negative_prompt": "photo, photorealistic, clean lines, abstract",
+    },
+    {
+        "name": "Cubism 🎭",
+        "prompt": "cubist artwork {prompt} . fragmented, geometric, abstract forms, multiple perspectives",
+        "negative_prompt": "realistic, smooth, conventional forms",
+    },
+    {
+        "name": "Surrealism 🌀",
+        "prompt": "surrealistic artwork {prompt} . dreamlike, bizarre, imaginative, otherworldly",
+        "negative_prompt": "realistic, conventional, mundane",
+    },
+    {
+        "name": "Pop Art 🌈",
+        "prompt": "pop art {prompt} . bold colors, graphic design, comic-style, modern culture",
+        "negative_prompt": "traditional art, subdued colors, abstract",
+    },
+    {
+        "name": "Sketch Art ✏️",
+        "prompt": "sketch art {prompt} . pencil drawings, detailed lines, rough texture",
+        "negative_prompt": "colorful, digital, polished",
+    },
+]
+
 # API configuration
 os.environ["GOOGLE_API_KEY"] = gemini_key
 genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
@@ -58,6 +137,15 @@ def query_hf_model(prompt, theme=None, style=None, size="512x512", quality="high
             st.error(f"API request failed: {e}")
     return images
 
+
+# Helper function to get the style prompt and negative prompt based on the selected style
+def get_style_prompts(style_name):
+    for style in style_list:
+        if style['name'] == style_name:
+            return style['prompt'], style['negative_prompt']
+    return "{prompt}", ""  # Default no style
+
+
 def get_gemini_response(input_text, image=None):
     model = genai.GenerativeModel('gemini-1.5-pro')
     if image is not None:
@@ -83,12 +171,6 @@ def show_project_info():
     st.session_state.show_info = True
     st.experimental_rerun()
 
-# # Sidebar for navigation
-# with st.sidebar:
-#     st.header("Navigation")
-#     if st.session_state.show_info:
-#         if st.button("🏠 Main App"):
-#             show_main_app()
 
 # Project Information Section
 if st.session_state.show_info:
@@ -170,12 +252,12 @@ else:
     col1, col2 = st.columns(2)
 
     with col1:
-        theme = st.selectbox("🎭 Select Theme:", ["None", "Nature 🌳", "Sci-Fi 🚀", "Abstract 🌀", "Fantasy 🧚‍♀️", "Anime 💖", "Spectular 👓"], key="theme")
+        theme = st.selectbox("🎭 Select Theme:", ["None", "Nature 🌳", "Sci-Fi 🚀", "Abstract 🌀", "Fantasy 🧚‍♀️", "Spectular 👓"], key="theme")
         size = st.selectbox("📏 Select Image Size:", ["256x256", "512x512", "1024x1024"], key="size")
         creativity = st.selectbox("🎨 Select Creativity Level:", ["low", "medium", "high"], key="creativity")
 
     with col2:
-        style = st.selectbox("🖼️ Select Art Style:", ["None", "Impressionism 🎨", "Cubism 🎭", "Surrealism 🌀", "Pop Art 🌈", "Sketch Art ✏️", "Digital Art 🧑🏻‍🎨"], key="style")
+        style_name = st.selectbox("🖼️ Select Art Style:", [style['name'] for style in style_list], key="style")
         quality = st.selectbox("⭐ Select Quality:", ["low", "medium", "high"], key="quality")
         num_images = st.selectbox("📸 Number of Images to Generate:", options=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], key="num_images")
 
@@ -203,36 +285,41 @@ else:
                 key="variance"
             )
 
-    # Button to generate images from a prompt
-    submit_generate = st.button("🎨 Generate Images from Prompt")
-    st.markdown("------")
-    if submit_generate and input_text:
-        progress_bar = st.progress(0)  # Initialize the progress bar
-        with st.spinner('⏳ Generating images... Please wait...'):
-            images_bytes = query_hf_model(
-                input_text,
-                theme if theme != "None" else None,
-                style if style != "None" else None,
-                size,
-                quality,
-                creativity,
-                temperature,
-                variance,
-                num_images
-            )
-            
-            # Simulate the progress percentage over time (Example: 10% increase each second)
-            for i in range(1, 11):
-                time.sleep(0.5)  # Simulate loading time
-                progress_bar.progress(i * 10)  # Update progress bar
-                if images_bytes:
-                    st.session_state.generated_images = []  # Clear previous images
-                    for i, img_bytes in enumerate(images_bytes):
-                        try:
-                            img = Image.open(io.BytesIO(img_bytes))
-                            st.session_state.generated_images.append(img)  # Save image to session state
-                        except Exception as e:
-                             st.error(f"Error processing image: {e}")
+
+# Button to generate images from a prompt
+submit_generate = st.button("🎨 Generate Images from Prompt")
+if submit_generate and input_text:
+    progress_bar = st.progress(0)  # Initialize the progress bar
+    with st.spinner('⏳ Generating images... Please wait...'):
+        style_prompt, negative_prompt = get_style_prompts(style_name)
+        final_prompt = style_prompt.format(prompt=input_text)
+
+        images_bytes = query_hf_model(
+            final_prompt,
+            #input_text,
+            theme if theme != "None" else None,
+            style_name if style_name != "(No style)" else None,
+            size,
+            quality,
+            creativity,
+            temperature,
+            variance,
+            num_images
+        )
+        
+        # Simulate the progress percentage over time (Example: 10% increase each second)
+        for i in range(1, 11):
+            time.sleep(0.5)  # Simulate loading time
+            progress_bar.progress(i * 10)  # Update progress bar
+            if images_bytes:
+                st.session_state.generated_images = []  # Clear previous images
+                for i, img_bytes in enumerate(images_bytes):
+                    try:
+                        img = Image.open(io.BytesIO(img_bytes))
+                        st.session_state.generated_images.append(img)  # Save image to session state
+                    except Exception as e:
+                        st.error(f"Error processing image: {e}")
+
 
 # Organize thumbnails in responsive columns
 if st.session_state.generated_images:
@@ -245,8 +332,10 @@ if st.session_state.generated_images:
             buf = io.BytesIO()
             img.save(buf, format="PNG")
             buf.seek(0)
+            if st.button("🪟 Full-Screen Images"):
+                st.session_state.full_screen_mode = not st.session_state.full_screen_mode
             st.download_button(
-                label=f"📥 Download Image {idx+1}",
+                label=f"📥 Download {idx+1}",
                 data=buf,
                 file_name=f"generated_image_{idx+1}.png",
                 mime="image/png",
@@ -254,17 +343,11 @@ if st.session_state.generated_images:
             )
          
     # File uploader for image
-    st.markdown("------")
     uploaded_file = st.file_uploader("📂 Choose an image...", type=["jpg", "jpeg", "png", "webp", "gif", "bmp", "tiff", "ico", "heif", "jfif", "svg", "exif", "psd", "raw"])
     image = None
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
         st.image(image, caption="Uploaded Image.", use_column_width=True)
-
-# Button to toggle full-screen images
-if st.session_state.generated_images:
-    if st.button("🪟 Full-Screen Images"):
-        st.session_state.full_screen_mode = not st.session_state.full_screen_mode
 
     # Display images based on the toggle state
     if st.session_state.full_screen_mode:
