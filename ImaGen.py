@@ -152,7 +152,7 @@ if st.session_state.show_info:
 
     ***🔄 Navigation 🏠***
                 
-    If you want to return to the main app, click the button below: 🏡
+    Want to go main app, click the button below: 🏡
     """)
 
     if st.button("🏠 Go to Main App"):
@@ -170,14 +170,14 @@ else:
     col1, col2 = st.columns(2)
 
     with col1:
-        theme = st.selectbox("🎭 Select Theme:", ["None", "Nature 🌳", "Sci-Fi 🚀", "Abstract 🌀", "Fantasy 🧚‍♀️"], key="theme")
+        theme = st.selectbox("🎭 Select Theme:", ["None", "Nature 🌳", "Sci-Fi 🚀", "Abstract 🌀", "Fantasy 🧚‍♀️", "Anime 💖", "Spectular 👓"], key="theme")
         size = st.selectbox("📏 Select Image Size:", ["256x256", "512x512", "1024x1024"], key="size")
         creativity = st.selectbox("🎨 Select Creativity Level:", ["low", "medium", "high"], key="creativity")
 
     with col2:
-        style = st.selectbox("🖼️ Select Art Style:", ["None", "Impressionism 🎨", "Cubism 🎭", "Surrealism 🌀", "Pop Art 🌈"], key="style")
+        style = st.selectbox("🖼️ Select Art Style:", ["None", "Impressionism 🎨", "Cubism 🎭", "Surrealism 🌀", "Pop Art 🌈", "Sketch Art ✏️", "Digital Art 🧑🏻‍🎨"], key="style")
         quality = st.selectbox("⭐ Select Quality:", ["low", "medium", "high"], key="quality")
-        num_images = st.selectbox("📸 Number of Images to Generate:", options=[1, 2, 3, 4, 5], key="num_images")
+        num_images = st.selectbox("📸 Number of Images to Generate:", options=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10], key="num_images")
 
     # Advanced Parameters Section
     with st.expander("⚙️ Advanced Parameters"):
@@ -225,56 +225,51 @@ else:
             for i in range(1, 11):
                 time.sleep(0.5)  # Simulate loading time
                 progress_bar.progress(i * 10)  # Update progress bar
-            
-            if images_bytes:
-                st.session_state.generated_images = []  # Clear previous images
-                cols = st.columns(num_images)  # Create columns based on the number of images
-                for idx, img_bytes in enumerate(images_bytes):
-                    try:
-                        img = Image.open(io.BytesIO(img_bytes))
-                        st.session_state.generated_images.append(img)  # Save image to session state
-                        # Show thumbnail
-                        with cols[idx]:
-                            st.image(img, caption=f"Generated Image {idx+1}", use_column_width=True)
+                if images_bytes:
+                    st.session_state.generated_images = []  # Clear previous images
+                    for i, img_bytes in enumerate(images_bytes):
+                        try:
+                            img = Image.open(io.BytesIO(img_bytes))
+                            st.session_state.generated_images.append(img)  # Save image to session state
+                        except Exception as e:
+                             st.error(f"Error processing image: {e}")
 
-                            # Provide download link with a unique key for each button
-                            buf = io.BytesIO()
-                            img.save(buf, format="PNG")
-                            buf.seek(0)
-                            st.download_button(
-                                label=f"📥 Download Image {idx+1}",
-                                data=buf,
-                                file_name=f"generated_image_{idx+1}.png",
-                                mime="image/png",
-                                key=f"download_button_{idx}"  # Unique key for each button
-                            )
-                    except Exception as e:
-                                                st.error(f"Error processing image: {e}")
-            else:
-                st.error("No image data received or unable to generate images.")
-    else:
-        if not input_text:
-            st.write("Please provide an input prompt to generate images.")
+# Organize thumbnails in responsive columns
+if st.session_state.generated_images:
+    cols = st.columns(min(num_images, 10))  # Show in max 10 columns or fewer based on number of images
+    for idx, img in enumerate(st.session_state.generated_images):
+        with cols[idx]:
+            st.image(img, caption=f"Generated Image {idx+1}", use_column_width=True)
 
+            # Provide download link with a unique key for each button
+            buf = io.BytesIO()
+            img.save(buf, format="PNG")
+            buf.seek(0)
+            st.download_button(
+                label=f"📥 Download Image {idx+1}",
+                data=buf,
+                file_name=f"generated_image_{idx+1}.png",
+                mime="image/png",
+                key=f"download_button_{idx}"  # Unique key for each button
+            )
+         
     # File uploader for image
+    st.markdown("------")
     uploaded_file = st.file_uploader("📂 Choose an image...", type=["jpg", "jpeg", "png", "webp", "gif", "bmp", "tiff", "ico", "heif", "jfif", "svg", "exif", "psd", "raw"])
     image = None
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
         st.image(image, caption="Uploaded Image.", use_column_width=True)
 
-    # Button to toggle full-screen images
-    if st.session_state.generated_images:
-        if st.button("🪄  Full-Screen Images"):
-            st.session_state.full_screen_mode = not st.session_state.full_screen_mode
+# Button to toggle full-screen images
+if st.session_state.generated_images:
+    if st.button("🪟 Full-Screen Images"):
+        st.session_state.full_screen_mode = not st.session_state.full_screen_mode
 
-        # Display images based on the toggle state
-        if st.session_state.full_screen_mode:
-            for i, img in enumerate(st.session_state.generated_images):
-                st.image(img, caption=f"Full-Screen Generated Image {i+1}", use_column_width=True)
-        else:
-            for i, img in enumerate(st.session_state.generated_images):
-                st.image(img, caption=f"Generated Image {i+1}", width=150)
+    # Display images based on the toggle state
+    if st.session_state.full_screen_mode:
+        for i, img in enumerate(st.session_state.generated_images):
+            st.image(img, caption=f"Full-Screen Generated Image {i+1}", use_column_width=True)
 
     # Button to get response about the image
     submit_analyze = st.button("🔍 Tell me about the image")
