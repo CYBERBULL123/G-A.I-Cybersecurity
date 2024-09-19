@@ -520,7 +520,7 @@ else:
     image = None
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
-        st.image(image, caption="Uploaded Image.", width=512, use_column_width=False)
+        st.image(image, caption="Uploaded Image.", width=250, use_column_width=True)
         st.markdown("-----")
 
     # Button to get response about the image
