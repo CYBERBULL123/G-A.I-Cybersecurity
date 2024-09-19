@@ -42,26 +42,3 @@ OxRAG takes file analysis to the next level by providing deep insights into vari
 A powerful image analysis tool, **OxImaGen** integrates **Google Gemini** and **Hugging Face APIs** for advanced image content generation and analysis. It analyzes images, recognizes objects, and generates contextual stories or insights tailored to each image. With real-time processing and detailed content generation, **OxImaGen** transforms images into narratives, making it invaluable for creative and analytical tasks.
 
 ---
-
-## 🌟 **Contribute to the Project**:
-We welcome all contributors! Check out our [Contribution Guide](CONTRIBUTING.md) to learn how you can add to this evolving project.
-
-## 📜 **License**:
-This project is open-source under the [MIT License](LICENSE).
-
----
-
-## 🙌 **Acknowledgments**:
-
-A special thanks to the creators and developers of LangChain, Streamlit, OpenAI, and Google AI Python frameworks for their powerful tools that form the foundation of this project.
-
----
-
-### 📧 **Contact**:
-For inquiries or collaborations, reach out to [Aditya Pandey](mailto:opaadi98@gmail.com).
-
----
-
-🚀 Step into the future of **cybersecurity** with **G-A.I**. Fortify your defenses, uncover vulnerabilities, and secure the digital world with the power of AI! 🔮💻🔐
-
----
