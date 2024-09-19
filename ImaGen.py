@@ -5,8 +5,10 @@ import google.generativeai as genai
 import aiohttp
 import asyncio
 import random
-import requests
+from gtts import gTTS
+import re
 import io
+from io import BytesIO
 import uuid
 import time
 import logging
@@ -169,6 +171,11 @@ def generate_content_from_image(image, theme):
         st.error(f"Content generation failed: {e}")
         return "Content generation failed."
 
+# Remove special characters and improve formatting
+def clean_text(text):
+    # Retain only alphabetic characters, numbers, punctuation, and spaces
+    clean_text = re.sub(r'[^a-zA-Z0-9.,!?;:()\'\" \n]', '', text)
+    return re.sub(r'\s+', ' ', clean_text).strip()
 
 # API configuration
 os.environ["GOOGLE_API_KEY"] = gemini_key
@@ -464,6 +471,11 @@ else:
                     # Display the generated content
                     st.markdown(f"***📜 Generated Story***")
                     st.markdown(st.session_state.generated_content)
+                    clean_response = clean_text(content)
+                    tts = gTTS(clean_response)
+                    audio_file = BytesIO()
+                    tts.write_to_fp(audio_file)
+                    st.audio(audio_file, format='audio/mp3')
                 else:
                     st.error("story_theme is not defined")
             else:
@@ -495,6 +507,11 @@ else:
             with st.expander("Generated Content"):
                 st.markdown(f"***📜 Generated Content Based on the Selected Image***")
                 st.markdown(st.session_state.generated_content)
+                clean_response = clean_text(st.session_state.generated_content)
+                tts = gTTS(clean_response)
+                audio_file = BytesIO()
+                tts.write_to_fp(audio_file)
+                st.audio(audio_file, format='audio/mp3')
 
     # File uploader for image
     st.markdown("### ***File Analysis Section 😵‍💫***")
