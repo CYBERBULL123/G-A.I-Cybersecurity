@@ -261,7 +261,6 @@ if "full_screen_mode" not in st.session_state:
     st.session_state.full_screen_mode = False
 if 'generated_content' not in st.session_state:
     st.session_state.generated_content = ""
-    st.session_state.story_regenerated = False
 if 'generated_audio' not in st.session_state:
     st.session_state.generated_audio = None
 if "show_info" not in st.session_state:
@@ -434,9 +433,11 @@ else:
             st.session_state.full_screen_mode = not st.session_state.full_screen_mode
     
     with col3:
-        if st.button("🔄 Regenerate Story"):
+        if st.button("🔄 clear Audio "):
             st.session_state.generated_audio = None
             st.session_state.story_regenerated = True
+
+    st.divider()
 
     # Display images based on the toggle state
     if st.session_state.full_screen_mode:
