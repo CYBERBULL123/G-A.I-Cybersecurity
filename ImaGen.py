@@ -261,6 +261,7 @@ if "full_screen_mode" not in st.session_state:
     st.session_state.full_screen_mode = False
 if 'generated_content' not in st.session_state:
     st.session_state.generated_content = ""
+    st.session_state.story_regenerated = False
 if 'generated_audio' not in st.session_state:
     st.session_state.generated_audio = None
 if "show_info" not in st.session_state:
@@ -423,7 +424,7 @@ else:
     # Button to generate images from a prompt
     story_theme = st.selectbox("📚 Choose Story Theme:",["None", "ComicBook 🤠", "Adventure 🏔️", "Sci-Fi 🚀", "Fantasy 🧚‍♀️", "Mystery 🕵️‍♂️", "Romance 💕"],key="story_theme")
     st.divider()
-    col1, col2 = st.columns(2)  # Create two columns
+    col1, col2 , col3 = st.columns(3)  # Create two columns
 
     with col1:
         submit_generate = st.button("🎨 Generate Images and Story")
@@ -431,7 +432,11 @@ else:
     with col2:
         if st.button("🪟 Full-Screen Images"):
             st.session_state.full_screen_mode = not st.session_state.full_screen_mode
-    st.divider()
+    
+    with col3:
+        if st.button("🔄 Regenerate Story"):
+            st.session_state.generated_audio = None
+            st.session_state.story_regenerated = True
 
     # Display images based on the toggle state
     if st.session_state.full_screen_mode:
