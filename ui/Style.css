@@ -32,7 +32,6 @@ p, ol, ul, dl {
     margin: 2rem 0; /* Space above and below the container */
 }
 
-/* Buttons */
 .stButton>button {
     background-color: #1f2833; /* Dark background for buttons */
     color: #66fcf1; /* Cyan text for buttons */
@@ -44,6 +43,9 @@ p, ol, ul, dl {
     font-size: 1rem; /* Increase font size for better readability */
     font-weight: 500; /* Slightly bolder font weight */
     animation: glow 1.5s infinite;
+    display: block; /* make the button a block element */
+    margin: 0 auto; /* center the button horizontally */
+    text-align: center; /* center the text inside the button */
 }
 
 .stButton>button:hover {
