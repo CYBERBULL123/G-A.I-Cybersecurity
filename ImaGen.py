@@ -245,6 +245,15 @@ def get_gemini_response(input_text, image=None):
         response = model.generate_content(input_text)
     return response.text
 
+# Function to generate and store audio in session state
+def generate_and_store_audio(content):
+    clean_response = clean_text(content)
+    tts = gTTS(clean_response)
+    audio_file = BytesIO()
+    tts.write_to_fp(audio_file)
+    audio_file.seek(0)  # Reset file pointer to the beginning
+    st.session_state.generated_audio = audio_file
+
 # Initialize session state for images and project info
 if "generated_images" not in st.session_state:
     st.session_state.generated_images = []
@@ -252,6 +261,8 @@ if "full_screen_mode" not in st.session_state:
     st.session_state.full_screen_mode = False
 if 'generated_content' not in st.session_state:
     st.session_state.generated_content = ""
+if 'generated_audio' not in st.session_state:
+    st.session_state.generated_audio = None
 if "show_info" not in st.session_state:
     st.session_state.show_info = True  # Start with project info
 
@@ -425,7 +436,7 @@ else:
     # Display images based on the toggle state
     if st.session_state.full_screen_mode:
         for i, img in enumerate(st.session_state.generated_images):
-            st.image(img, caption=f"Full-Screen Generated Image {i+1}", use_column_width=True)
+            st.image(img, caption=f"Full-View {i+1}", use_column_width=True)
 
     if submit_generate and input_text:
         progress_bar = st.progress(0)  # Initialize the progress bar
@@ -471,11 +482,11 @@ else:
                     # Display the generated content
                     st.markdown(f"***📜 Generated Story***")
                     st.markdown(st.session_state.generated_content)
-                    clean_response = clean_text(content)
-                    tts = gTTS(clean_response)
-                    audio_file = BytesIO()
-                    tts.write_to_fp(audio_file)
-                    st.audio(audio_file, format='audio/mp3')
+                    if st.session_state.generated_audio is None:
+                        generate_and_store_audio(content)
+                    if st.session_state.generated_audio is not None:
+                       st.session_state.generated_audio.seek(0)
+                       st.audio(st.session_state.generated_audio, format='audio/mp3')
                 else:
                     st.error("story_theme is not defined")
             else:
@@ -489,32 +500,32 @@ else:
         cols = st.columns(min(num_images, 10))  # Show in max 10 columns or fewer based on number of images
         for idx, img in enumerate(st.session_state.generated_images[:len(cols)]):
             with cols[idx]:
-                st.image(img, caption=f"Image {idx+1}", use_column_width=True)
+                st.image(img, caption=f"🪄 Img {idx+1}", use_column_width=True)
 
                 # Provide download link with a unique key for each button
                 buf = io.BytesIO()
                 img.save(buf, format="PNG")
                 buf.seek(0)
                 st.download_button(
-                    label=f"📥{idx+1}",
+                    label=f"📥",
                     data=buf,
-                    file_name=f"image_{idx+1}.png",
+                    file_name=f"OxImaGen_{idx+1}.png",
                     mime="image/png",
                     key=f"download_button_{idx}"  # Unique key for each button
                 )
 
         if st.session_state.generated_content:
-            with st.expander("Generated Content"):
-                st.markdown(f"***📜 Generated Content Based on the Selected Image***")
+            with st.expander("Generated Content ✏️"):
+                st.markdown(f"***📜 Generated Story***")
                 st.markdown(st.session_state.generated_content)
-                clean_response = clean_text(st.session_state.generated_content)
-                tts = gTTS(clean_response)
-                audio_file = BytesIO()
-                tts.write_to_fp(audio_file)
-                st.audio(audio_file, format='audio/mp3')
+                if st.session_state.generated_audio is not None:
+                    st.session_state.generated_audio.seek(0)
+                    st.audio(st.session_state.generated_audio, format='audio/mp3')
+                else:
+                    st.error("Audio generation failed.")
 
     # File uploader for image
-    st.markdown("### ***File Analysis Section 😵‍💫***")
+    st.markdown("### ***File Upload Section 📤***")
     st.divider()
     uploaded_file = st.file_uploader("📂 Choose an image...", type=["jpg", "jpeg", "png", "webp", "gif", "bmp", "tiff", "ico", "heif", "jfif", "svg", "exif", "psd", "raw"])
     image = None
