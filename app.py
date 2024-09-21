@@ -108,7 +108,7 @@ def render_login_page():
     st.markdown("---")
     
     # Display the logo
-    st.image('ui/Ox.jpg', width=200, use_column_width='False')
+    st.image('ui/Ox.jpg', width=200, use_column_width='True')
     st.write("Unlock the realm of cybersecurity expertise with OxSecure 🧠 🚀 Safeguarding your data. 🔒 Let's chat about security topics and empower your knowledge! Product of CyberBULL 👁️")
     st.markdown("---")
     
