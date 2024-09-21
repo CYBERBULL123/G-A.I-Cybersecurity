@@ -718,38 +718,59 @@ def create_virus_total_charts(virus_total_results, theme="light"):
     
     return fig
 
+
 # Function to create detailed tables from JSON data
 def create_detailed_table(data, title):
     st.write(f"{title}")
-    
-    # Normalize JSON data into a DataFrame
-    df = pd.json_normalize(data)
-    
-    # Debug: Show raw data and DataFrame
     st.write("Raw Data:", data)
+    
+    # Store the DataFrame in session state to persist between reruns
+    if 'df' not in st.session_state:
+        df = pd.json_normalize(data)
+        st.session_state.df = df 
+    else:
+        df = st.session_state.df  # Load from session state
 
     if df.empty:
         st.write("No data available.")
     else:
-        # Apply minimal styling for debugging
-        styled_df = df.style.background_gradient(cmap='viridis') \
-                          .format(na_rep='N/A', precision=2)
-        
-        # Display the styled DataFrame
-        st.dataframe(styled_df)
+        # Sort by column logic
+        sort_column = st.selectbox(
+            "Select column to sort by:", 
+            df.columns.tolist(), 
+            key=f"sort_column_{title}"
+        )
+
+        # Only show sorted DataFrame without reloading the whole app
+        if sort_column:
+            # Sort the DataFrame
+            sorted_df = df.sort_values(by=sort_column)
+
+            # Update the session state with sorted DataFrame
+            st.session_state.sorted_df = sorted_df
+
+            # Display the sorted DataFrame
+            st.dataframe(sorted_df, use_container_width=True)
+
+            # Return sorted values for the selected column
+            sorted_values = sorted_df[sort_column].tolist()
+            st.write(f"Sorted Values for `{sort_column}`: {sorted_values}")
+
+            # Optionally, return the sorted DataFrame to use elsewhere
+            return sorted_df
+
 
 # Function to display the analysis results on the dashboard
 def display_analysis_results(metadata, virus_total_results, log_analysis=None):
     st.write("## Analysis Results")
 
-    # Metadata
     if metadata:
-        st.write("### 📂 PE File Metadata")
-        create_detailed_table(metadata, "PE File Metadata")
+        st.write("***📂 PE File Metadata***")
+        st.json(metadata)
 
     # VirusTotal Results
     if virus_total_results:
-        st.write("### 🦠 VirusTotal Results")
+        st.write("***🦠 VirusTotal Results***")
         create_detailed_table(virus_total_results['data'], "VirusTotal Results")
         st.write("#### 📊 VirusTotal Analysis Stats")
         st.markdown("------")
@@ -804,14 +825,12 @@ def read_file_with_fallback(byte_data):
         byte_stream.seek(0)  # Reset stream pointer
         return byte_stream.read().decode(detected_encoding, errors='replace')
 
-
 def render_file_analysis_app():
     st.title("🔍 File Analysis Dashboard")
     st.markdown("---")
     st.image('ui/antivirus.png', width=80, use_column_width='none')
 
     uploaded_file = st.file_uploader("Upload any file for analysis", type=["exe", "dll", "log", "pdf", "png", "jpg", "jpeg", "gif", "txt", "zip", "rar", "apk"])
-
     if uploaded_file:
         file_hash = get_file_hash(uploaded_file)
         st.write(f"SHA-256 Hash: {file_hash}")
