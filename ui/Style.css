@@ -39,10 +39,10 @@ h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
 /* Hover Animations with 3D Transform */
 @keyframes hoverAnimation {
     0% { transform: translateZ(20px) rotateY(0deg) rotateX(0deg); }
-    25% { transform: translateZ(40px) rotateY(20deg) rotateX(280deg); }
-    50% { transform: translateZ(60px) rotateY(-120deg) rotateX(-60deg); }
-    75% { transform: translateZ(40px) rotateY(10deg) rotateX(5deg); }
-    100% { transform: translateZ(80px) rotateY(-240deg) rotateX(-180deg); }
+    25% { transform: translateZ(40px) rotateY(20deg) rotateX(180deg); }
+    50% { transform: translateZ(60px) rotateY(-30deg) rotateX(45deg); }
+    75% { transform: translateZ(40px) rotateY(10deg) rotateX(-50deg); }
+    100% { transform: translateZ(80px) rotateY(-320deg) rotateX(-180deg); }
 }
 
 
