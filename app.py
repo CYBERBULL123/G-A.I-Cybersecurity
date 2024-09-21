@@ -9,7 +9,7 @@
 #
 # PROJECT DESCRIPTION
 # -----------------------------------------------------------------------------
-# This code is for a chatbot crafted with powerful prompts, File analysis designed to
+# This code is for a chatbot crafted with powerful prompts, designed to
 # utilize the Gemini API. It is tailored to assist cybersecurity researchers.
 #
 # Author: Aditya Pandey
@@ -17,10 +17,12 @@
 
 import os
 import streamlit as st
+import streamlit_authenticator as stauth
 from PIL import Image
 import textwrap
 from io import BytesIO
 import io
+import time
 import chardet
 from constants import gemini_key
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -30,8 +32,10 @@ from langchain.chains import LLMChain
 import google.generativeai as genai
 from langchain.memory import ConversationBufferMemory
 from google.generativeai.types import HarmCategory, HarmBlockThreshold, HarmProbability
+from google.generativeai.types.generation_types import StopCandidateException
 from google.generativeai import GenerativeModel
 from langchain.chains import SequentialChain
+from datetime import datetime
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
@@ -60,6 +64,36 @@ st.set_page_config(
     layout="wide"
 )
 
+
+# Configuration for authentication
+config = {
+    'credentials': {
+        'usernames': {
+            'user': {
+                'name': 'User Name',  # Placeholder for user display name
+                'password': 'password'  # Placeholder
+            }
+        }
+    },
+    'cookie': {
+        'expiry_days': 30,
+        'key': 'some_key',
+        'name': 'some_cookie_name'
+    },
+    'preauthorized': {
+        'emails': ['user@example.com']  # Example for preauthorized emails
+    }
+}
+
+# Create the authenticator object
+authenticator = stauth.Authenticate(
+    config['credentials'],
+    config['cookie']['key'],
+    config['cookie']['name'],
+    config['cookie']['expiry_days']
+)
+
+
 # Load custom CSS
 def load_css(file_name):
     with open(file_name) as f:
@@ -68,15 +102,47 @@ def load_css(file_name):
 # Load the CSS file
 load_css("ui/Style.css")
 
+
 def render_login_page():
     st.title("Oxsecure 🧠 - Your Companion! 🔒")
     st.markdown("---")
-    st.image('ui/Ox.jpg', width=200, use_column_width='always')
+    
+    # Display the logo
+    st.image('ui/Ox.jpg', width=200, use_column_width='False')
     st.write("Unlock the realm of cybersecurity expertise with OxSecure 🧠 🚀 Safeguarding your data. 🔒 Let's chat about security topics and empower your knowledge! Product of CyberBULL 👁️")
     st.markdown("---")
-    st.write("Please log in to continue.")
-    st.write("💳 Default Credentials  Username = Oxsecure , Password = Oxsecure@123 ")
-    st.divider()
+    
+    # Create a container for the login form with a background image
+    login_container = st.container()
+    with login_container:
+        # Create a form to hold the login fields
+        login_form = st.form("login_form")
+        with login_form:
+            st.write("Please log in to continue. 🔐")
+            
+            # Create a container for the login fields
+            login_fields_container = st.container()
+            with login_fields_container:
+                # Create a column to hold the login fields
+                col1, col2 = st.columns([1, 1])
+                with col1:
+                    username = st.text_input("Username 👤")
+                with col2:
+                    password = st.text_input("Password 🔑", type="password")
+                
+                login_button = st.form_submit_button("Login 🚀")
+                st.write("💳 Default Credentials (for testing purposes): Username = Oxsecure, Password = Oxsecure@123")
+
+            if login_button:
+                if username == CORRECT_USERNAME and password == CORRECT_PASSWORD:
+                    st.session_state.authenticated = True
+                    st.success("Login successful! 🌟")
+                    st.experimental_rerun()
+                    render_main_program()
+                else:
+                    st.error("Invalid username or password. Please try again. ❌")
+
+
     st.markdown("""
     **Welcome to OxSecure Intelligence** 🔐 your ultimate destination for comprehensive and up-to-date information on cybersecurity. Whether you're a professional, student, or enthusiast, this app is designed to empower you with the knowledge and tools needed to navigate the complex world of cybersecurity.
 
@@ -123,24 +189,24 @@ def render_login_page():
 
     Join OxSecure Intelligence today and take your cybersecurity knowledge to the next level! 🚀
     """)
+
     st.markdown("---")
     linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
     st.markdown("  Created with 🤗💖 By Aditya Pandey  " f"[  LinkedIn 🔗]({linkedin_url})")
 
-    username = st.sidebar.text_input("Username 👤")
-    password = st.sidebar.text_input("Password 🔑", type="password")
-    login_button = st.sidebar.button("Login 🫢")
+    # username = st.sidebar.text_input("Username 👤")
+    # password = st.sidebar.text_input("Password 🔑", type="password")
+    # login_button = st.sidebar.button("Login 🫢")
 
-    if login_button:
-        if username == CORRECT_USERNAME and password == CORRECT_PASSWORD:
-            st.session_state.authenticated = True
-            st.success("Login successful!")
-            st.experimental_rerun()
-            render_main_program()
-        else:
-            st.error("Invalid username or password. Please try again.")
+    # if login_button:
+    #     if username == CORRECT_USERNAME and password == CORRECT_PASSWORD:
+    #         st.session_state.authenticated = True
+    #         st.success("Login successful!")
+    #         st.experimental_rerun()
+    #         render_main_program()
+    #     else:
+    #         st.error("Invalid username or password. Please try again.")
 
-# Features Section
 def features():
     st.write("***🔑 Key Features of OxSecure Intelligence***")
     
@@ -200,10 +266,12 @@ def features():
             Upload images for detailed analysis using the Imagen feature. Whether you're assessing a security measure or 
             scanning for vulnerabilities, this tool ensures you get the most out of every image.
         """)
-# Help and Use Section
+
 def use_app():
+    st.write("***📋 How to Use OxSecure Intelligence***")
+    
     st.write("""
-     🚀 ***OxSecure Intelligence: Use Cases***
+     🚀 **OxSecure Intelligence: Use Cases**
 
 OxSecure Intelligence is a comprehensive cybersecurity tool designed to provide in-depth information on various security topics, analyze images, and perform detailed file analysis. The app consists of three powerful tools:
 
@@ -252,24 +320,41 @@ OxSecure Intelligence is a comprehensive cybersecurity tool designed to provide 
 4. View graphical reports and insights about the file.
 
 ---
+
 **OxSecure Intelligence** empowers you with detailed insights and robust analysis tools to enhance your cybersecurity practices and ensure data integrity. Explore these tools to stay ahead of potential threats and make informed decisions!
-     
-**Why Choose OxSecure Intelligence?**
-- **💡 Expert-Level Knowledge:** Powered by cutting-edge AI tools and deep research.
-- **🔍 Thorough File Analysis:** Scanning and reporting for multiple file types.
-- **🔐 Stay Secure:** Stay ahead of threats with real-time insights and expert guidance.
-    """)
+""")
 
 ## Function to load Gemini vision model and get response
 def get_gemini_response(input_prompt, image):
     Model = genai.GenerativeModel('gemini-1.5-pro')
-    if input_prompt != "":
-        response = Model.generate_content([input_prompt, image])
-    else:
-        response = Model.generate_content(image)
-    return response.text
+    safety_settings = {
+        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_DANGEROUS: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_SEXUAL: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_TOXICITY: HarmBlockThreshold.BLOCK_NONE,
+        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmProbability.LOW
+    }
+    try:
+        if input_prompt != "":
+            response = Model.generate_content([input_prompt, image], safety_settings=safety_settings)
+        else:
+            response = Model.generate_content(image, safety_settings=safety_settings)
+        return response.text
 
-# Main App section
+    except StopCandidateException as e:
+        safety_categories = [rating.category for rating in e.safety_ratings]
+        st.error("The content generated was flagged for safety concerns.")
+        st.info(f"Detected safety categories: {', '.join(safety_categories)}")
+        
+        # Suggest alternative actions
+        st.warning("Please try rephrasing your input or changing the topic.")
+        return None
+
+
 def render_main_program():
     st.markdown("# 🔒 Unlock the Future of Cybersecurity with OxSecure")
     st.divider()
@@ -277,18 +362,19 @@ def render_main_program():
     st.markdown("----")
 
     # Sidebar for navigation
-    app_choice = st.sidebar.radio("Choose App", 
-         ("Features 🤹🏻‍♀️", 
-          "OxSecure Chat 🤖", 
-          "OxSecure ImaGen 🎨", 
-          "File Analysis 📁", 
-          "Help & Uses 💁🏻"))
+    # app_choice = st.radio("Choose App", 
+    #      ("Features 🤹🏻‍♀️", 
+    #       "OxSecure Chat 🤖", 
+    #       "OxSecure ImaGen 🎨", 
+    #       "File Analysis 📁", 
+    #       "Help & Uses 💁🏻"))
     
     #Main content selector
-    # app_choice = st.selectbox(
-    #     "Choose App",
-    #     ["Features 🤹🏻‍♀️", "OxSecure Chat 🤖", "OxSecure ImaGen 🎨", "File Analysis 📁", "Help & Uses 💁🏻"]
-    # )
+    app_choice = st.selectbox(
+         "Navigation Section 🎃",
+         ["Features 🤹🏻‍♀️", "OxSecure Chat 🤖", "OxSecure ImaGen 🎨", "File Analysis 📁", "Help & Uses 💁🏻"]
+    )
+    st.divider()
 
     # Render the selected app based on user's choice
     if app_choice == "OxSecure Chat 🤖":
@@ -303,9 +389,6 @@ def render_main_program():
         use_app()
 
 def render_gemini_api_app():
-    st.caption("🚀 Empower Tomorrow, 🛡️ Secure Today: Unleash the Power of Cybersecurity Brilliance! 💻✨ 🛡️💬  ")
-    st.markdown("---")
-
     st.title("OxSecure Intelligence 🧠")
     st.markdown("-----")
     input_text = st.text_input("Search your Security Related Topic 🔍")
@@ -325,23 +408,16 @@ def render_gemini_api_app():
             8. Future Outlook and Predictions
             
             Ensure the information is professional, well-structured, key conceptual  and suitable for someone with an advanced understanding and Beginner of cybersecurity.
-        """)
+            
+            Explain the best secure coding practices for {Topic} in a comprehensive manner. 
+            Provide detailed descriptions of each practice, along with real-world examples. 
+            For each practice, include practical code snippets that clearly demonstrate how to implement the practice effectively in {Topic}, 
+            and explain the purpose and impact of the code in enhancing security.
+            """)
     )
 
     # Select the model
     model = genai.GenerativeModel('gemini-1.5-pro')
-    safety_settings = {
-        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_DANGEROUS: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_SEXUAL: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_TOXICITY: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmProbability.HIGH
-    }
-
     # Memory
     Topic_memory = ConversationBufferMemory(input_key='Topic', memory_key='chat_history')
     Policy_memory = ConversationBufferMemory(input_key='secure coding', memory_key='chat_history')
@@ -350,45 +426,79 @@ def render_gemini_api_app():
     ## GEMINI LLMS
     llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro")
     chain = LLMChain(
-        llm=llm, prompt=first_input_prompt, verbose=True, output_key='secure coding', memory=Topic_memory)
-    safety_settings = {
-        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_DANGEROUS: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_SEXUAL: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_TOXICITY: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmProbability.HIGH
-    }
+        llm=llm, 
+        prompt=first_input_prompt, 
+        verbose=True, output_key='secure coding',
+        memory=Topic_memory)
+    
     # Prompt Templates
     second_input_prompt = PromptTemplate(
-        input_variables=['secure coding'],
-        template="write best {secure coding} and perfect code snippet for implementing secure coding to this {Topic} in well detailed and descriptive way use code snippets for each point and describe code."
+        input_variables=['secure coding', 'Topic'],
+        template="""Based on the provided secure coding practices for {Topic}, 
+        write an in-depth explanation and illustrate how these practices can be implemented. 
+        Provide detailed and descriptive code snippets for practice, explaining each step clearly, and why the code improves security."""
     )
 
     chain2 = LLMChain(
-        llm=llm, prompt=second_input_prompt, verbose=True, output_key='Practice', memory=Policy_memory)
+        llm=llm,
+        prompt=second_input_prompt, 
+        verbose=True, output_key='Practice', 
+        memory=Policy_memory)
+    
     # Prompt Templates
     third_input_prompt = PromptTemplate(
-        input_variables=['Practice'],
-        template="Implement major best Cybersecurity {Practice} for this {Topic} that helps better security postures into any business. illustrate Major cyberattack which is done by misconfiguration of {Topic} and give the informative info about the malware which caused this"
+        input_variables=['Practice', 'Topic'],
+        template="""Now, implement the major cybersecurity best practices relevant to {Topic}, and explain how these practices contribute to a stronger security posture in business environments.
+        Additionally, illustrate a real-world cyberattack caused by misconfiguration or vulnerabilities related to {Topic}, 
+        and provide a detailed info about the malware or threat actor responsible for the attack. 
+        Describe how the attack happened and how proper security practices could have mitigated the risk."""
     )
-    chain3 = LLMChain(llm=llm, prompt=third_input_prompt, verbose=True, output_key='description', memory=Practice_memory)
+
+
+    chain3 = LLMChain(
+        llm=llm,
+        prompt=third_input_prompt, 
+        verbose=True, output_key='description', 
+        memory=Practice_memory)
+    
     parent_chain = SequentialChain(
-        chains=[chain, chain2, chain3], input_variables=['Topic'], output_variables=['secure coding', 'Practice',
-                                                                                     'description'], verbose=True)
+        chains=[chain, chain2, chain3], 
+        input_variables=['Topic'], 
+        output_variables=['secure coding', 'Practice','description'], 
+        verbose=True)
+
+    
 
     if input_text:
-        with st.spinner('Processing.... ⏳'):
-            st.text(parent_chain({'Topic': input_text}))
+        with st.spinner('Analyzing your topic and preparing insights... ⏳'):
+            # Progress bar for enhanced user engagement
+            progress_bar = st.progress(0)
+            
+            # Simulate the progress bar update over the execution of the chain
+            for i in range(1, 101):
+                time.sleep(0.03)  # Simulating processing time information and 
+                progress_bar.progress(i)
+            
+            # Get the output from the chain
+            chain_output = parent_chain({'Topic': input_text})
 
-        with st.expander('Your Topic'):
-            st.info(Topic_memory.buffer)
+        # Show the results in expanders for better organization
+        with st.expander(f"📜 Your Topic Insights: {input_text}", expanded=True):
+            st.markdown(f"**Topic Overview:**")
+            st.markdown(Topic_memory.buffer)
 
-        with st.expander('Major Practices'):
-            st.info(Practice_memory.buffer)
+        with st.expander("🔑 Major Secure Coding Practices", expanded=False):
+            st.markdown("**Best Practices for Secure Coding:**")
+            st.markdown(Practice_memory.buffer)
+
+        with st.expander("🛡️ Cybersecurity Measures & Real-World Threats", expanded=False):
+            st.markdown(f"**Detailed Insights on Major Cybersecurity Practices for:** *{input_text}*")
+            st.markdown(chain_output['description'])
+
+
+        # Provide feedback or option to ask more
+        st.success("✅ Completed! Feel free to explore the details above.")
+
     st.markdown("---")
     linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
     st.markdown("  Created with 🤗💖 By Aditya Pandey   "  f"[  LinkedIn 🔗]({linkedin_url})")
@@ -448,7 +558,7 @@ def extract_metadata(file):
         st.error("Uploaded file is not a valid PE format.")
         return None
 
-# Function to analyze log files
+
 def analyze_log_file(log_content):
     # Data storage structures for IPs, Domains, Headers, Sessions
     ip_data = []
@@ -529,7 +639,7 @@ def create_virus_total_charts(virus_total_results, theme="light"):
         text_color = 'black'
     
     # Create a container (figure) with 3 rows and 2 columns of charts
-    fig, axs = plt.subplots(3, 2, figsize=(22, 18))  # 3 rows and 2 columns of charts
+    fig, axs = plt.subplots(3, 2, figsize=(18, 18))  # 3 rows and 2 columns of charts
     
     # --- Bar Chart ---
     sns.barplot(x='Analysis Types', y='Count', data=df, palette="coolwarm", ax=axs[0, 0])
@@ -601,12 +711,13 @@ def create_virus_total_charts(virus_total_results, theme="light"):
     axs[2, 1].tick_params(axis='y', labelcolor=text_color)
     
     # Adjust layout for better spacing and clarity
-    fig.tight_layout(pad=6.0)
+    fig.tight_layout(pad=4.0)
     
     # Set background based on theme
     fig.patch.set_facecolor('black' if theme == "dark" else 'white')
     
     return fig
+
 
 # Test data for demonstration (mocked VirusTotal results)
 virus_total_results = {
@@ -669,7 +780,11 @@ def display_analysis_results(metadata, virus_total_results, log_analysis=None):
         if fig:
             st.pyplot(fig)
 
-# Log Analysis
+# Call the function to create and display the charts
+fig = create_virus_total_charts(virus_total_results, theme="light")  # Use "dark" for dark mode
+plt.show()
+
+    # Log Analysis
     if log_analysis is not None:
         st.write("### 📝 Log Analysis")
         st.markdown("------")
@@ -716,8 +831,9 @@ def read_file_with_fallback(byte_data):
         byte_stream.seek(0)  # Reset stream pointer
         return byte_stream.read().decode(detected_encoding, errors='replace')
 
+
 def render_file_analysis_app():
-    st.title("🔍 File Analysis 🗃️")
+    st.title("🔍 File Analysis Dashboard")
     st.markdown("---")
     st.image('ui/antivirus.png', width=80, use_column_width='none')
 
