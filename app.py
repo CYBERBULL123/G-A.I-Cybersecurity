@@ -112,35 +112,35 @@ def render_login_page():
     st.write("Unlock the realm of cybersecurity expertise with OxSecure 🧠 🚀 Safeguarding your data. 🔒 Let's chat about security topics and empower your knowledge! Product of CyberBULL 👁️")
     st.markdown("---")
     
-    # Create a container for the login form with a background image
-    login_container = st.container()
-    with login_container:
-        # Create a form to hold the login fields
-        login_form = st.form("login_form")
-        with login_form:
-            st.write("Please log in to continue. 🔐")
+    # # Create a container for the login form with a background image
+    # login_container = st.container()
+    # with login_container:
+    #     # Create a form to hold the login fields
+    #     login_form = st.form("login_form")
+    #     with login_form:
+    #         st.write("Please log in to continue. 🔐")
             
-            # Create a container for the login fields
-            login_fields_container = st.container()
-            with login_fields_container:
-                # Create a column to hold the login fields
-                col1, col2 = st.columns([1, 1])
-                with col1:
-                    username = st.text_input("Username 👤")
-                with col2:
-                    password = st.text_input("Password 🔑", type="password")
+    #         # Create a container for the login fields
+    #         login_fields_container = st.container()
+    #         with login_fields_container:
+    #             # Create a column to hold the login fields
+    #             col1, col2 = st.columns([1, 1])
+    #             with col1:
+    #                 username = st.text_input("Username 👤")
+    #             with col2:
+    #                 password = st.text_input("Password 🔑", type="password")
                 
-                login_button = st.form_submit_button("Login 🚀")
-                st.write("💳 Default Credentials (for testing purposes): Username = Oxsecure, Password = Oxsecure@123")
+    #             login_button = st.form_submit_button("Login 🚀")
+    #             st.write("💳 Default Credentials (for testing purposes): Username = Oxsecure, Password = Oxsecure@123")
 
-            if login_button:
-                if username == CORRECT_USERNAME and password == CORRECT_PASSWORD:
-                    st.session_state.authenticated = True
-                    st.success("Login successful! 🌟")
-                    st.experimental_rerun()
-                    render_main_program()
-                else:
-                    st.error("Invalid username or password. Please try again. ❌")
+    #         if login_button:
+    #             if username == CORRECT_USERNAME and password == CORRECT_PASSWORD:
+    #                 st.session_state.authenticated = True
+    #                 st.success("Login successful! 🌟")
+    #                 st.experimental_rerun()
+    #                 render_main_program()
+    #             else:
+    #                 st.error("Invalid username or password. Please try again. ❌")
 
 
     st.markdown("""
@@ -194,18 +194,18 @@ def render_login_page():
     linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
     st.markdown("  Created with 🤗💖 By Aditya Pandey  " f"[  LinkedIn 🔗]({linkedin_url})")
 
-    # username = st.sidebar.text_input("Username 👤")
-    # password = st.sidebar.text_input("Password 🔑", type="password")
-    # login_button = st.sidebar.button("Login 🫢")
+    username = st.sidebar.text_input("Username 👤")
+    password = st.sidebar.text_input("Password 🔑", type="password")
+    login_button = st.sidebar.button("Login 🫢")
 
-    # if login_button:
-    #     if username == CORRECT_USERNAME and password == CORRECT_PASSWORD:
-    #         st.session_state.authenticated = True
-    #         st.success("Login successful!")
-    #         st.experimental_rerun()
-    #         render_main_program()
-    #     else:
-    #         st.error("Invalid username or password. Please try again.")
+    if login_button:
+        if username == CORRECT_USERNAME and password == CORRECT_PASSWORD:
+            st.session_state.authenticated = True
+            st.success("Login successful!")
+            st.experimental_rerun()
+            render_main_program()
+        else:
+            st.error("Invalid username or password. Please try again.")
 
 def features():
     st.write("***🔑 Key Features of OxSecure Intelligence***")
