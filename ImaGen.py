@@ -370,9 +370,7 @@ if st.session_state.show_info:
 else:
     # Main App content (Once the user navigates from the info section)
     st.header('🎨 Oxsecure ImaGen 🎨 / FLUX-Dev ♨️')
-    st.divider()
-    st.markdown("### ***Image & Story Generation Section 🖼️***")
-    st.markdown("-----")
+    st.markdown("***Image & Story Generation Section 🖼️***")
 
     # Text input for prompt
     input_text = st.text_input("🖋️ Input Prompt For Image Generation & Analysis", key="input")
@@ -531,13 +529,13 @@ else:
                     st.error("Audio generation failed.")
 
     # File uploader for image
-    st.markdown("### ***File Upload Section 📤***")
+    st.markdown("***File Upload Section 📤***")
     st.divider()
     uploaded_file = st.file_uploader("📂 Choose an image...", type=["jpg", "jpeg", "png", "webp", "gif", "bmp", "tiff", "ico", "heif", "jfif", "svg", "exif", "psd", "raw"])
     image = None
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
-        st.image(image, caption="Uploaded Image.", width=250, use_column_width=True)
+        st.image(image, caption="Uploaded Image.", width=250, use_column_width=False)
         st.markdown("-----")
 
     # Button to get response about the image
