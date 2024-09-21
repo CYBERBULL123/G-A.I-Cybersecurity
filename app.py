@@ -718,29 +718,6 @@ def create_virus_total_charts(virus_total_results, theme="light"):
     
     return fig
 
-
-# Test data for demonstration (mocked VirusTotal results)
-virus_total_results = {
-    'data': {
-        'attributes': {
-            'last_analysis_stats': {
-                'malicious': 5,
-                'suspicious': 2,
-                'undetected': 50,
-                'harmless': 10,
-                'timeout': 14,
-                'confirmed-timeout': 0,
-                'failure': 0,
-                'type-unsupported': 18
-            }
-        }
-    }
-}
-
-# Call the function to create and display the charts
-fig = create_virus_total_charts(virus_total_results, theme="light")  # Use "dark" for dark mode
-plt.show()
-
 # Function to create detailed tables from JSON data
 def create_detailed_table(data, title):
     st.write(f"{title}")
@@ -779,10 +756,6 @@ def display_analysis_results(metadata, virus_total_results, log_analysis=None):
         fig = create_virus_total_charts(virus_total_results)
         if fig:
             st.pyplot(fig)
-
-# Call the function to create and display the charts
-fig = create_virus_total_charts(virus_total_results, theme="light")  # Use "dark" for dark mode
-plt.show()
 
     # Log Analysis
     if log_analysis is not None:
