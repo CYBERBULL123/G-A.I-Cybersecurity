@@ -226,7 +226,7 @@ async def fetch_image(session, payload):
             response.raise_for_status()
             return await response.read()
     except aiohttp.ClientError as e:
-        st.error(f"API request failed: {e}")
+        st.error(f"API request failed")
         return None
 
 # Helper function to get the style prompt and negative prompt based on the selected style
