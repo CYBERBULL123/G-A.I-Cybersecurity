@@ -269,11 +269,11 @@ if "show_info" not in st.session_state:
 # Functions to handle main app and project info
 def show_main_app():
     st.session_state.show_info = False
-    st.experimental_rerun()
+    st.rerun()
 
 def show_project_info():
     st.session_state.show_info = True
-    st.experimental_rerun()
+    st.rerun()
 
 # Function to run asyncio event loop within Streamlit app
 def run_async_function(async_func, *args, **kwargs):
