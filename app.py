@@ -31,7 +31,7 @@ from langchain import PromptTemplate
 from langchain.chains import LLMChain
 import google.generativeai as genai
 from langchain.memory import ConversationBufferMemory
-from google.generativeai.types import HarmCategory, HarmBlockThreshold, HarmProbability
+from google.generativeai.types import HarmCategory, HarmBlockThreshold, HarmProbability, StopCandidateException
 from google.generativeai.types.generation_types import StopCandidateException
 from google.generativeai import GenerativeModel
 from langchain.chains import SequentialChain
