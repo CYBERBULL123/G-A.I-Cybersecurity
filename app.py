@@ -102,6 +102,10 @@ def load_css(file_name):
 # Load the CSS file
 load_css("ui/Style.css")
 
+def clear_session_data():
+    # Clear all the session data
+    for key in st.session_state.keys():
+        del st.session_state[key]
 
 def render_login_page():
     st.title("Oxsecure 🧠 - Your Companion! 🔒")
@@ -200,6 +204,7 @@ def render_login_page():
 
     if login_button:
         if username == CORRECT_USERNAME and password == CORRECT_PASSWORD:
+            clear_session_data()
             st.session_state.authenticated = True
             st.success("Login successful!")
             st.experimental_rerun()
