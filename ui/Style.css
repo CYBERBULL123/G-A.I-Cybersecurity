@@ -24,24 +24,28 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 1rem;
     cursor: pointer;
     transform-style: preserve-3d;
-    transition: transform 0.4s ease, color 0.4s ease, box-shadow 0.4s ease; /* Added box-shadow transition */
-    box-shadow: 0 10px 30px rgb(4, 247, 255);
+    transition: transform 0.4s ease, color 0.4s ease; /* Added color transition */
+    box-shadow: 0 10px 30px rgba(4, 247, 255, 0.5);
+    animation: glow 1.5s infinite alternate; /* Glow animation */
 }
 
-/* Animate Header on Hover */
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 5px rgba(102, 252, 241, 0.5), 0 0 10px rgba(102, 252, 241, 0.5), 0 0 20px rgba(102, 252, 241, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 10px rgba(102, 252, 241, 1), 0 0 20px rgba(102, 252, 241, 1), 0 0 30px rgba(102, 252, 241, 1);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(102, 252, 241, 0.5), 0 0 10px rgba(102, 252, 241, 0.5), 0 0 20px rgba(102, 252, 241, 0.5);
+    }
+}
+
+/* Change Shadow Color on Hover */
 h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
-    animation: bounce 0.5s infinite alternate; /* Added bounce effect */
+    animation: none; /* Stop glow animation on hover */
+    box-shadow: 0 10px 30px rgba(255, 0, 0, 1), 0 20px 40px rgba(255, 0, 0, 0.7), 0 30px 60px rgba(255, 0, 0, 0.5); /* Red shadow on hover */
     transform: rotateY(calc(10 * var(--hover-x))) rotateX(calc(-10 * var(--hover-y)));
-    box-shadow: 0 20px 40px rgba(4, 247, 255, 0.7); /* Change box-shadow on hover */
-}
-
-@keyframes bounce {
-    from {
-        transform: translateY(0);
-    }
-    to {
-        transform: translateY(-5px);
-    }
 }
 
 /* Button Styles */
@@ -116,13 +120,13 @@ h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
 /* Glow Keyframes */
 @keyframes glow {
     0% {
-        box-shadow: 0 0 5px #66fcf1, 0 0 10px #66fcf1, 0 0 20px #66fcf1, 0 0 40px #45a29e;
+        box-shadow: 0 0 5px rgba(102, 252, 241, 0.5), 0 0 10px rgba(102, 252, 241, 0.5), 0 0 20px rgba(102, 252, 241, 0.5);
     }
     50% {
-        box-shadow: 0 0 10px #66fcf1, 0 0 20px #66fcf1, 0 0 30px #66fcf1, 0 0 50px #45a29e;
+        box-shadow: 0 0 10px rgba(102, 252, 241, 1), 0 0 20px rgba(102, 252, 241, 1), 0 0 30px rgba(102, 252, 241, 1);
     }
     100% {
-        box-shadow: 0 0 5px #66fcf1, 0 0 10px #66fcf1, 0 0 20px #66fcf1, 0 0 40px #45a29e;
+        box-shadow: 0 0 5px rgba(102, 252, 241, 0.5), 0 0 10px rgba(102, 252, 241, 0.5), 0 0 20px rgba(102, 252, 241, 0.5);
     }
 }
 
