@@ -207,7 +207,7 @@ def render_login_page():
             clear_session_data()
             st.session_state.authenticated = True
             st.success("Login successful!")
-            st.experimental_rerun()
+            st.rerun()
             render_main_program()
         else:
             st.error("Invalid username or password. Please try again.")
