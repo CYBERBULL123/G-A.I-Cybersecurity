@@ -518,20 +518,20 @@ def render_gemini_api_app():
             
             # Checkbox for deletion selection
             with col1:
-                selected = st.checkbox(f"Select Response {idx + 1} for deletion", key=f"delete_{idx}")
+                selected = st.checkbox(f"Select Response {idx + 1}", key=f"delete_{idx}")
                 if selected:
                     selected_for_deletion.append(idx)
             
             # Expander to show the response details
             with col2:
-                with st.expander(f"Response {idx + 1}: {resp_data['input_text']}", expanded=False):
-                    st.markdown("### Secure Coding Practices:")
+                with st.expander(f"{idx + 1} :- {resp_data['input_text']}", expanded=False):
+                    st.markdown("### 🔐 Secure Coding Practices:")
                     st.write(resp_data['secure_coding'])
                     
-                    st.markdown("### Practice Implementations:")
+                    st.markdown("### 🪄 Practice Implementations:")
                     st.write(resp_data['practices'])
                     
-                    st.markdown("### Real-World Cybersecurity Example:")
+                    st.markdown("### 🫡 Real-World Cybersecurity Example:")
                     st.write(resp_data['description'])
 
         # Button to delete selected responses
