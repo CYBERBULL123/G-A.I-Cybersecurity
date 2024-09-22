@@ -99,10 +99,6 @@ h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
     transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease; /* Added box-shadow transition */
 }
 
-.stTextInput>div>div>input:hover, .stTextArea>div>textarea:hover, .stFileUploader>div>div>input:hover {
-    box-shadow: inset 0 0 20px rgba(102, 252, 241, 0.8), 0 0 30px rgba(102, 252, 241, 1); /* Change box-shadow on hover */
-}
-
 /* Moving Background Animation */
 @keyframes backgroundMove {
     0% {
