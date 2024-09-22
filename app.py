@@ -511,7 +511,7 @@ def render_gemini_api_app():
             
             # Checkbox for deletion selection
             with col1:
-                selected = st.checkbox(f"Select Response {idx + 1}", key=f"delete_{idx}")
+                selected = st.checkbox(f"{idx + 1}", key=f"delete_{idx}")
                 if selected:
                     selected_for_deletion.append(idx)
             
