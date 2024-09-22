@@ -326,7 +326,7 @@ OxSecure Intelligence is a comprehensive cybersecurity tool designed to provide 
 
 ## Function to load Gemini vision model and get response
 def get_gemini_response(input_prompt, image):
-    Model = genai.GenerativeModel('gemini-1.5-pro')
+    Model = genai.GenerativeModel('gemini-1.5-flash')
     safety_settings = {
         HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
         HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
