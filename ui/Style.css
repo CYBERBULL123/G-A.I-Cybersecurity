@@ -33,7 +33,7 @@ h1, h2, h3, h4, h5, h6 {
 h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
     transform: translateZ(40px) rotateX(-12deg) rotateY(5deg) scale(0.9);
     box-shadow: 20px 10px 40px rgb(0, 255, 166);
-    animation: hoverAnimation 10s infinite;
+    animation: hoverAnimation 14s infinite;
 }
 
 /* Hover Animations with 3D Transform */
@@ -42,7 +42,8 @@ h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
     25% { transform: translateZ(40px) rotateY(20deg) rotateX(180deg); }
     50% { transform: translateZ(60px) rotateY(-30deg) rotateX(45deg); }
     75% { transform: translateZ(40px) rotateY(10deg) rotateX(-50deg); }
-    100% { transform: translateZ(80px) rotateY(-320deg) rotateX(-180deg); }
+    100% { transform: translateZ(80px) rotateY(-320deg) rotateX(-180deg);}
+    120% { transform: translateZ(100px) rotateY(-180deg) rotateX(120deg);}
 }
 
 
