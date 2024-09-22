@@ -380,7 +380,7 @@ def render_description_and_framework():
 
     if st.button("Go to Main App", key="description_go_to_main_app"):
         st.session_state.show_main_app = True
-        st.experimental_rerun()
+        st.rerun()
         
     st.markdown("---")
     linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
