@@ -41,7 +41,7 @@ h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
     0% { transform: translateZ(20px) rotateY(0deg) rotateX(0deg); }
     25% { transform: translateZ(40px) rotateY(20deg) rotateX(180deg); }
     50% { transform: translateZ(60px) rotateY(-30deg) rotateX(45deg); }
-    75% { transform: translateZ(40px) rotateY(10deg) rotateX(-50deg); }
+    75% { transform: translateZ(40px) rotateY(120deg) rotateX(-50deg); }
     100% { transform: translateZ(80px) rotateY(-320deg) rotateX(-180deg);}
     120% { transform: translateZ(100px) rotateY(-180deg) rotateX(120deg);}
 }
@@ -87,7 +87,6 @@ h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
 }
 
 .stImage img:hover {
-    transform: translateZ(30px) scale(1.05);
     box-shadow: 0 0 40px rgba(102, 252, 241, 1);
 }
 
