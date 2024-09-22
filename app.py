@@ -340,9 +340,9 @@ def get_gemini_response(input_prompt, image):
     }
     try:
         if input_prompt != "":
-            response = Model.generate_content([input_prompt, image], safety_settings=safety_settings)
+            response = Model.generate_content([input_prompt, image])
         else:
-            response = Model.generate_content(image, safety_settings=safety_settings)
+            response = Model.generate_content(image)
         return response.text
 
     except StopCandidateException as e:
@@ -424,7 +424,7 @@ def render_gemini_api_app():
     Practice_memory = ConversationBufferMemory(input_key='Practice', memory_key='description_history')
 
     ## GEMINI LLMS
-    llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro")
+    llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash")
     chain = LLMChain(
         llm=llm, 
         prompt=first_input_prompt, 
