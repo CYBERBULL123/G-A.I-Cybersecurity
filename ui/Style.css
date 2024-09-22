@@ -78,7 +78,6 @@ h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
 
 /* Glowing Parallax Images */
 .stImage img {
-    transition: transform 0.5s ease, box-shadow 0.5s ease;
     cursor: pointer;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(102, 252, 241, 0.5);
