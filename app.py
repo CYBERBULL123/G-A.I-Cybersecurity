@@ -327,32 +327,11 @@ OxSecure Intelligence is a comprehensive cybersecurity tool designed to provide 
 ## Function to load Gemini vision model and get response
 def get_gemini_response(input_prompt, image):
     Model = genai.GenerativeModel('gemini-1.5-flash')
-    safety_settings = {
-        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_DANGEROUS: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_SEXUAL: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_TOXICITY: HarmBlockThreshold.BLOCK_NONE,
-        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmProbability.LOW
-    }
-    try:
-        if input_prompt != "":
-            response = Model.generate_content([input_prompt, image])
-        else:
-            response = Model.generate_content(image)
-        return response.text
-
-    except StopCandidateException as e:
-        safety_categories = [rating.category for rating in e.safety_ratings]
-        st.error("The content generated was flagged for safety concerns.")
-        st.info(f"Detected safety categories: {', '.join(safety_categories)}")
-        
-        # Suggest alternative actions
-        st.warning("Please try rephrasing your input or changing the topic.")
-        return None
+    if input_prompt != "":
+        response = Model.generate_content([input_prompt, image])
+    else:
+        response = Model.generate_content(image)
+    return response.text
 
 
 def render_main_program():
@@ -416,15 +395,27 @@ def render_gemini_api_app():
             """)
     )
 
-    # Select the model
-    model = genai.GenerativeModel('gemini-1.5-pro')
     # Memory
     Topic_memory = ConversationBufferMemory(input_key='Topic', memory_key='chat_history')
     Policy_memory = ConversationBufferMemory(input_key='secure coding', memory_key='chat_history')
     Practice_memory = ConversationBufferMemory(input_key='Practice', memory_key='description_history')
 
-    ## GEMINI LLMS
-    llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash")
+    # GEMINI LLMS with StopCandidateException handling
+    llm = ChatGoogleGenerativeAI(
+        model="gemini-1.5-flash", 
+        safety_settings={
+            HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_DANGEROUS: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_SEXUAL: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_TOXICITY: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmProbability.LOW
+        }
+    )
+
     chain = LLMChain(
         llm=llm, 
         prompt=first_input_prompt, 
@@ -467,38 +458,92 @@ def render_gemini_api_app():
         output_variables=['secure coding', 'Practice','description'], 
         verbose=True)
 
+        # Button to generate response
+    if st.button("Generate Response"):
+        if input_text:
+            with st.spinner('Generating response...'):
+                try:
+                    # Execute the LLM chain process
+                    chain_output = parent_chain({'Topic': input_text})
+                    
+                    # Store the response in session state
+                    if "responses" not in st.session_state:
+                        st.session_state['responses'] = []
+                    
+                    st.session_state['responses'].append({
+                        'input_text': input_text,
+                        'secure_coding': chain_output['secure coding'],
+                        'practices': chain_output['Practice'],
+                        'description': chain_output['description']
+                    })
+
+                    # Show results in expanders for better organization
+                    with st.expander(f"📜 Your Topic Insights: {input_text}", expanded=True):
+                        st.markdown(f"**Topic Overview:**")
+                        st.markdown(Topic_memory.buffer)
+
+                    with st.expander("🔑 Major Secure Coding Practices", expanded=False):
+                        st.markdown("**Best Practices for Secure Coding:**")
+                        st.markdown(Practice_memory.buffer)
+
+                    with st.expander("🛡️ Cybersecurity Measures & Real-World Threats", expanded=False):
+                        st.markdown(f"**Detailed Insights on Major Cybersecurity Practices for:** *{input_text}*")
+                        st.markdown(chain_output['description'])
+
+                    st.success("✅ Completed! Feel free to explore the details above.")
+
+                except StopCandidateException as e:
+                    # Handle the StopCandidateException with safer error handling
+                    if hasattr(e, 'safety_ratings'):
+                        safety_categories = [rating.category for rating in e.safety_ratings]
+                        st.error("The content generated was flagged for safety concerns.")
+                        st.info(f"Detected safety categories: {', '.join(safety_categories)}")
+                    else:
+                        st.error("The content was flagged for safety concerns, but no detailed safety ratings were provided.")
+
+                    st.warning("Please try rephrasing your input or changing the topic.")
     
+                
+    # Display the responses stored in session state
+    if "responses" in st.session_state and st.session_state['responses']:
+        st.divider()
+        st.markdown("***Saved Responses 🤠***")
 
-    if input_text:
-        with st.spinner('Analyzing your topic and preparing insights... ⏳'):
-            # Progress bar for enhanced user engagement
-            progress_bar = st.progress(0)
+        # List to track selected responses to delete
+        selected_for_deletion = []
+
+        # Display each response using expanders and add a checkbox or radio button
+        for idx, resp_data in enumerate(st.session_state['responses']):
+            col1, col2 = st.columns([0.1, 0.9])
             
-            # Simulate the progress bar update over the execution of the chain
-            for i in range(1, 101):
-                time.sleep(0.03)  # Simulating processing time information and 
-                progress_bar.progress(i)
+            # Checkbox for deletion selection
+            with col1:
+                selected = st.checkbox(f"Select Response {idx + 1} for deletion", key=f"delete_{idx}")
+                if selected:
+                    selected_for_deletion.append(idx)
             
-            # Get the output from the chain
-            chain_output = parent_chain({'Topic': input_text})
+            # Expander to show the response details
+            with col2:
+                with st.expander(f"Response {idx + 1}: {resp_data['input_text']}", expanded=False):
+                    st.markdown("### Secure Coding Practices:")
+                    st.write(resp_data['secure_coding'])
+                    
+                    st.markdown("### Practice Implementations:")
+                    st.write(resp_data['practices'])
+                    
+                    st.markdown("### Real-World Cybersecurity Example:")
+                    st.write(resp_data['description'])
 
-        # Show the results in expanders for better organization
-        with st.expander(f"📜 Your Topic Insights: {input_text}", expanded=True):
-            st.markdown(f"**Topic Overview:**")
-            st.markdown(Topic_memory.buffer)
-
-        with st.expander("🔑 Major Secure Coding Practices", expanded=False):
-            st.markdown("**Best Practices for Secure Coding:**")
-            st.markdown(Practice_memory.buffer)
-
-        with st.expander("🛡️ Cybersecurity Measures & Real-World Threats", expanded=False):
-            st.markdown(f"**Detailed Insights on Major Cybersecurity Practices for:** *{input_text}*")
-            st.markdown(chain_output['description'])
-
-
-        # Provide feedback or option to ask more
-        st.success("✅ Completed! Feel free to explore the details above.")
-
+        # Button to delete selected responses
+        if st.button("Delete Selected Responses"):
+            # Remove selected responses from session state
+            if selected_for_deletion:
+                for idx in sorted(selected_for_deletion, reverse=True):
+                    del st.session_state['responses'][idx]
+                st.success("Selected responses have been deleted!")
+            else:
+                st.warning("No responses were selected for deletion.")
+    
     st.markdown("---")
     linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
     st.markdown("  Created with 🤗💖 By Aditya Pandey   "  f"[  LinkedIn 🔗]({linkedin_url})")
