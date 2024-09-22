@@ -24,23 +24,33 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 1rem;
     cursor: pointer;
     transform-style: preserve-3d;
-    transition: transform 0.4s ease, box-shadow 0.4s ease, text-shadow 0.4s ease;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
     box-shadow: 0 10px 30px rgb(4, 247, 255);
-    will-change: transform, box-shadow; /* Optimizes transitions */
 }
 
-h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
-    transform: translateZ(40px) rotateX(-12deg) rotateY(5deg);
-    box-shadow: 20px 10px 40px rgb(0, 255, 166);
+/* Tilt Effect Based on Mouse Position */
+h1:hover {
+    transform: rotateY(calc(10 * var(--hover-x))) rotateX(calc(-10 * var(--hover-y)));
 }
 
-/* Hover Animations with 3D Transform */
-@keyframes hoverAnimation {
-    0% { transform: translateZ(20px) rotateY(0deg) rotateX(0deg); }
-    25% { transform: translateZ(40px) rotateY(20deg) rotateX(180deg); }
-    50% { transform: translateZ(60px) rotateY(-30deg) rotateX(45deg); }
-    75% { transform: translateZ(40px) rotateY(120deg) rotateX(-50deg); }
-    100% { transform: translateZ(80px) rotateY(-320deg) rotateX(-180deg); }
+h2:hover {
+    transform: rotateY(calc(10 * var(--hover-x))) rotateX(calc(-10 * var(--hover-y)));
+}
+
+h3:hover {
+    transform: rotateY(calc(10 * var(--hover-x))) rotateX(calc(-10 * var(--hover-y)));
+}
+
+h4:hover {
+    transform: rotateY(calc(10 * var(--hover-x))) rotateX(calc(-10 * var(--hover-y)));
+}
+
+h5:hover {
+    transform: rotateY(calc(10 * var(--hover-x))) rotateX(calc(-10 * var(--hover-y)));
+}
+
+h6:hover {
+    transform: rotateY(calc(10 * var(--hover-x))) rotateX(calc(-10 * var(--hover-y)));
 }
 
 /* Button Styles */
@@ -63,7 +73,6 @@ h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
     font-weight: 600;
     transform-style: preserve-3d;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
-    box-shadow: 0 0 15px rgba(102, 252, 241, 0.5), inset 0 0 10px rgba(102, 252, 241, 0.8);
 }
 
 .stButton>button:hover {
@@ -79,12 +88,11 @@ h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
     transform-style: preserve-3d;
     backface-visibility: hidden;
     transition: transform 0.5s ease, box-shadow 0.5s ease;
-    will-change: transform, box-shadow; /* Pre-optimize GPU for the transform */
 }
 
 .stImage img:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 10px rgba(102, 252, 241, 1);
+    box-shadow: 0 0 40px rgba(102, 252, 241, 1);
 }
 
 /* Inputs with Neon Glow */
@@ -115,7 +123,7 @@ h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
     }
 }
 
-/* Advanced Animations */
+/* Glow Keyframes */
 @keyframes glow {
     0% {
         box-shadow: 0 0 5px #66fcf1, 0 0 10px #66fcf1, 0 0 20px #66fcf1, 0 0 40px #45a29e;
@@ -132,11 +140,6 @@ body {
     background: linear-gradient(270deg, #0b0c10, #1f2833, #0b0c10);
     background-size: 600% 600%;
     animation: backgroundMove 10s ease infinite;
-}
-
-/* Glow Keyframes */
-.stButton>button, .stImage img, .stTextInput>div>div>input, .stTextArea>div>textarea, .stFileUploader>div>div>input {
-    animation: glow 3s infinite alternate;
 }
 
 /* Responsive Design */
