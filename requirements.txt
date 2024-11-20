@@ -7,15 +7,11 @@ attrs==23.2.0
 blinker==1.7.0
 bs4
 cachetools==5.3.2
-<<<<<<< HEAD
 certifi==2023.11.17
 charset-normalizer==3.3.2
 chardet
-=======
-chardet
 certifi==2023.11.17
 charset-normalizer==3.3.2
->>>>>>> main
 click==8.1.7
 dataclasses-json==0.6.3
 distro==1.9.0
@@ -52,7 +48,6 @@ MarkupSafe==2.1.3
 marshmallow==3.20.2
 mdurl==0.1.2
 multidict==6.0.4
-<<<<<<< HEAD
 matplotlib
 mypy-extensions==1.0.0
 numpy==1.26.3
@@ -62,14 +57,12 @@ pandas==2.1.4
 pefile
 Pillow==10.2.0
 plotly==5.17.0
-=======
 mypy-extensions==1.0.0
 numpy==1.26.3
 openai==1.8.0
 packaging==23.2
 pandas==2.1.4
 Pillow==10.2.0
->>>>>>> main
 proto-plus==1.23.0
 protobuf==4.25.2
 pyarrow==14.0.2
@@ -91,17 +84,13 @@ rpds-py==0.17.1
 rsa==4.9
 six==1.16.0
 smmap==5.0.1
-<<<<<<< HEAD
 seaborn
 streamlit_authenticator
 sniffio==1.3.0
 SQLAlchemy==2.0.25
-streamlit
-=======
 sniffio==1.3.0
 SQLAlchemy==2.0.25
 streamlit==1.34.0
->>>>>>> main
 tenacity==8.2.3
 toml==0.10.2
 toolz==0.12.0
