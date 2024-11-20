@@ -226,7 +226,11 @@ async def fetch_image(session, payload):
             response.raise_for_status()
             return await response.read()
     except aiohttp.ClientError as e:
+<<<<<<< HEAD
         st.error(f"API request failed")
+=======
+        st.error(f"API request failed: {e}")
+>>>>>>> main
         return None
 
 # Helper function to get the style prompt and negative prompt based on the selected style
@@ -269,11 +273,19 @@ if "show_info" not in st.session_state:
 # Functions to handle main app and project info
 def show_main_app():
     st.session_state.show_info = False
+<<<<<<< HEAD
     st.rerun()
 
 def show_project_info():
     st.session_state.show_info = True
     st.rerun()
+=======
+    st.experimental_rerun()
+
+def show_project_info():
+    st.session_state.show_info = True
+    st.experimental_rerun()
+>>>>>>> main
 
 # Function to run asyncio event loop within Streamlit app
 def run_async_function(async_func, *args, **kwargs):
@@ -562,4 +574,8 @@ else:
 
 st.markdown("---")
 linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
+<<<<<<< HEAD
 st.markdown("  Created with 🤗💖 By Aditya Pandey  " f"[  LinkedIn 🔗]({linkedin_url})")
+=======
+st.markdown("  Created with 🤗💖 By Aditya Pandey  " f"[  LinkedIn 🔗]({linkedin_url})")
+>>>>>>> main

@@ -1,0 +1,105 @@
+/* Base Styles */
+body {
+    background: #0a0a0a; /* Deep black background for a meditative feel */
+    color: #F4E1D2; /* Soft gold text for divine clarity */
+    font-family: 'Lora', serif; /* Elegant spiritual font */
+    margin: 0;
+    padding: 0;
+    line-height: 1.8;
+}
+
+/* Headers - Spiritual Fonts with Soft Glow */
+h1, h2, h3, h4, h5, h6 {
+    color: #FFD700; /* Sacred gold for titles */
+    text-align: center;
+    font-family: 'Merriweather', serif; /* Timeless and spiritual font */
+    font-weight: 700;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.8); /* Glowing divine aura */
+}
+
+/* Paragraph and List Styles */
+p, ol, ul, dl {
+    color: #c5c6c7; /* Light gray text for readability */
+    font-size: 1.1rem; /* Slightly larger text for clarity */
+    margin-bottom: 1.5rem;
+    padding: 0 20px;
+}
+
+.stButton>button {
+    background-color: #503321; /* Deep spiritual purple */
+    color: #FFD700; /* Divine gold text */
+    border: 2px solid #FFD700;
+    text-align: center;
+    border-radius: 50px; /* Rounded corners for calmness */
+    padding: 1rem 2.5rem; /* Spacious for comfortable clicks */
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); /* Soft glow effect */
+}
+
+.stButton>button:hover {
+    color: #4e2718; /* Inverse colors for contrast */
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 40px rgba(255, 215, 0, 0.7);
+}
+
+/* Input Fields */
+.stTextInput>div>div>input, .stTextArea>div>textarea, .stFileUploader>div>div>input {
+    background-color: #2F4F4F; /* Dark green for grounding */
+    color: #FFD700; /* Divine gold text for focus */
+    border: 2px solid #FFD700;
+    border-radius: 10px;
+    padding: 1rem;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.stTextInput>div>div>input:focus, .stTextArea>div>textarea:focus, .stFileUploader>div>div>input:focus {
+    background-color: #1F1F1F; /* Darker shade for focus */
+    border-color: #FFD700;
+    outline: none;
+}
+
+/* App Container */
+.stApp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background: #111111; /* Very dark background for focus */
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); /* Subtle glow */
+}
+
+/* Expander for Spiritual Recommendations */
+.stExpander {
+    background-color: #4B0082; /* Spiritual purple */
+    color: #FFD700; /* Divine gold text */
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); /* Soft glow effect */
+}
+
+.stExpander:hover {
+    background-color: #FFD700;
+    color: #4B0082;
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.6); /* Glowing effect */
+}
+
+/* Icon Style for Spiritual Elements */
+.stIcon {
+    font-size: 3rem;
+    color: #FFD700; /* Divine gold */
+    transition: transform 0.3s ease;
+}
+
+.stIcon:hover {
+    transform: rotate(360deg); /* Smooth rotation for mysticism */
+}

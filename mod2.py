@@ -40,7 +40,11 @@ genai.configure(api_key = os.environ['GOOGLE_API_KEY'])
 ## Function to load OpenAI model and get respones
 
 def get_gemini_response(input, image):
+<<<<<<< HEAD
     model = genai.GenerativeModel('gemini-1.5-pro')
+=======
+    model = genai.GenerativeModel('gemini-1.5-pro-latest')
+>>>>>>> main
     if input != "":
         response = model.generate_content(
             [input, image],
@@ -99,7 +103,11 @@ Practice_memory = ConversationBufferMemory(input_key='Practice', memory_key='des
 
 # GEMINI LLMS
 llm = ChatGoogleGenerativeAI(
+<<<<<<< HEAD
     model="gemini-1.5-pro",
+=======
+    model="gemini-1.5-pro-latest",
+>>>>>>> main
     safety_settings={
         HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
         HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,

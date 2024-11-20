@@ -13,6 +13,10 @@ body {
     perspective: 1500px; /* Added depth for 3D effects */
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 /* Headers with Futuristic 3D Effect */
 h1, h2, h3, h4, h5, h6 {
     color: #66fcf1;
@@ -46,12 +50,20 @@ h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
 }
 
 
+<<<<<<< HEAD
 /* Button Styles */
 .stButton {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
+=======
+.stButton {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically, if needed */
+    height: 100%; /* Set a height if necessary */
+>>>>>>> main
 }
 
 /* Enhanced 3D Button Interactions */
@@ -65,7 +77,12 @@ h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
     font-size: 1.1rem;
     font-weight: 600;
     transform-style: preserve-3d;
+<<<<<<< HEAD
     transition: transform 0.4s ease, border-color 0.4s ease; /* Removed shadow transition */
+=======
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 0 15px rgba(102, 252, 241, 0.5), inset 0 0 10px rgba(102, 252, 241, 0.8);
+>>>>>>> main
 }
 
 .stButton>button:hover {
@@ -74,18 +91,34 @@ h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
     border: 2px solid #45a29e;
     box-shadow: 0 0 20px rgba(102, 252, 241, 0.9);
 }
+<<<<<<< HEAD
 /* Glowing Parallax Images */
 .stImage img {
+=======
+
+/* Glowing Parallax Images */
+.stImage img {
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    cursor: pointer;
+>>>>>>> main
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(102, 252, 241, 0.5);
     transform-style: preserve-3d;
     backface-visibility: hidden;
+<<<<<<< HEAD
     transition: transform 0.5s ease, box-shadow 0.5s ease; /* Added box-shadow transition */
 }
 
 .stImage img:hover {
     transform: scale(1.05);
     box-shadow: 0 0 40px rgba(102, 252, 241, 1); /* Change box-shadow on hover */
+=======
+}
+
+.stImage img:hover {
+    transform: translateZ(30px) scale(1.05);
+    box-shadow: 0 0 40px rgba(102, 252, 241, 1);
+>>>>>>> main
 }
 
 /* Inputs with Neon Glow */
@@ -96,9 +129,16 @@ h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
     border-radius: 8px;
     padding: 0.75rem;
     box-shadow: inset 0 0 10px rgba(102, 252, 241, 0.5), 0 0 20px rgba(102, 252, 241, 0.8);
+<<<<<<< HEAD
     transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease; /* Added box-shadow transition */
 }
 
+=======
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+
+>>>>>>> main
 /* Moving Background Animation */
 @keyframes backgroundMove {
     0% {
@@ -112,6 +152,7 @@ h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
     }
 }
 
+<<<<<<< HEAD
 /* Glow Keyframes */
 @keyframes glow {
     0% {
@@ -122,6 +163,18 @@ h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover {
     }
     100% {
         box-shadow: 0 0 5px rgba(102, 252, 241, 0.5), 0 0 10px rgba(102, 252, 241, 0.5), 0 0 20px rgba(102, 252, 241, 0.5);
+=======
+/* Advanced Animations */
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 5px #66fcf1, 0 0 10px #66fcf1, 0 0 20px #66fcf1, 0 0 40px #45a29e;
+    }
+    50% {
+        box-shadow: 0 0 10px #66fcf1, 0 0 20px #66fcf1, 0 0 30px #66fcf1, 0 0 50px #45a29e;
+    }
+    100% {
+        box-shadow: 0 0 5px #66fcf1, 0 0 10px #66fcf1, 0 0 20px #66fcf1, 0 0 40px #45a29e;
+>>>>>>> main
     }
 }
 
@@ -131,6 +184,20 @@ body {
     animation: backgroundMove 10s ease infinite;
 }
 
+<<<<<<< HEAD
+=======
+/* Glow Keyframes */
+@keyframes glow {
+    0% { box-shadow: 0 0 10px rgba(102, 252, 241, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(102, 252, 241, 1); }
+    100% { box-shadow: 0 0 10px rgba(102, 252, 241, 0.5); }
+}
+
+.stButton>button, .stImage img, .stTextInput>div>div>input, .stTextArea>div>textarea, .stFileUploader>div>div>input {
+    animation: glow 3s infinite alternate;
+}
+
+>>>>>>> main
 /* Responsive Design */
 @media (max-width: 768px) {
     h1, h2, h3, h4, h5, h6 {
