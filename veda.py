@@ -2,6 +2,7 @@ import os
 import streamlit as st
 import google.generativeai as genai
 from google.api_core.exceptions import GoogleAPIError
+import time
 
 
 st.set_page_config(page_title="AtmaVeda - Gateway to Wisdom", page_icon="🕉️", layout="wide")
@@ -237,53 +238,69 @@ with tab2:
                 
             # Generate insights for the selected mandal
             if selected_mandal and st.button(f"Generate Insights on {selected_mandal}", key="insights"):
-                context = f"{category_info['description']}\n"
-                mandal_description = selected_mandal.split(":")[1].strip()  # Get mandal description
-                prompt = f"Explain the spiritual and practical wisdom of the Mandal selected: {mandal_description}, focusing on its significance in Sanatan Dharma."
-                response = query_gemini(context, prompt, language_code)
-                
-                if response:
-                    st.success(f"### Insights on {selected_mandal}:")
-                    st.write(response)
+                with st.spinner("Generating insights..."):
+                    progress = st.progress(0)
+                    
+                    # Simulate processing time for visual feedback
+                    for i in range(100):
+                        time.sleep(0.02)  # Simulated delay
+                        progress.progress(i + 1)
 
-                    # Ask for AI recommendations
-                    st.write("### Recommendations Based on Your Interest:")
-                    recommendations = generate_recommendations_based_on_input(response, language_code)
+                    context = f"{category_info['description']}\n"
+                    mandal_description = selected_mandal.split(":")[1].strip()  # Get mandal description
+                    prompt = f"Explain the spiritual and practical wisdom of the Mandal selected: {mandal_description}, focusing on its significance in Sanatan Dharma."
+                    response = query_gemini(context, prompt, language_code)
                     
-                    # Save recommendations to session state
-                    if "recommendations" not in st.session_state:
-                        st.session_state.recommendations = recommendations
-                    else:
-                        st.session_state.recommendations = recommendations
-                    
-                    # Display recommendations in an expander
-                    with st.expander("🔍 Expand to see Recommendations"):
-                        for rec in st.session_state.recommendations:
-                            st.write(f"- {rec}")
+                    if response:
+                        st.success(f"### Insights on {selected_mandal}:")
+                        st.write(response)
+
+                        # Ask for AI recommendations
+                        st.write("### Recommendations Based on Your Interest:")
+                        recommendations = generate_recommendations_based_on_input(response, language_code)
+                        
+                        # Save recommendations to session state
+                        if "recommendations" not in st.session_state:
+                            st.session_state.recommendations = recommendations
+                        else:
+                            st.session_state.recommendations = recommendations
+                        
+                        # Display recommendations in an expander
+                        with st.expander("🔍 Expand to see Recommendations"):
+                            for rec in st.session_state.recommendations:
+                                st.write(f"- {rec}")
         else:
             if st.button(f"Generate Insights on {selected_example}", key="insights"):
-                context = f"{category_info['description']}\n"
-                prompt = f"Explain the spiritual and practical wisdom of {selected_example} in detail, focusing on its significance in Sanatan Dharma."
-                response = query_gemini(context, prompt, language_code)
-                
-                if response:
-                    st.success(f"### Insights on {selected_example}:")
-                    st.write(response)
+                with st.spinner("Generating insights..."):
+                    progress = st.progress(0)
+                    
+                    # Simulate processing time for visual feedback
+                    for i in range(100):
+                        time.sleep(0.02)  # Simulated delay
+                        progress.progress(i + 1)
 
-                    # Ask for AI recommendations
-                    st.write("### Recommendations Based on Your Interest:")
-                    recommendations = generate_recommendations_based_on_input(response, language_code)
+                    context = f"{category_info['description']}\n"
+                    prompt = f"Explain the spiritual and practical wisdom of {selected_example} in detail, focusing on its significance in Sanatan Dharma."
+                    response = query_gemini(context, prompt, language_code)
                     
-                    # Save recommendations to session state
-                    if "recommendations" not in st.session_state:
-                        st.session_state.recommendations = recommendations
-                    else:
-                        st.session_state.recommendations = recommendations
-                    
-                    # Display recommendations in an expander
-                    with st.expander("🔍 Expand to see Recommendations"):
-                        for rec in st.session_state.recommendations:
-                            st.write(f"- {rec}")
+                    if response:
+                        st.success(f"### Insights on {selected_example}:")
+                        st.write(response)
+
+                        # Ask for AI recommendations
+                        st.write("### Recommendations Based on Your Interest:")
+                        recommendations = generate_recommendations_based_on_input(response, language_code)
+                        
+                        # Save recommendations to session state
+                        if "recommendations" not in st.session_state:
+                            st.session_state.recommendations = recommendations
+                        else:
+                            st.session_state.recommendations = recommendations
+                        
+                        # Display recommendations in an expander
+                        with st.expander("🔍 Expand to see Recommendations"):
+                            for rec in st.session_state.recommendations:
+                                st.write(f"- {rec}")
 
 
 # Tab 2: VedaGPT Q&A
@@ -293,31 +310,52 @@ with tab3:
     Ask any question about Sanatan Dharma, its sacred texts, spiritual teachings, or philosophical insights. 
     VedaGPT will respond with wisdom akin to an enlightened Pandit.
     """)
+    
+    # User input
     user_question = st.text_area("Enter your spiritual or philosophical question:")
+    
     if st.button("Ask VedaGPT"):
-        context = (
-            "You are an enlightened Pandit with infinite knowledge of Sanatan Dharma, including the Vedas, Upanishads, "
-            "Puranas, Bhagavad Gita, and Hindu sacred traditions. Answer with wisdom, providing spiritual and intellectual insights."
-        )
-        response = query_gemini(context, user_question, language_code)
-        if response:
-            st.success(f"### VedaGPT's Response:")
-            st.write(response)
+        if user_question.strip():
+            with st.spinner("VedaGPT is contemplating your question..."):
+                progress = st.progress(0)
+                
+                # Simulate processing time for visual feedback
+                for i in range(100):
+                    time.sleep(0.02)  # Simulated delay
+                    progress.progress(i + 1)
 
-         # Ask for AI recommendations
-            st.write("### Recommendations Based on Your Question:")
-            recommendations = generate_recommendations_based_on_input(user_question, language_code)
-            
-            # Save recommendations to session state
-            if "recommendations" not in st.session_state:
-                st.session_state.recommendations = recommendations
-            else:
-                st.session_state.recommendations = recommendations
-            
-            # Display recommendations in an expander
-            with st.expander("🔍 Expand to see Recommendations"):
-                for rec in st.session_state.recommendations:
-                    st.write(f"- {rec}")
+                # Context for the AI model
+                context = (
+                    "You are an enlightened Pandit with infinite knowledge of Sanatan Dharma, including the Vedas, Upanishads, "
+                    "Puranas, Bhagavad Gita, and Hindu sacred traditions. Answer with wisdom, providing spiritual and intellectual insights."
+                )
+                
+                # Generate response
+                response = query_gemini(context, user_question, language_code)
+                
+                if response:
+                    st.success(f"### VedaGPT's Response:")
+                    st.write(response)
+
+                    # Generate AI-based recommendations
+                    st.write("### Recommendations Based on Your Question:")
+                    recommendations = generate_recommendations_based_on_input(user_question, language_code)
+                    
+                    # Save recommendations to session state
+                    if "recommendations" not in st.session_state:
+                        st.session_state.recommendations = recommendations
+                    else:
+                        st.session_state.recommendations = recommendations
+                    
+                    # Display recommendations in an expander
+                    with st.expander("🔍 Expand to see Recommendations"):
+                        for rec in st.session_state.recommendations:
+                            st.write(f"- {rec}")
+                else:
+                    st.error("VedaGPT couldn't provide an answer. Please try rephrasing your question.")
+        else:
+            st.warning("Please enter a question before asking VedaGPT!")
+
 
 # Tab 3: About
 with tab1:
