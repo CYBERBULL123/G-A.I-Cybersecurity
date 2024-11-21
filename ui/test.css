@@ -35,7 +35,7 @@ p, ol, ul, dl {
     border-radius: 50px; /* Rounded corners for calmness */
     padding: 1rem 2.5rem; /* Spacious for comfortable clicks */
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 300;
     transition: all 0.3s ease;
     cursor: pointer;
     box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); /* Soft glow effect */

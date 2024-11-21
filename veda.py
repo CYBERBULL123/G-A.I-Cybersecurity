@@ -189,12 +189,22 @@ def generate_recommendations_based_on_input(user_input, language="en"):
     else:
         return ["No recommendations available at the moment."]
 
-# Streamlit App
+# Title of the app
 st.title("🕉️ AtmaVeda")
-st.subheader("Gateway to Eternal Wisdom 🙇🏻")
+
+# Animated Caption
+caption_placeholder = st.empty()
+caption_text = "Gateway to Eternal Wisdom 🙇🏻"
+
+for i in range(len(caption_text) + 1):
+    caption_placeholder.caption(caption_text[:i])
+    time.sleep(0.05)  # Simulates typing effect
+
+# Catchy Introduction
 st.markdown("""
-Welcome to **AtmaVeda**, your spiritual guide for exploring the sacred texts and philosophy of Sanatan Dharma. 
-This platform integrates ancient wisdom with AI, offering insights like an enlightened Pandit.
+Welcome to **AtmaVeda**, your **spiritual companion** for exploring the profound wisdom of Sanatan Dharma.  
+Uncover insights from sacred texts, timeless philosophies, and divine teachings — all powered by advanced AI, 
+offering guidance as if from an enlightened Pandit. 🌟  
 """)
 
 # Language Selection via Checkbox
@@ -202,7 +212,7 @@ language_checkbox = st.checkbox("Select Hindi for Responses")
 language_code = "hi" if language_checkbox else "en"
 
 # Tabs for navigation
-tab1, tab2, tab3 = st.tabs(["📜 About", "📖 Knowledge Base", "🧐 VedaGPT Q&A"])
+tab1, tab2, tab3 = st.tabs(["📜 About", "📖 Knowledge Base", "🧐 VedaGPT"])
 
 # Tab 1: Knowledge Base
 with tab2:
@@ -305,56 +315,60 @@ with tab2:
 
 # Tab 2: VedaGPT Q&A
 with tab3:
-    st.header("🛕 VedaGPT: Your Enlightened Guide")
-    st.write("""
-    Ask any question about Sanatan Dharma, its sacred texts, spiritual teachings, or philosophical insights. 
-    VedaGPT will respond with wisdom akin to an enlightened Pandit.
+    st.title("🛕 VedaGPT - Your Spiritual Companion")
+    st.markdown("""
+    **Namaste! 🙏 Welcome to VedaGPT.**  
+    I'm here to guide you through the profound knowledge of Sanatan Dharma, including sacred texts like the Vedas, Upanishads, Bhagavad Gita, Puranas, and more.  
+    Feel free to ask your questions on spirituality, philosophy, or Hindu traditions, and I’ll provide insights with the wisdom of an enlightened sage. 🌟  
     """)
     
-    # User input
-    user_question = st.text_area("Enter your spiritual or philosophical question:")
-    
+    # User Question Input
+    user_question = st.text_input(
+        "What would you like to know?",
+        placeholder="E.g., What is the significance of meditation in Sanatan Dharma?",
+    )
+
     if st.button("Ask VedaGPT"):
         if user_question.strip():
-            with st.spinner("VedaGPT is contemplating your question..."):
+            with st.spinner("Let me ponder your question..."):
+                # Simulate processing with progress feedback
                 progress = st.progress(0)
-                
-                # Simulate processing time for visual feedback
                 for i in range(100):
-                    time.sleep(0.02)  # Simulated delay
+                    time.sleep(0.02)
                     progress.progress(i + 1)
 
-                # Context for the AI model
+                # Context for AI Query
                 context = (
-                    "You are an enlightened Pandit with infinite knowledge of Sanatan Dharma, including the Vedas, Upanishads, "
-                    "Puranas, Bhagavad Gita, and Hindu sacred traditions. Answer with wisdom, providing spiritual and intellectual insights."
+                    "You are VedaGPT, an advanced spiritual AI with a profound understanding of Sanatan Dharma, "
+                    "including its sacred texts, teachings, and philosophies. Provide articulate, compassionate, and "
+                    "contextually rich responses to the user's question, maintaining a tone of wisdom and professionalism."
                 )
                 
-                # Generate response
+                # Simulate querying the AI model
                 response = query_gemini(context, user_question, language_code)
                 
+                # Display Response
                 if response:
-                    st.success(f"### VedaGPT's Response:")
-                    st.write(response)
-
-                    # Generate AI-based recommendations
-                    st.write("### Recommendations Based on Your Question:")
-                    recommendations = generate_recommendations_based_on_input(user_question, language_code)
+                    st.write("#### 🙏 VedaGPT's Response:")
+                    st.markdown(f"> {response}")
                     
-                    # Save recommendations to session state
+                    # Add Follow-up Conversation
+                    st.write("💡 *Would you like to ask something else or discuss this further?*")
+                    
+                    # Recommendations Section
+                    st.markdown("### 🔍 Additional Insights & Suggestions")
+                    recommendations = generate_recommendations_based_on_input(user_question, language_code)
                     if "recommendations" not in st.session_state:
                         st.session_state.recommendations = recommendations
-                    else:
-                        st.session_state.recommendations = recommendations
                     
-                    # Display recommendations in an expander
-                    with st.expander("🔍 Expand to see Recommendations"):
+                    with st.expander("📜 Explore Related Topics and Practices"):
                         for rec in st.session_state.recommendations:
-                            st.write(f"- {rec}")
+                            st.markdown(f"- **{rec}**")
+                    
                 else:
-                    st.error("VedaGPT couldn't provide an answer. Please try rephrasing your question.")
+                    st.error("I couldn't provide an answer this time. Could you try rephrasing your question?")
         else:
-            st.warning("Please enter a question before asking VedaGPT!")
+            st.warning("Please type your question before clicking 'Ask VedaGPT'.")
 
 
 # Tab 3: About
@@ -375,6 +389,7 @@ with tab1:
     st.write("🙏 **May the wisdom of the divine guide you.**")
 
 # Footer Section
+st.divider()
 with st.container():
     st.markdown("""
         <div style="text-align: center; padding: 20px; color: #555;">
