@@ -208,24 +208,43 @@ if st.session_state.current_page == "landing":
 
     # Catchy Introduction
     st.markdown("""
-    Welcome to **AtmaVeda**, your **spiritual companion** for exploring the profound wisdom of Sanatan Dharma.  
-    Uncover insights from sacred texts, timeless philosophies, and divine teachings — all powered by advanced AI, 
-    offering guidance as if from an enlightened Pandit. 🌟  
+    🌟 **Welcome to AtmaVeda** — Your gateway to the divine wisdom of **Sanatan Dharma** and the glorious legacy of **Indian history**!  
+    Dive into the spiritual teachings of the **Vedas**, explore ancient philosophies, and uncover the stories of India’s rich past — all with the power of AI, guiding you like an enlightened Pandit. 🙏  
     """)
+
     st.markdown("""
-    **AtmaVeda** is a digital platform designed to bring the timeless knowledge of Sanatan Dharma into the modern age. 
-    Combining AI with ancient wisdom, VedaGPT serves as an accessible resource for spiritual exploration and learning.
-    
-    **Features**:
-    - Explore the Vedas, Upanishads, and other sacred texts.
-    - Engage in Q&A with an AI-powered intellectual Pandit.
-    - Gain deep insights into Hindu philosophy and spiritual practices.
+    ### 🔮 **What is AtmaVeda?**
+    AtmaVeda is a revolutionary platform that bridges the timeless knowledge of **Sanatan Dharma** with the advancements of modern technology.  
+    With **VedaGPT** and **VedaBase**, embark on a journey to explore spirituality and history like never before! 🌼
 
-    Created with a vision to spread the profound teachings of Sanatan Dharma to the world.
+    ### ✨ **Key Features**:
+
+    1. **📚 VedaGPT**:  
+    - 🤔 **Ask any question** and get insightful answers about Hindu philosophy, sacred texts, and spiritual practices.  
+    - 🕉️ Learn about **Indian mythology**, rituals, and the essence of the **Upanishads** and **Bhagavad Gita**.  
+    - 🔍 Get personalized spiritual guidance like an intellectual Pandit by your side.  
+
+    2. **📖 VedaBase**:  
+    - 🔥 Explore the **Vedas**, **Puranas**, and other sacred scriptures with ease.  
+    - 🗺️ Discover detailed timelines and events from Indian history.  
+    - 🕌 Learn about **spiritual landmarks** and their cultural significance.  
+
+    3. **🌏 Indian History Explorer**:  
+    - ⏳ Trace the **journey of Indian civilization**, from the **Vedic Age** to **Modern India**.  
+    - 🛕 Learn about empires, cultural transformations, and spiritual movements.  
+    - ✍️ Uncover the stories of how spirituality shaped India’s history and identity.  
+
+    ---
+
+    🎯 **Why AtmaVeda?**  
+    AtmaVeda was created with a vision to bring the **profound teachings of Sanatan Dharma** and the **rich cultural heritage of India** to the modern world.  
+    Whether you're a spiritual seeker, history enthusiast, or just curious, AtmaVeda has something for everyone. 🌺  
+
+    ---
+
+    🌸 **Let the divine wisdom and historical legacy inspire your journey!** 🙏
     """)
-
-    st.write("🙏 **May the wisdom of the divine guide you.**")
-
+    
     # Get Started button
     if st.button("Get Started 🧘‍♂️"):
         st.session_state.current_page = "main"  # Navigate to main content
