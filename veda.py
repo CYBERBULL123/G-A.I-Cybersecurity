@@ -443,74 +443,126 @@ elif st.session_state.current_page == "main":
         if era == "Vedic Period (1500 BCE - 500 BCE)":
             st.markdown("""
             **The Vedic Period** marks the foundation of Indian civilization, characterized by the composition of the four Vedas—Rigveda, Samaveda, Yajurveda, and Atharvaveda.  
-            - Key Highlights:
-            - Emergence of the caste system (Varna system).
-            - Establishment of rituals, yajnas, and spiritual knowledge.
-            - Development of Sanskrit as the sacred language.
-            - Philosophical Foundations:  
-            - Early concepts of Dharma (duty) and Karma (action) took shape.  
-            - Upanishads were composed during the later Vedic period, delving into metaphysics and spirituality.  
+            - **Key Highlights:**
+                - Emergence of the caste system (Varna system) based on division of labor—Brahmins, Kshatriyas, Vaishyas, and Shudras.
+                - Establishment of rituals (yajnas) and spiritual knowledge, forming the basis of Vedic religion.
+                - Development of Sanskrit as the sacred and literary language.
+            - **Philosophical Foundations:**
+                - Early concepts of **Dharma** (duty), **Karma** (action and its consequences), and **Moksha** (liberation) were introduced.
+                - Composition of the **Brahmanas** (texts detailing rituals) and the **Aranyakas** (forest treatises).
+                - Later Vedic period saw the emergence of the **Upanishads**, focusing on metaphysics, spirituality, and concepts like the **Brahman** (universal soul) and **Atman** (individual soul).
+            - **Society and Economy:**
+                - Shift from nomadic pastoral life to settled agrarian communities.
+                - Introduction of iron tools (later Vedic period) and agricultural advancements.
+            - **Cultural Developments:**
+                - Foundation of Indian music, dance, and oral traditions.
+                - Worship of nature gods like Indra, Agni, Varuna, and Surya.
             """)
 
         elif era == "Mahajanapadas & Rise of Kingdoms (600 BCE - 321 BCE)":
             st.markdown("""
-            **The Mahajanapadas Period** saw the rise of 16 powerful kingdoms and republics across India.  
-            - Key Mahajanapadas: Magadha, Kosala, Vatsa, Avanti.  
-            - Emergence of Buddhism and Jainism as revolutionary movements against ritualistic practices.
-            - Contributions of spiritual leaders like Gautama Buddha and Mahavira.
+            **The Mahajanapadas Period** saw the rise of 16 powerful kingdoms and republics, marking a transition from tribal societies to state-based governance.  
+            - **Key Mahajanapadas:**
+                - Prominent kingdoms: **Magadha, Kosala, Vatsa, Avanti.**
+                - Other republics like the **Vrijji Confederacy** emphasized democratic governance.
+            - **Philosophical and Religious Movements:**
+                - Emergence of **Buddhism** and **Jainism** as revolutionary movements against ritualistic Brahmanism.
+                - Teachings of **Gautama Buddha** (The Four Noble Truths and Eightfold Path) and **Mahavira** (Non-violence, Anekantavada).
+            - **Economic and Political Changes:**
+                - Rise of urban centers and trade hubs like **Rajgir**, **Varanasi**, and **Pataliputra**.
+                - Use of coinage (punch-marked coins) for trade.
+                - Early consolidation of power by Magadha, paving the way for future empires.
+            - **Cultural Impact:**
+                - Spread of Buddhist and Jain art, stupas, and monasteries.
+                - Early codification of laws and governance systems.
             """)
 
         elif era == "Maurya Empire (321 BCE - 185 BCE)":
             st.markdown("""
-            **The Maurya Empire** was the first pan-Indian empire, established by Chandragupta Maurya and expanded under Ashoka the Great.  
-            - Key Contributions:
-            - Administrative brilliance under Chanakya’s guidance.
-            - Ashoka’s promotion of Dhamma (righteousness) and his efforts to spread Buddhism worldwide.
-            - Rock edicts and pillars inscribed with Ashoka's decrees.
+            **The Maurya Empire** was the first pan-Indian empire, established by **Chandragupta Maurya** and expanded under **Ashoka the Great**.  
+            - **Founding and Expansion:**
+                - Chandragupta, with guidance from **Chanakya** (author of Arthashastra), united smaller kingdoms.
+                - Conquered most of the Indian subcontinent, including Afghanistan and parts of Persia.
+            - **Ashoka the Great:**
+                - Renounced violence after the **Kalinga War** and adopted **Buddhism**, promoting non-violence and Dhamma (righteous living).
+                - Spread Buddhism across Asia, establishing stupas and monasteries.
+            - **Administrative Brilliance:**
+                - Centralized governance with provinces (Janapadas) governed by royal appointees.
+                - Development of an efficient spy system and taxation policies.
+            - **Cultural and Historical Contributions:**
+                - **Ashoka’s Edicts**: Rock and pillar inscriptions promoting moral values and religious harmony.
+                - Urban planning and construction of roads, hospitals, and rest houses.
             """)
 
         elif era == "Gupta Empire (320 CE - 550 CE)":
             st.markdown("""
-            **The Gupta Empire** is often referred to as the **Golden Age of India** due to advancements in science, literature, and art.  
-            - Key Achievements:
-            - Aryabhata’s contributions to astronomy and mathematics.
-            - Flourishing of classical Sanskrit literature, including Kalidasa’s works.
-            - Development of Hindu temple architecture and sculptures.
+            **The Gupta Empire** is often referred to as the **Golden Age of India** due to remarkable achievements in various fields.  
+            - **Scientific and Mathematical Achievements:**
+                - **Aryabhata’s** discoveries in astronomy (concept of zero, heliocentrism).
+                - Advancements in medicine, including surgeries and detailed texts like the **Sushruta Samhita**.
+            - **Cultural Flourishing:**
+                - Sanskrit literature reached its peak with poets like **Kalidasa** (Shakuntala, Meghaduta).
+                - Development of Hindu temple architecture (e.g., Udayagiri caves, Dashavatara Temple).
+            - **Political and Economic Stability:**
+                - Strong centralized administration and trade with the Roman Empire and Southeast Asia.
+                - Flourishing of craft industries and urban centers.
             """)
 
         elif era == "Medieval India (750 CE - 1200 CE)":
             st.markdown("""
-            **Medieval India** saw the rise of regional kingdoms like the Cholas, Rashtrakutas, and Rajputs.  
-            - Cultural Achievements:
-            - Development of Bhakti and Sufi movements.
-            - Magnificent temple construction, including the Brihadeeswarar Temple by the Cholas.
+            **Medieval India** saw the rise of regional kingdoms and cultural integration.  
+            - **Prominent Kingdoms:**
+                - **Cholas** in the south, **Rashtrakutas**, **Palas**, and **Rajputs** in the north.
+            - **Cultural Developments:**
+                - Bhakti Movement: Saints like **Alvars** and **Nayanars** emphasized personal devotion to God.
+                - Sufi Movements: Promoted unity and harmony through mystic teachings.
+            - **Architectural Advancements:**
+                - Chola temples like **Brihadeeswarar Temple** and sculptures at **Ellora Caves**.
+            - **Military Feats:**
+                - Naval expeditions by the Cholas, extending their influence to Southeast Asia.
             """)
 
         elif era == "Mughal Empire (1526 CE - 1857 CE)":
             st.markdown("""
-            **The Mughal Empire** was one of the most influential empires in Indian history, blending Persian and Indian cultures.  
-            - Key Contributions:
-            - Architectural marvels like the Taj Mahal, Red Fort, and Fatehpur Sikri.
-            - Development of Urdu as a literary language.
-            - Flourishing of miniature paintings and Mughal art.
+            **The Mughal Empire** blended Persian and Indian cultures to create a rich legacy.  
+            - **Political and Military Achievements:**
+                - Founding by **Babur** after the Battle of Panipat (1526).
+                - Expansion under **Akbar**, who introduced policies of religious tolerance.
+            - **Cultural Contributions:**
+                - Architectural marvels: **Taj Mahal**, **Red Fort**, **Fatehpur Sikri**.
+                - Flourishing of Urdu poetry and miniature paintings.
+            - **Administration:**
+                - Land revenue system (Zabt) and Mansabdari system under Akbar.
+                - Promotion of trade and art.
             """)
 
         elif era == "Colonial Period (1757 CE - 1947 CE)":
             st.markdown("""
-            **The Colonial Period** marks the British rule in India and the struggle for independence.  
-            - Key Events:
-            - Revolt of 1857, the first war of independence.
-            - Establishment of the Indian National Congress in 1885.
-            - Nonviolent resistance led by Mahatma Gandhi during the freedom movement.
+            **The Colonial Period** marks British domination in India and the struggle for independence.  
+            - **Key Events:**
+                - **Battle of Plassey (1757):** British East India Company’s control over Bengal.
+                - **Revolt of 1857:** First War of Independence against British rule.
+            - **Freedom Struggle:**
+                - Formation of the **Indian National Congress** (1885).
+                - Leadership of **Mahatma Gandhi**, **Subhas Chandra Bose**, and **Bhagat Singh**.
+                - Nonviolent resistance movements like **Salt March**, **Quit India Movement**.
+            - **Economic and Social Impact:**
+                - Drain of wealth and exploitation of Indian resources.
+                - Introduction of railways, modern education, and legal systems.
             """)
 
         elif era == "Modern India (1947 CE - Present)":
             st.markdown("""
             **Modern India** began with independence on August 15, 1947.  
-            - Key Highlights:
-            - Formation of the Indian Constitution in 1950.
-            - Economic reforms in 1991.
-            - Rise as a global leader in technology, space research, and culture.
+            - **Key Political Events:**
+                - Adoption of the **Indian Constitution** in 1950.
+                - Integration of princely states under **Sardar Vallabhbhai Patel**.
+            - **Economic Development:**
+                - Green Revolution (1960s) to achieve self-sufficiency in food grains.
+                - Economic reforms of **1991**, leading to globalization and liberalization.
+            - **Technological and Cultural Achievements:**
+                - Launch of **ISRO** and advancements in space research.
+                - Rise in IT and software industries, making India a global technology hub.
             """)
 
         # Knowledge Base Search
