@@ -532,15 +532,15 @@ elif st.session_state.current_page == "main":
                     else:
                         st.error("No relevant information found. Try refining your query.")
 
-                     # Recommendations Section
-                        st.markdown("### 🔍 Additional Insights & Suggestions")
-                        recommendations = generate_recommendations_based_on_input(search_query, language_code)
-                        if "recommendations" not in st.session_state:
-                            st.session_state.recommendations = recommendations
-                        
-                        with st.expander("📜 Explore Related Topics and Practices"):
-                            for rec in st.session_state.recommendations:
-                                st.markdown(f"- **{rec}**")
+                    # Recommendations Section
+                    st.markdown("### 🔍 Additional Insights & Suggestions")
+                    recommendations = generate_recommendations_based_on_input(search_query, language_code)
+                    if "recommendations" not in st.session_state:
+                        st.session_state.recommendations = recommendations
+                    
+                    with st.expander("📜 Explore Related Topics and Practices"):
+                        for rec in st.session_state.recommendations:
+                            st.markdown(f"- **{rec}**")
             else:
                 st.warning("Please enter a query to search the knowledge base.")
 
