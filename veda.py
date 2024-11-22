@@ -254,7 +254,7 @@ elif st.session_state.current_page == "main":
 
 
     # Tabs for navigation
-    tab1, tab2 = st.tabs(["📖 Knowledge Base", "🧐 VedaGPT"])
+    tab1, tab2, tab3 = st.tabs(["📖 VedBase", "🧐 VedaGPT", "Indian History 🔱"])
 
     # Tab 1: Knowledge Base
     with tab1:
@@ -394,8 +394,6 @@ elif st.session_state.current_page == "main":
                         st.write("#### 🙏 VedaGPT's Response:")
                         st.markdown(f"> {response}")
                         
-                        # Add Follow-up Conversation
-                        st.write("💡 *Would you like to ask something else or discuss this further?*")
                         
                         # Recommendations Section
                         st.markdown("### 🔍 Additional Insights & Suggestions")
@@ -411,6 +409,141 @@ elif st.session_state.current_page == "main":
                         st.error("I couldn't provide an answer this time. Could you try rephrasing your question?")
             else:
                 st.warning("Please type your question before clicking 'Ask VedaGPT'.")
+
+    # Tab 3: Ancient Indian History
+    with tab3:
+        st.title("📜 Ancient Indian History")
+        st.markdown("""
+        **Welcome to the Knowledge Base of India's Glorious Past!**  
+        Explore the rich heritage, spiritual milestones, and historical events of India, from the Vedic era to the modern age.  
+        This section offers a comprehensive journey through the cultural, spiritual, and intellectual legacy of ancient India. 🇮🇳  
+        """)
+
+       # Create sections for different eras
+        st.subheader("📖 Select a Historical Era to Explore:")
+        with st.expander("Expand to choose an Era:"):  # Provide a label for the expander
+            era = st.radio(
+                "Choose an Era:",
+                options=[
+                    "Vedic Period (1500 BCE - 500 BCE)",
+                    "Mahajanapadas & Rise of Kingdoms (600 BCE - 321 BCE)",
+                    "Maurya Empire (321 BCE - 185 BCE)",
+                    "Gupta Empire (320 CE - 550 CE)",
+                    "Medieval India (750 CE - 1200 CE)",
+                    "Mughal Empire (1526 CE - 1857 CE)",
+                    "Colonial Period (1757 CE - 1947 CE)",
+                    "Modern India (1947 CE - Present)"
+                ],
+                index=0
+            )
+
+
+        # Dynamic content based on the selected era
+        st.write("### 📜 **Details of the Selected Era:**")
+        if era == "Vedic Period (1500 BCE - 500 BCE)":
+            st.markdown("""
+            **The Vedic Period** marks the foundation of Indian civilization, characterized by the composition of the four Vedas—Rigveda, Samaveda, Yajurveda, and Atharvaveda.  
+            - Key Highlights:
+            - Emergence of the caste system (Varna system).
+            - Establishment of rituals, yajnas, and spiritual knowledge.
+            - Development of Sanskrit as the sacred language.
+            - Philosophical Foundations:  
+            - Early concepts of Dharma (duty) and Karma (action) took shape.  
+            - Upanishads were composed during the later Vedic period, delving into metaphysics and spirituality.  
+            """)
+
+        elif era == "Mahajanapadas & Rise of Kingdoms (600 BCE - 321 BCE)":
+            st.markdown("""
+            **The Mahajanapadas Period** saw the rise of 16 powerful kingdoms and republics across India.  
+            - Key Mahajanapadas: Magadha, Kosala, Vatsa, Avanti.  
+            - Emergence of Buddhism and Jainism as revolutionary movements against ritualistic practices.
+            - Contributions of spiritual leaders like Gautama Buddha and Mahavira.
+            """)
+
+        elif era == "Maurya Empire (321 BCE - 185 BCE)":
+            st.markdown("""
+            **The Maurya Empire** was the first pan-Indian empire, established by Chandragupta Maurya and expanded under Ashoka the Great.  
+            - Key Contributions:
+            - Administrative brilliance under Chanakya’s guidance.
+            - Ashoka’s promotion of Dhamma (righteousness) and his efforts to spread Buddhism worldwide.
+            - Rock edicts and pillars inscribed with Ashoka's decrees.
+            """)
+
+        elif era == "Gupta Empire (320 CE - 550 CE)":
+            st.markdown("""
+            **The Gupta Empire** is often referred to as the **Golden Age of India** due to advancements in science, literature, and art.  
+            - Key Achievements:
+            - Aryabhata’s contributions to astronomy and mathematics.
+            - Flourishing of classical Sanskrit literature, including Kalidasa’s works.
+            - Development of Hindu temple architecture and sculptures.
+            """)
+
+        elif era == "Medieval India (750 CE - 1200 CE)":
+            st.markdown("""
+            **Medieval India** saw the rise of regional kingdoms like the Cholas, Rashtrakutas, and Rajputs.  
+            - Cultural Achievements:
+            - Development of Bhakti and Sufi movements.
+            - Magnificent temple construction, including the Brihadeeswarar Temple by the Cholas.
+            """)
+
+        elif era == "Mughal Empire (1526 CE - 1857 CE)":
+            st.markdown("""
+            **The Mughal Empire** was one of the most influential empires in Indian history, blending Persian and Indian cultures.  
+            - Key Contributions:
+            - Architectural marvels like the Taj Mahal, Red Fort, and Fatehpur Sikri.
+            - Development of Urdu as a literary language.
+            - Flourishing of miniature paintings and Mughal art.
+            """)
+
+        elif era == "Colonial Period (1757 CE - 1947 CE)":
+            st.markdown("""
+            **The Colonial Period** marks the British rule in India and the struggle for independence.  
+            - Key Events:
+            - Revolt of 1857, the first war of independence.
+            - Establishment of the Indian National Congress in 1885.
+            - Nonviolent resistance led by Mahatma Gandhi during the freedom movement.
+            """)
+
+        elif era == "Modern India (1947 CE - Present)":
+            st.markdown("""
+            **Modern India** began with independence on August 15, 1947.  
+            - Key Highlights:
+            - Formation of the Indian Constitution in 1950.
+            - Economic reforms in 1991.
+            - Rise as a global leader in technology, space research, and culture.
+            """)
+
+        # Knowledge Base Search
+        st.subheader("🔎 Search the Knowledge Base")
+        search_query = st.text_input("Type your query here:", placeholder="E.g., Contributions of Aryabhata, Bhakti Movement, etc.")
+        if st.button("Search History"):
+            if search_query.strip():
+                with st.spinner("Fetching information from the knowledge base..."):
+                    context = (
+                        "You are VedaGPT, an advanced AI specializing in Indian history and culture. "
+                        "Provide highly accurate, in-depth, and well-researched information about the user's query. "
+                        "Incorporate references to India's ancient texts, spiritual philosophies, historical events, and cultural significance. "
+                        "Present your answers in a professional tone, emphasizing clarity, context, and relevance to the query."
+                    )
+                    response = query_gemini(context, search_query, language_code)
+                    if response:
+                        st.write("### 📚 **Search Results:**")
+                        st.markdown(f"> {response}")
+                    else:
+                        st.error("No relevant information found. Try refining your query.")
+
+                     # Recommendations Section
+                        st.markdown("### 🔍 Additional Insights & Suggestions")
+                        recommendations = generate_recommendations_based_on_input(search_query, language_code)
+                        if "recommendations" not in st.session_state:
+                            st.session_state.recommendations = recommendations
+                        
+                        with st.expander("📜 Explore Related Topics and Practices"):
+                            for rec in st.session_state.recommendations:
+                                st.markdown(f"- **{rec}**")
+            else:
+                st.warning("Please enter a query to search the knowledge base.")
+
 
 
 
