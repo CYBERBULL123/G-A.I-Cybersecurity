@@ -416,7 +416,7 @@ elif st.session_state.current_page == "main":
         st.markdown("""
         **Welcome to the Knowledge Base of India's Glorious Past!**  
         Explore the rich heritage, spiritual milestones, and historical events of India, from the Vedic era to the modern age.  
-        This section offers a comprehensive journey through the cultural, spiritual, and intellectual legacy of ancient India. 🇮🇳  
+        This section offers a comprehensive journey through the cultural, spiritual, and intellectual legacy of ancient India. 
         """)
 
        # Create sections for different eras
