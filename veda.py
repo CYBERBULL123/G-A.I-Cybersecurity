@@ -19,6 +19,10 @@ load_css("ui/test.css")
 os.environ["GOOGLE_API_KEY"] = "AIzaSyC2U-0TEQAHMJPBKIeevjnQzEp6FaxGkTE"
 genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
 
+# State management for page navigation
+if "current_page" not in st.session_state:
+    st.session_state.current_page = "landing"
+
 # Query Gemini function
 def query_gemini(context, prompt, language="en"):
     try:
@@ -189,191 +193,25 @@ def generate_recommendations_based_on_input(user_input, language="en"):
     else:
         return ["No recommendations available at the moment."]
 
-# Title of the app
-st.title("🕉️ AtmaVeda")
+# Landing Page
+if st.session_state.current_page == "landing":
+    # Title of the app
+    st.title("🕉️ AtmaVeda")
 
-# Animated Caption
-caption_placeholder = st.empty()
-caption_text = "Gateway to Eternal Wisdom 🙇🏻"
+    # Animated Caption
+    caption_placeholder = st.empty()
+    caption_text = "Gateway to Eternal Wisdom 🙇🏻"
 
-for i in range(len(caption_text) + 1):
-    caption_placeholder.caption(caption_text[:i])
-    time.sleep(0.05)  # Simulates typing effect
+    for i in range(len(caption_text) + 1):
+        caption_placeholder.subheader(caption_text[:i])
+        time.sleep(0.05)  # Simulates typing effect
 
-# Catchy Introduction
-st.markdown("""
-Welcome to **AtmaVeda**, your **spiritual companion** for exploring the profound wisdom of Sanatan Dharma.  
-Uncover insights from sacred texts, timeless philosophies, and divine teachings — all powered by advanced AI, 
-offering guidance as if from an enlightened Pandit. 🌟  
-""")
-
-# Language Selection via Checkbox
-language_checkbox = st.checkbox("Select Hindi for Responses")
-language_code = "hi" if language_checkbox else "en"
-
-# Tabs for navigation
-tab1, tab2, tab3 = st.tabs(["📜 About", "📖 Knowledge Base", "🧐 VedaGPT"])
-
-# Tab 1: Knowledge Base
-with tab2:
-    st.header("📖 Explore the Sacred Knowledge")
-    
-    # Select a knowledge area (e.g., Vedas)
-    selected_category = st.selectbox(
-        "Choose a knowledge area to explore:",
-        list(knowledge_base.keys())
-    )
-    
-    if selected_category:
-        st.subheader(f"🔍 About {selected_category}")
-        category_info = knowledge_base[selected_category]
-        st.write(category_info["description"])
-        
-        # Select a specific example (e.g., Veda, Mandal)
-        selected_example = st.selectbox(
-            f"Select a specific {selected_category.lower()} to learn about:",
-            [example["title"] for example in category_info["examples"]]
-        )
-        
-        # Check if the selected category is "Vedas" and display mandals
-        if selected_category == "Vedas":
-            selected_mandal = None
-            for example in category_info["examples"]:
-                if selected_example == example["title"]:
-                    selected_mandal = st.selectbox(
-                        f"Select a Mandal from the {selected_example}",
-                        [f"Mandal {mandal['mandal']}: {mandal['description']}" for mandal in example["mandals"]]
-                    )
-                    break
-                
-            # Generate insights for the selected mandal
-            if selected_mandal and st.button(f"Generate Insights on {selected_mandal}", key="insights"):
-                with st.spinner("Generating insights..."):
-                    progress = st.progress(0)
-                    
-                    # Simulate processing time for visual feedback
-                    for i in range(100):
-                        time.sleep(0.02)  # Simulated delay
-                        progress.progress(i + 1)
-
-                    context = f"{category_info['description']}\n"
-                    mandal_description = selected_mandal.split(":")[1].strip()  # Get mandal description
-                    prompt = f"Explain the spiritual and practical wisdom of the Mandal selected: {mandal_description}, focusing on its significance in Sanatan Dharma."
-                    response = query_gemini(context, prompt, language_code)
-                    
-                    if response:
-                        st.success(f"### Insights on {selected_mandal}:")
-                        st.write(response)
-
-                        # Ask for AI recommendations
-                        st.write("### Recommendations Based on Your Interest:")
-                        recommendations = generate_recommendations_based_on_input(response, language_code)
-                        
-                        # Save recommendations to session state
-                        if "recommendations" not in st.session_state:
-                            st.session_state.recommendations = recommendations
-                        else:
-                            st.session_state.recommendations = recommendations
-                        
-                        # Display recommendations in an expander
-                        with st.expander("🔍 Expand to see Recommendations"):
-                            for rec in st.session_state.recommendations:
-                                st.write(f"- {rec}")
-        else:
-            if st.button(f"Generate Insights on {selected_example}", key="insights"):
-                with st.spinner("Generating insights..."):
-                    progress = st.progress(0)
-                    
-                    # Simulate processing time for visual feedback
-                    for i in range(100):
-                        time.sleep(0.02)  # Simulated delay
-                        progress.progress(i + 1)
-
-                    context = f"{category_info['description']}\n"
-                    prompt = f"Explain the spiritual and practical wisdom of {selected_example} in detail, focusing on its significance in Sanatan Dharma."
-                    response = query_gemini(context, prompt, language_code)
-                    
-                    if response:
-                        st.success(f"### Insights on {selected_example}:")
-                        st.write(response)
-
-                        # Ask for AI recommendations
-                        st.write("### Recommendations Based on Your Interest:")
-                        recommendations = generate_recommendations_based_on_input(response, language_code)
-                        
-                        # Save recommendations to session state
-                        if "recommendations" not in st.session_state:
-                            st.session_state.recommendations = recommendations
-                        else:
-                            st.session_state.recommendations = recommendations
-                        
-                        # Display recommendations in an expander
-                        with st.expander("🔍 Expand to see Recommendations"):
-                            for rec in st.session_state.recommendations:
-                                st.write(f"- {rec}")
-
-
-# Tab 2: VedaGPT Q&A
-with tab3:
-    st.title("🛕 VedaGPT - Your Spiritual Companion")
+    # Catchy Introduction
     st.markdown("""
-    **Namaste! 🙏 Welcome to VedaGPT.**  
-    I'm here to guide you through the profound knowledge of Sanatan Dharma, including sacred texts like the Vedas, Upanishads, Bhagavad Gita, Puranas, and more.  
-    Feel free to ask your questions on spirituality, philosophy, or Hindu traditions, and I’ll provide insights with the wisdom of an enlightened sage. 🌟  
+    Welcome to **AtmaVeda**, your **spiritual companion** for exploring the profound wisdom of Sanatan Dharma.  
+    Uncover insights from sacred texts, timeless philosophies, and divine teachings — all powered by advanced AI, 
+    offering guidance as if from an enlightened Pandit. 🌟  
     """)
-    
-    # User Question Input
-    user_question = st.text_input(
-        "What would you like to know?",
-        placeholder="E.g., What is the significance of meditation in Sanatan Dharma?",
-    )
-
-    if st.button("Ask VedaGPT"):
-        if user_question.strip():
-            with st.spinner("Let me ponder your question..."):
-                # Simulate processing with progress feedback
-                progress = st.progress(0)
-                for i in range(100):
-                    time.sleep(0.02)
-                    progress.progress(i + 1)
-
-                # Context for AI Query
-                context = (
-                    "You are VedaGPT, an advanced spiritual AI with a profound understanding of Sanatan Dharma, "
-                    "including its sacred texts, teachings, and philosophies. Provide articulate, compassionate, and "
-                    "contextually rich responses to the user's question, maintaining a tone of wisdom and professionalism."
-                )
-                
-                # Simulate querying the AI model
-                response = query_gemini(context, user_question, language_code)
-                
-                # Display Response
-                if response:
-                    st.write("#### 🙏 VedaGPT's Response:")
-                    st.markdown(f"> {response}")
-                    
-                    # Add Follow-up Conversation
-                    st.write("💡 *Would you like to ask something else or discuss this further?*")
-                    
-                    # Recommendations Section
-                    st.markdown("### 🔍 Additional Insights & Suggestions")
-                    recommendations = generate_recommendations_based_on_input(user_question, language_code)
-                    if "recommendations" not in st.session_state:
-                        st.session_state.recommendations = recommendations
-                    
-                    with st.expander("📜 Explore Related Topics and Practices"):
-                        for rec in st.session_state.recommendations:
-                            st.markdown(f"- **{rec}**")
-                    
-                else:
-                    st.error("I couldn't provide an answer this time. Could you try rephrasing your question?")
-        else:
-            st.warning("Please type your question before clicking 'Ask VedaGPT'.")
-
-
-# Tab 3: About
-with tab1:
-    st.header("♾️ About AtmaVeda")
     st.markdown("""
     **AtmaVeda** is a digital platform designed to bring the timeless knowledge of Sanatan Dharma into the modern age. 
     Combining AI with ancient wisdom, VedaGPT serves as an accessible resource for spiritual exploration and learning.
@@ -387,6 +225,194 @@ with tab1:
     """)
 
     st.write("🙏 **May the wisdom of the divine guide you.**")
+
+    # Get Started button
+    if st.button("Get Started 🧘‍♂️"):
+        st.session_state.current_page = "main"  # Navigate to main content
+        st.rerun()
+
+
+# Main Content (Knowledge Base & VedaGPT)
+elif st.session_state.current_page == "main":
+
+    # Language selection section
+    st.markdown("#### 🌐 Language Preferences")
+    language_code = st.radio(
+        "Choose your preferred language for responses:",
+        options=["English", "Hindi"],
+        index=0,
+        horizontal=True,
+        format_func=lambda lang: "English (Default)" if lang == "English" else "Hindi (हिंदी)",
+        label_visibility="collapsed"  # Hides the label
+    )
+
+    # Map language selection to a language code
+    language_code = "hi" if language_code == "Hindi" else "en"
+
+    # Display a message based on the selected language
+    st.info(f"🌟 Responses will be provided in **{'Hindi' if language_code == 'hi' else 'English'}**.")
+
+
+    # Tabs for navigation
+    tab1, tab2 = st.tabs(["📖 Knowledge Base", "🧐 VedaGPT"])
+
+    # Tab 1: Knowledge Base
+    with tab1:
+        st.header("📖 Explore the Sacred Knowledge")
+        
+        # Select a knowledge area (e.g., Vedas)
+        selected_category = st.selectbox(
+            "Choose a knowledge area to explore:",
+            list(knowledge_base.keys())
+        )
+        
+        if selected_category:
+            st.subheader(f"🔍 About {selected_category}")
+            category_info = knowledge_base[selected_category]
+            st.write(category_info["description"])
+            
+            # Select a specific example (e.g., Veda, Mandal)
+            selected_example = st.selectbox(
+                f"Select a specific {selected_category.lower()} to learn about:",
+                [example["title"] for example in category_info["examples"]]
+            )
+            
+            # Check if the selected category is "Vedas" and display mandals
+            if selected_category == "Vedas":
+                selected_mandal = None
+                for example in category_info["examples"]:
+                    if selected_example == example["title"]:
+                        selected_mandal = st.selectbox(
+                            f"Select a Mandal from the {selected_example}",
+                            [f"Mandal {mandal['mandal']}: {mandal['description']}" for mandal in example["mandals"]]
+                        )
+                        break
+                    
+                # Generate insights for the selected mandal
+                if selected_mandal and st.button(f"Generate Insights on {selected_mandal}", key="insights"):
+                    with st.spinner("Generating insights..."):
+                        progress = st.progress(0)
+                        
+                        # Simulate processing time for visual feedback
+                        for i in range(100):
+                            time.sleep(0.02)  # Simulated delay
+                            progress.progress(i + 1)
+
+                        context = f"{category_info['description']}\n"
+                        mandal_description = selected_mandal.split(":")[1].strip()  # Get mandal description
+                        prompt = f"Explain the spiritual and practical wisdom of the Mandal selected: {mandal_description}, focusing on its significance in Sanatan Dharma."
+                        response = query_gemini(context, prompt, language_code)
+                        
+                        if response:
+                            st.success(f"### Insights on {selected_mandal}:")
+                            st.write(response)
+
+                            # Ask for AI recommendations
+                            st.write("### Recommendations Based on Your Interest:")
+                            recommendations = generate_recommendations_based_on_input(response, language_code)
+                            
+                            # Save recommendations to session state
+                            if "recommendations" not in st.session_state:
+                                st.session_state.recommendations = recommendations
+                            else:
+                                st.session_state.recommendations = recommendations
+                            
+                            # Display recommendations in an expander
+                            with st.expander("🔍 Expand to see Recommendations"):
+                                for rec in st.session_state.recommendations:
+                                    st.write(f"- {rec}")
+            else:
+                if st.button(f"Generate Insights on {selected_example}", key="insights"):
+                    with st.spinner("Generating insights..."):
+                        progress = st.progress(0)
+                        
+                        # Simulate processing time for visual feedback
+                        for i in range(100):
+                            time.sleep(0.02)  # Simulated delay
+                            progress.progress(i + 1)
+
+                        context = f"{category_info['description']}\n"
+                        prompt = f"Explain the spiritual and practical wisdom of {selected_example} in detail, focusing on its significance in Sanatan Dharma."
+                        response = query_gemini(context, prompt, language_code)
+                        
+                        if response:
+                            st.success(f"### Insights on {selected_example}:")
+                            st.write(response)
+
+                            # Ask for AI recommendations
+                            st.write("### Recommendations Based on Your Interest:")
+                            recommendations = generate_recommendations_based_on_input(response, language_code)
+                            
+                            # Save recommendations to session state
+                            if "recommendations" not in st.session_state:
+                                st.session_state.recommendations = recommendations
+                            else:
+                                st.session_state.recommendations = recommendations
+                            
+                            # Display recommendations in an expander
+                            with st.expander("🔍 Expand to see Recommendations"):
+                                for rec in st.session_state.recommendations:
+                                    st.write(f"- {rec}")
+
+
+    # Tab 2: VedaGPT Q&A
+    with tab2:
+        st.title("🛕 VedaGPT")
+        st.markdown("""
+        **Namaste! 🙏 Welcome to VedaGPT.**  
+        I'm here to guide you through the profound knowledge of Sanatan Dharma, including sacred texts like the Vedas, Upanishads, Bhagavad Gita, Puranas, and more.  
+        Feel free to ask your questions on spirituality, philosophy, or Hindu traditions, and I’ll provide insights with the wisdom of an enlightened sage. 🌟  
+        """)
+        
+        # User Question Input
+        user_question = st.text_input(
+            "What would you like to know?",
+            placeholder="E.g., What is the significance of meditation in Sanatan Dharma?",
+        )
+
+        if st.button("Ask VedaGPT"):
+            if user_question.strip():
+                with st.spinner("Let me ponder your question..."):
+                    # Simulate processing with progress feedback
+                    progress = st.progress(0)
+                    for i in range(100):
+                        time.sleep(0.02)
+                        progress.progress(i + 1)
+
+                    # Context for AI Query
+                    context = (
+                        "You are VedaGPT, an advanced spiritual AI with a profound understanding of Sanatan Dharma, "
+                        "including its sacred texts, teachings, and philosophies. Provide articulate, compassionate, and "
+                        "contextually rich responses to the user's question, maintaining a tone of wisdom and professionalism."
+                    )
+                    
+                    # Simulate querying the AI model
+                    response = query_gemini(context, user_question, language_code)
+                    
+                    # Display Response
+                    if response:
+                        st.write("#### 🙏 VedaGPT's Response:")
+                        st.markdown(f"> {response}")
+                        
+                        # Add Follow-up Conversation
+                        st.write("💡 *Would you like to ask something else or discuss this further?*")
+                        
+                        # Recommendations Section
+                        st.markdown("### 🔍 Additional Insights & Suggestions")
+                        recommendations = generate_recommendations_based_on_input(user_question, language_code)
+                        if "recommendations" not in st.session_state:
+                            st.session_state.recommendations = recommendations
+                        
+                        with st.expander("📜 Explore Related Topics and Practices"):
+                            for rec in st.session_state.recommendations:
+                                st.markdown(f"- **{rec}**")
+                        
+                    else:
+                        st.error("I couldn't provide an answer this time. Could you try rephrasing your question?")
+            else:
+                st.warning("Please type your question before clicking 'Ask VedaGPT'.")
+
+
 
 # Footer Section
 st.divider()
