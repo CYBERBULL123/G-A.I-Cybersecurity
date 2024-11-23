@@ -431,16 +431,21 @@ elif st.session_state.current_page == "main":
 
     # Tab 3: Ancient Indian History
     with tab3:
-        st.title("📜 Ancient Indian History")
+        st.title("📜 **Explore the Glory of Ancient India** 🌟")
         st.markdown("""
-        **Welcome to the Knowledge Base of India's Glorious Past!**  
-        Explore the rich heritage, spiritual milestones, and historical events of India, from the Vedic era to the modern age.  
-        This section offers a comprehensive journey through the cultural, spiritual, and intellectual legacy of ancient India. 
+            **✨ Welcome to the Knowledge Base of India's Rich Heritage!**  
+            - 🌸 Embark on a journey through India's glorious past, from the **Vedic Period** to the **Modern Era**.  
+            - 🕉️ Discover the spiritual milestones, cultural achievements, and historical events that shaped the soul of India.  
+            - 📚 Explore a treasure trove of wisdom, from the sacred texts to the revolutionary movements that continue to inspire the world.  
+            - 🌏 **Uncover the wisdom of Ancient India** and delve into its timeless knowledge, philosophy, and history.  
+                    
+            🚀 **Dive in to explore the profound legacy of India's ancient civilizations!**
         """)
+
 
        # Create sections for different eras
         st.subheader("📖 Select a Historical Era to Explore:")
-        with st.expander("Expand to choose an Era:"):  # Provide a label for the expander
+        with st.expander("Expand to choose an Era:", expanded=True):  # Provide a label for the expander
             era = st.radio(
                 "Choose an Era:",
                 options=[
@@ -461,128 +466,573 @@ elif st.session_state.current_page == "main":
         st.write("### 📜 **Details of the Selected Era:**")
         if era == "Vedic Period (1500 BCE - 500 BCE)":
             st.markdown("""
-            **The Vedic Period** marks the foundation of Indian civilization, characterized by the composition of the four Vedas—Rigveda, Samaveda, Yajurveda, and Atharvaveda.  
-            - **Key Highlights:**
-                - Emergence of the caste system (Varna system) based on division of labor—Brahmins, Kshatriyas, Vaishyas, and Shudras.
-                - Establishment of rituals (yajnas) and spiritual knowledge, forming the basis of Vedic religion.
-                - Development of Sanskrit as the sacred and literary language.
-            - **Philosophical Foundations:**
-                - Early concepts of **Dharma** (duty), **Karma** (action and its consequences), and **Moksha** (liberation) were introduced.
-                - Composition of the **Brahmanas** (texts detailing rituals) and the **Aranyakas** (forest treatises).
-                - Later Vedic period saw the emergence of the **Upanishads**, focusing on metaphysics, spirituality, and concepts like the **Brahman** (universal soul) and **Atman** (individual soul).
-            - **Society and Economy:**
-                - Shift from nomadic pastoral life to settled agrarian communities.
-                - Introduction of iron tools (later Vedic period) and agricultural advancements.
-            - **Cultural Developments:**
-                - Foundation of Indian music, dance, and oral traditions.
-                - Worship of nature gods like Indra, Agni, Varuna, and Surya.
+            ### 📜 **The Vedic Period (1500 BCE - 500 BCE)**  
+            The **Vedic Period** marks the foundation of Indian civilization, with the composition of the four **Vedas** ***Rigveda***, ***Samaveda***, ***Yajurveda***, and ***Atharvaveda*** which laid the spiritual and philosophical foundations of India.
+
+            ---
+            ### 🔑 **Key Highlights**
+            - **Emergence of the Caste System (Varna System)**:
+                - A social structure based on division of labor that divided society into four primary varnas:
+                - **Brahmins** (priests and scholars),
+                - **Kshatriyas** (warriors and rulers),
+                - **Vaishyas** (merchants and agriculturists),
+                - **Shudras** (laborers and service providers).
+            - **Rituals and Spiritual Knowledge**:
+                - The composition of the **Vedas** formed the basis for Vedic religion, with sacred rituals (**yajnas**) and sacrifices central to religious practices.
+            - **Development of Sanskrit**:
+                - The Vedas were composed in **Sanskrit**, which became the sacred and literary language, setting the foundation for classical Indian literature.
+            
+            ---
+            ### 🧘 **Philosophical Foundations**
+            - **Dharma** (duty), **Karma** (action and its consequences), and **Moksha** (liberation) were central to Vedic philosophy.
+            - The **Brahmanas** provided detailed explanations of the rituals and sacrifices to be performed by priests.
+            - **Aranyakas** were texts that explored spiritual ideas related to asceticism and meditative practices in the forest, often linked to deeper philosophical insights.
+            - The **Upanishads**, composed towards the end of the Vedic period, marked a shift towards more metaphysical questions, focusing on the nature of **Brahman** (the universal soul) and **Atman** (the individual soul), leading to the development of **Vedanta philosophy**.
+
+            ---
+            ### 🌿 **Society and Economy**
+            - **Shift from Nomadic to Settled Life**: The Vedic people initially practiced nomadic pastoralism, but over time, they transitioned to settled agrarian communities.
+            - **Agricultural Advancements**: The later Vedic period saw the introduction of **iron tools** that revolutionized agriculture and facilitated the expansion of settlements and trade.
+
+            ---
+            ### 🎶 **Cultural Developments**
+            - **Indian Music and Dance**: This period laid the foundation for Indian music, dance, and oral traditions, which were intricately tied to religious rituals and celebrations.
+            - **Worship of Nature Gods**:
+                - The Vedic people worshipped **nature gods** like **Indra** (god of thunder and war), **Agni** (fire god), **Varuna** (god of cosmic order), and **Surya** (sun god), often invoking their blessings through elaborate yajnas (sacrificial offerings).
+
+            ---
+            ### 🌸 **Legacy of the Vedic Period**
+            - The **Vedic Period** established the foundations of Hindu philosophy, religion, and social structures that would influence India for millennia.
+            - The **Vedas** continue to be the most revered texts in Hinduism, and the **Upanishads** mark the intellectual transition towards deeper spiritual contemplation.
+            - The cultural, philosophical, and religious developments during this time set the stage for the rise of later spiritual and intellectual traditions, including the **Mahabharata**, **Ramayana**, and the teachings of **Buddhism** and **Jainism**.
+
+            The Vedic Period remains a cornerstone in the cultural and spiritual history of India, with lasting impacts on philosophy, social structure, and religious practices. 📜
             """)
+
 
         elif era == "Mahajanapadas & Rise of Kingdoms (600 BCE - 321 BCE)":
             st.markdown("""
-            **The Mahajanapadas Period** saw the rise of 16 powerful kingdoms and republics, marking a transition from tribal societies to state-based governance.  
-            - **Key Mahajanapadas:**
-                - Prominent kingdoms: **Magadha, Kosala, Vatsa, Avanti.**
-                - Other republics like the **Vrijji Confederacy** emphasized democratic governance.
-            - **Philosophical and Religious Movements:**
-                - Emergence of **Buddhism** and **Jainism** as revolutionary movements against ritualistic Brahmanism.
-                - Teachings of **Gautama Buddha** (The Four Noble Truths and Eightfold Path) and **Mahavira** (Non-violence, Anekantavada).
-            - **Economic and Political Changes:**
-                - Rise of urban centers and trade hubs like **Rajgir**, **Varanasi**, and **Pataliputra**.
-                - Use of coinage (punch-marked coins) for trade.
-                - Early consolidation of power by Magadha, paving the way for future empires.
-            - **Cultural Impact:**
-                - Spread of Buddhist and Jain art, stupas, and monasteries.
-                - Early codification of laws and governance systems.
+            ### 🏛️ **The Mahajanapadas Period (600 BCE - 321 BCE)**  
+            The **Mahajanapadas Period** marks a significant transition in Indian history from tribal societies to more structured state-based governance, with the emergence of 16 powerful kingdoms and republics. This era also saw the rise of new philosophical and religious movements, such as **Buddhism** and **Jainism**, that challenged the existing social and religious systems.
+
+            ---
+            ### 🏰 **Key Mahajanapadas and Rise of Kingdoms**
+            The Mahajanapadas were 16 powerful kingdoms and republics, each playing a pivotal role in the political and cultural landscape of ancient India.
+
+            | **Mahajanapada**          | **Capital**             | **Significance**                                       | **Key Figures**                    |
+            |---------------------------|-------------------------|--------------------------------------------------------|-------------------------------------|
+            | **Magadha**                | Rajgir, Pataliputra     | One of the most powerful, eventually founded the **Maurya Empire**. | **Bimbisara**, **Ajatashatru**     |
+            | **Kosala**                 | Ayodhya                 | Birthplace of **Lord Rama**, significant in early Vedic and epic traditions. | **King Dasharatha**, **Rama**      |
+            | **Vatsa**                  | Kausambi                | Prominent kingdom known for its strategic location.    | **King Udayana**                   |
+            | **Avanti**                 | Ujjain, Mahishmati      | Important trade center in the northwest.               | **King Pradyota**                  |
+            | **Vrijji Confederacy**     | Vaishali                | Early republic, democratic governance, birthplace of **Lord Mahavira**. | **Lichchhavis**, **Vajjis**        |
+            | **Malla Republics**        | Kushinagara, Pava       | Significant for being the site where **Buddha** passed away. | **Mallas**                         |
+            | **Kashi**                  | Varanasi                | Prominent center of Vedic learning and culture.        | **King Udayana**, **Varanasi**     |
+            | **Anga**                   | Champa                  | Known for its trade and influence in the east.         | **King Srenika**                   |
+            | **Magadh**                 | Rajgir                  | Birthplace of **Buddha** and major center of Buddhist monastic life. | **King Bimbisara**, **Ajatashatru**|
+            | **Gandhara**               | Taxila                  | Center of ancient learning and trade, famous for Gandhara art. | **King Porus**                     |
+            | **Kuru**                   | Hastinapura             | Associated with the **Mahabharata** and significant in Vedic traditions. | **King Shantanu**, **Dhritarashtra** |
+            | **Panchala**               | Kampilya, Ahichhatra    | Known for its role in the Mahabharata, important in early history. | **King Drupada**                   |
+            | **Chedi**                  | Shaktimati              | Known for its association with the epic **Mahabharata**. | **King Shishupala**                |
+            | **Kekaya**                 | Vausali                 | Northern kingdom famous in epic tales and literature.  | **King Kambhoja**                  |
+            | **Malloi**                 | Malla                   | Important center of trade and culture.                 | **King Malaya**                    |
+            | **Shurasena**              | Mathura                 | Known for its commerce and religious significance.     | **King Kamsa**                     |
+
+            ---
+            ### 🌸 **Philosophical and Religious Movements**
+            - **Rise of Buddhism**:
+                - **Gautama Buddha**, the founder of Buddhism, emerged as a revolutionary spiritual leader challenging the ritualistic practices of Brahmanism. His **Four Noble Truths** and the **Eightfold Path** laid the foundation for Buddhism, emphasizing personal enlightenment, mindfulness, and detachment from suffering.
+            - **Jainism and Mahavira**:
+                - **Mahavira**, the 24th Tirthankara, revitalized the **Jain philosophy**, emphasizing **non-violence (Ahimsa)**, **truth (Satya)**, **non-possessiveness (Aparigraha)**, and **Anekantavada** (the doctrine of multiple viewpoints).
+                - Jainism became one of the major spiritual paths of this period, advocating self-discipline and renunciation.
+            - **Challenge to Brahmanism**:
+                - Both Buddhism and Jainism opposed the established Vedic rituals and priestly authority, offering alternative paths to spiritual liberation.
+        
+            ---
+            ### 🏙️ **Economic and Political Changes**
+            - **Urbanization**:
+                - The Mahajanapadas saw the rise of urban centers like **Rajgir**, **Varanasi**, and **Pataliputra**, which became hubs of trade, culture, and governance. These cities played a key role in the development of political and cultural life.
+            - **Coinage and Trade**:
+                - The use of **punch-marked coins** became widespread, facilitating trade across the region. This era saw the growth of commerce and a shift from barter to monetary exchange.
+            - **Political Consolidation**:
+                - The rise of **Magadha** as a powerful kingdom set the stage for future empires. Kings like **Bimbisara** and **Ajatashatru** played crucial roles in consolidating power and expanding their territories through diplomacy and warfare.
+        
+            ---
+            ### 🎨 **Cultural Impact and Legacy**
+            - **Art and Architecture**:
+                - The Mahajanapada period saw the beginnings of **Buddhist** and **Jain art**. Stupas, sculptures, and cave monasteries began to emerge, marking the start of a rich artistic and architectural tradition that would continue for centuries.
+                - **Stupa**: A significant architectural structure in Buddhism, the **stupa** symbolized the **Buddha's teachings**, becoming a place of meditation and worship.
+            - **Codification of Laws**:
+                - Early forms of codified laws emerged during this period. The **Arthashastra** by **Chanakya** is a notable work that outlines governance, diplomacy, economics, and military strategies, influencing later rulers like Chandragupta Maurya.
+            - **Cultural Synthesis**:
+                - The period also witnessed cultural synthesis, where different traditions, languages, and religious practices began to intermingle. **Sanskrit literature**, philosophy, and the rise of **Buddhist and Jain monasticism** contributed to the growth of an intellectual and cultural renaissance.
+
+            ---
+            ### 📜 **Legacy of the Mahajanapadas Period**
+            - **Religious Revolution**: The rise of Buddhism and Jainism during this period had a profound impact on Indian society, challenging existing religious norms and offering new paths for spiritual and moral guidance.
+            - **Political Foundation**: The **Mahajanapadas** set the stage for the rise of empires, particularly the **Maurya Empire**, which consolidated much of the subcontinent.
+            - **Cultural Renaissance**: This period was a crucible for philosophical, religious, and cultural movements that laid the foundation for much of India's future development in the fields of art, literature, and governance.
+
+            The **Mahajanapadas & Rise of Kingdoms** period was pivotal in shaping the political and spiritual landscape of ancient India, laying the foundation for a more centralized state and a flourishing of religious and philosophical thought that would influence the subcontinent for centuries. 🌸
             """)
+
 
         elif era == "Maurya Empire (321 BCE - 185 BCE)":
             st.markdown("""
-            **The Maurya Empire** was the first pan-Indian empire, established by **Chandragupta Maurya** and expanded under **Ashoka the Great**.  
-            - **Founding and Expansion:**
-                - Chandragupta, with guidance from **Chanakya** (author of Arthashastra), united smaller kingdoms.
-                - Conquered most of the Indian subcontinent, including Afghanistan and parts of Persia.
-            - **Ashoka the Great:**
-                - Renounced violence after the **Kalinga War** and adopted **Buddhism**, promoting non-violence and Dhamma (righteous living).
-                - Spread Buddhism across Asia, establishing stupas and monasteries.
-            - **Administrative Brilliance:**
-                - Centralized governance with provinces (Janapadas) governed by royal appointees.
-                - Development of an efficient spy system and taxation policies.
-            - **Cultural and Historical Contributions:**
-                - **Ashoka’s Edicts**: Rock and pillar inscriptions promoting moral values and religious harmony.
-                - Urban planning and construction of roads, hospitals, and rest houses.
+            ### 🏰 **Maurya Empire (321 BCE - 185 BCE)**  
+            The **Maurya Empire** was the first pan-Indian empire, founded by **Chandragupta Maurya** and expanded under the leadership of **Ashoka the Great**. It stands as a monumental period in Indian history, blending political brilliance with deep spiritual transformation.
+
+            ---
+            ### 🛡️ **Founding and Expansion**
+            - **Chandragupta Maurya**:
+                - Guided by **Chanakya** (author of the **Arthashastra**), Chandragupta united various smaller kingdoms into a single empire.
+                - Expanded the empire across the Indian subcontinent, including territories of **Afghanistan** and parts of **Persia**.
+            - **Territorial Conquests**:
+                - The empire became one of the largest in the world at its peak, stretching from **Afghanistan** in the northwest to **Bangladesh** in the east and **central India** in the south.
+
+            ---
+            ### ✨ **Ashoka the Great: The Transformation**
+            - **Kalinga War**:
+                - After a brutal victory in the **Kalinga War** (261 BCE), Ashoka witnessed the devastating loss of life and suffering. This prompted him to renounce violence.
+            - **Adoption of Buddhism**:
+                - Ashoka embraced **Buddhism** and devoted his reign to the principles of **non-violence (Ahimsa)**, **compassion**, and **righteous living (Dhamma)**.
+                - He worked towards spreading Buddhist values across Asia, sponsoring the construction of stupas, monasteries, and promoting the teachings of Buddha.
+
+            ---
+            ### 🏛️ **Administrative Brilliance**
+            - **Centralized Governance**:
+                - The empire was divided into **provinces (Janapadas)**, each governed by royal appointees, ensuring a centralized control while maintaining local governance.
+            - **Efficiency and Surveillance**:
+                - Ashoka developed a highly efficient **spy system** to monitor governance, ensuring fairness and compliance with his ideals.
+            - **Taxation System**:
+                - A fair taxation policy was implemented, with funds being used for public welfare and the construction of infrastructure, like roads, hospitals, and rest houses.
+
+            ---
+            ### 📜 **Cultural and Historical Contributions**
+            - **Ashoka’s Edicts**:
+                - Ashoka’s **Rock and Pillar Inscriptions** spread his Dhamma and Buddhist teachings, emphasizing **moral values**, **religious tolerance**, and **peaceful coexistence**.
+                - The **Edicts of Ashoka** can still be seen in various locations across India, acting as a testament to his reign.
+            - **Urban Development**:
+                - Ashoka oversaw the development of well-planned cities, with infrastructure such as roads, **hospitals**, and **rest houses** for travelers, which were revolutionary at the time.
+            - **Religious Harmony**:
+                - Promoted religious tolerance, encouraging respect for all beliefs and emphasizing the importance of ethical living.
+
+            ---
+            ### 🕉️ **Spiritual Influence**
+            - **Promotion of Buddhism**:
+                - Ashoka played a key role in the spread of **Buddhism** across India and to distant lands like **Sri Lanka**, **Nepal**, **Central Asia**, and **Southeast Asia**.
+            - **Dhamma (Righteous Living)**:
+                - Ashoka’s philosophy, called **Dhamma**, focused on the welfare of his people, respect for elders, kindness to animals, and tolerance for all religions.
+            - **Buddhist Architecture**:
+                - Construction of **stupas**, **monasteries**, and **pillars**, including the famous **Sanchi Stupa**, which became centers of Buddhist learning and meditation.
+
+            ---
+            ### 🌍 **Legacy of the Maurya Empire**
+            - **Political Unity**:
+                - The Maurya Empire established the first **unified Indian subcontinent**, providing a foundation for later empires to build upon.
+            - **Ashoka’s Reforms**:
+                - Ashoka’s adoption of **non-violence** and **Buddhist principles** had a lasting impact on Indian culture and society, influencing rulers like **Kanishka** and beyond.
+            - **Cultural Renaissance**:
+                - The Maurya Empire ushered in an era of **cultural renaissance**, with profound impacts on Indian **art**, **architecture**, and **philosophy**.
+            - **Spread of Buddhism**:
+                - Ashoka’s missionary work and patronage helped spread Buddhism beyond India, establishing it as a world religion.
+
+            ---
+            ### 🛕 **Key Contributions of the Maurya Empire**
+            Below is a table summarizing the Maurya Empire’s major contributions:
+
+            | **Field**                    | **Key Achievements**                                        | **Key Figures/Examples**          |
+            |------------------------------|------------------------------------------------------------|-----------------------------------|
+            | **Founding of the Empire**   | Unified smaller kingdoms, forming India’s first pan-Indian empire. | **Chandragupta Maurya**, **Chanakya** |
+            | **Buddhism**                  | Spread Buddhism across Asia, renounced violence.          | **Ashoka the Great**             |
+            | **Governance**                | Centralized governance, provincial autonomy, efficient spy system. | **Ashoka**, **Royal Appointees** |
+            | **Cultural Contributions**    | Ashoka’s Edicts promoting peace and religious harmony.     | **Ashoka’s Edicts**, **Stupas**  |
+            | **Infrastructure**            | Developed roads, hospitals, rest houses, and cities.       | **Ashoka’s Infrastructure Projects** |
+            | **Religious Tolerance**       | Promoted tolerance and respect for all faiths.             | **Ashoka**                       |
+
+            ---
+            ### 🌸 **The Enduring Legacy of Ashoka**
+            - Ashoka’s reign, marked by his conversion to **Buddhism** and promotion of **Dhamma**, left a lasting legacy on India’s spiritual and political landscape.
+            - His **Edicts**, scattered across the subcontinent, continue to inspire millions with their message of peace, tolerance, and righteous living.
+
+            The **Maurya Empire** set the stage for a unified India, both culturally and politically, and Ashoka’s **transformational leadership** remains a beacon of moral governance and spiritual growth. 🌿
             """)
+
 
         elif era == "Gupta Empire (320 CE - 550 CE)":
             st.markdown("""
-            **The Gupta Empire** is often referred to as the **Golden Age of India** due to remarkable achievements in various fields.  
-            - **Scientific and Mathematical Achievements:**
-                - **Aryabhata’s** discoveries in astronomy (concept of zero, heliocentrism).
-                - Advancements in medicine, including surgeries and detailed texts like the **Sushruta Samhita**.
-            - **Cultural Flourishing:**
-                - Sanskrit literature reached its peak with poets like **Kalidasa** (Shakuntala, Meghaduta).
-                - Development of Hindu temple architecture (e.g., Udayagiri caves, Dashavatara Temple).
-            - **Political and Economic Stability:**
-                - Strong centralized administration and trade with the Roman Empire and Southeast Asia.
-                - Flourishing of craft industries and urban centers.
+            ### 🌟 **Gupta Empire (320 CE - 550 CE)**  
+            Known as the **Golden Age of India**, the Gupta Empire witnessed unprecedented achievements in science, mathematics, culture, and spirituality.
+
+            ---
+            ### 🧠 **Scientific and Mathematical Achievements**
+            - **Aryabhata**:
+                - Introduced the concept of **zero** and **decimal system**.
+                - Proposed the **heliocentric theory**, stating that the Earth rotates on its axis.
+            - **Medicine**:
+                - Compilation of detailed surgical techniques in the **Sushruta Samhita**.
+                - Advances in herbal medicine, vaccinations, and veterinary sciences.
+            - **Astronomy**:
+                - Development of accurate astronomical calendars and instruments.
+
+            ---
+            ### 📚 **Cultural and Spiritual Flourishing**
+            - **Sanskrit Literature**:
+                - **Kalidasa**, the great poet and playwright, authored masterpieces like:
+                    - **Shakuntala**: A love story of Shakuntala and King Dushyanta.
+                    - **Meghaduta**: A lyrical poem about longing and separation.
+                - Flourishing of fables like **Panchatantra** and **Hitopadesha**.
+            - **Hindu Temple Architecture**:
+                - Early examples of temple design like **Dashavatara Temple (Deogarh)** and **Udayagiri caves**.
+                - Sculptures depicting Vishnu, Shiva, and Devi in elaborate forms.
+
+            #### **Sanatan Dharma**
+            - Revival and codification of **Vedic rituals** and **Hindu philosophy**.
+            - Promotion of **Vaishnavism**, **Shaivism**, and **Shaktism**.
+            - Sacred texts like **Puranas** were written and expanded during this era.
+
+            ---
+            ### 💰 **Political and Economic Prosperity**
+            - **Centralized Administration**:
+                - Efficient governance with local autonomy for provinces.
+                - Strong military ensuring internal peace and stability.
+            - **Trade and Commerce**:
+                - Flourished with **Roman Empire**, **Southeast Asia**, and **China**.
+                - Export of silk, spices, jewelry, and precious metals.
+            - **Craftsmanship**:
+                - Growth of guilds specializing in textiles, metalwork, and pottery.
+
+            ---
+            ### 🛕 **Key Contributions to Art and Architecture**
+            - **Temple Architecture**:
+                - **Dashavatara Temple (Deogarh)**: Early example of Gupta temple design.
+                - Rock-cut caves at **Udayagiri**, depicting Vishnu in his **Varaha avatar**.
+            - **Sculpture**:
+                - Graceful depictions of Hindu deities, marked by intricate detailing and spiritual depth.
+            - **Painting**:
+                - Early murals at **Ajanta Caves**, showcasing Buddhist themes and Gupta artistry.
+
+            ---
+            ### 🕉️ **Spiritual Legacy**
+            - Codification of **Yoga Sutras** and refinement of meditation techniques.
+            - Expansion of **Hindu philosophy** and **Buddhist teachings** to Southeast Asia.
+            - Creation of **Tantras** focusing on spirituality and rituals.
+
+            ---
+            ### 📜 **Key Contributions of the Gupta Empire**
+            Below is a table summarizing the Gupta Empire’s major contributions:
+
+            | **Field**                 | **Key Achievements**                                       | **Key Figures/Examples**            |
+            |---------------------------|-----------------------------------------------------------|-------------------------------------|
+            | **Mathematics**           | Decimal system, zero, value of pi.                        | **Aryabhata**                       |
+            | **Astronomy**             | Heliocentrism, accurate planetary calculations.           | **Aryabhata**                       |
+            | **Medicine**              | Surgical techniques, herbal treatments.                  | **Sushruta Samhita**                |
+            | **Literature**            | Sanskrit epics, fables, lyrical poetry.                  | **Kalidasa**, **Panchatantra**      |
+            | **Temple Architecture**   | Early Hindu temples, intricate rock-cut sculptures.       | **Dashavatara Temple**, **Udayagiri** |
+            | **Trade and Economy**     | Roman trade, guild-based craftsmanship.                  | Silk, spices, jewelry exports       |
+            | **Philosophy**            | Codification of Hindu texts, Buddhist expansion.          | **Puranas**, **Yoga Sutras**        |
+
+            ---
+            ### ✨ **Legacy of the Gupta Empire**
+            - Pioneered a golden era of **science**, **spirituality**, and **culture**, influencing generations to come.
+            - Spread Indian knowledge, traditions, and spirituality across **Asia**, leaving an indelible mark on history.
+            - Symbolized a harmonious blend of **Sanatan Dharma** and cultural innovation. 🌺🕉️
+
+            The Gupta Empire stands as a beacon of India’s rich and diverse heritage, celebrated for its spiritual and intellectual advancements.
             """)
+
 
         elif era == "Medieval India (750 CE - 1200 CE)":
             st.markdown("""
-            **Medieval India** saw the rise of regional kingdoms and cultural integration.  
-            - **Prominent Kingdoms:**
-                - **Cholas** in the south, **Rashtrakutas**, **Palas**, and **Rajputs** in the north.
-            - **Cultural Developments:**
-                - Bhakti Movement: Saints like **Alvars** and **Nayanars** emphasized personal devotion to God.
-                - Sufi Movements: Promoted unity and harmony through mystic teachings.
-            - **Architectural Advancements:**
-                - Chola temples like **Brihadeeswarar Temple** and sculptures at **Ellora Caves**.
-            - **Military Feats:**
-                - Naval expeditions by the Cholas, extending their influence to Southeast Asia.
+            ### 🏺 **Medieval India (750 CE - 1200 CE)**  
+            This period was marked by the rise of powerful regional kingdoms, the flourishing of art and spirituality, and remarkable cultural advancements.
+
+            ---
+            ### 🛡️ **Prominent Kingdoms and Dynasties**
+            - **Chola Dynasty (850 CE - 1250 CE)**:
+                - Expanded through naval expeditions to **Sri Lanka** and **Southeast Asia**.
+                - Established efficient administration and fostered economic prosperity.
+            - **Rashtrakutas (753 CE - 982 CE)**:
+                - Known for patronizing art, culture, and literature.
+                - Built stunning rock-cut temples like **Kailasa Temple** at Ellora.
+            - **Palas (8th - 12th Century)**:
+                - Patrons of **Buddhism**, founded centers like **Nalanda** and **Vikramashila**.
+                - Spread Indian culture to Southeast Asia.
+            - **Rajput Kingdoms**:
+                - Emerged as defenders of Hindu culture, resisting invasions and preserving traditions.
+
+            ---
+            ### 🌟 **Cultural and Spiritual Developments**
+            #### **Bhakti Movement**
+            - Saints like the **Alvars** and **Nayanars** in Tamil Nadu popularized devotion to Vishnu and Shiva.
+            - Prominent figures:
+                - **Andal**: Female Alvar saint known for her passionate devotion to Lord Vishnu.
+                - **Appar** and **Sundarar**: Nayanar saints promoting Shaivism through Tamil hymns.
+            - Key Teachings:
+                - Emphasis on **personal devotion** over rituals and caste distinctions.
+                - Promoted unity among followers of different social strata.
+
+            #### **Sufi Movements**
+            - Introduced mysticism, emphasizing **love and unity** across religions.
+            - Early Sufi saints in India began spreading messages of harmony.
+
+            ---
+            ### 🛕 **Architectural and Artistic Achievements**
+            - **Chola Temples**:
+                - **Brihadeeswarar Temple** (Tanjore): A UNESCO World Heritage Site, showcasing exquisite Dravidian architecture.
+                - **Gangaikonda Cholapuram Temple**: Symbol of Chola power and artistic brilliance.
+            - **Ellora Caves**:
+                - Rock-cut temples dedicated to Hinduism, Buddhism, and Jainism, built by the **Rashtrakutas**.
+            - **Sculpture and Art**:
+                - Detailed bronze idols of deities like **Nataraja (Lord Shiva)**, created by Chola artisans.
+
+            ---
+            ### 🌏 **Military Feats and Regional Influence**
+            - **Chola Naval Expeditions**:
+                - Established dominance over the **Bay of Bengal** and expanded trade to **Southeast Asia**.
+                - Spread Indian culture, Hinduism, and Tamil scripts to **Indonesia**, **Malaysia**, and **Thailand**.
+            - **Rajput Resistance**:
+                - Defended northern India against early Islamic invasions, ensuring the survival of Hindu traditions.
+
+            ---
+            ### 📜 **Key Spiritual and Cultural Contributions**
+            Below is a table summarizing the significant contributions of the medieval era:
+
+            | **Dynasty/Movement**      | **Key Contributions**                                                                 | **Key Figures/Temples**                     |
+            |---------------------------|---------------------------------------------------------------------------------------|---------------------------------------------|
+            | **Cholas**                | Temple construction, bronze sculptures, naval dominance.                             | **Brihadeeswarar Temple**, Nataraja Idol    |
+            | **Rashtrakutas**          | Patronage of art and rock-cut temples.                                               | **Kailasa Temple** at Ellora                |
+            | **Palas**                 | Spread of Mahayana Buddhism, establishment of monasteries.                           | **Nalanda**, **Vikramashila**               |
+            | **Bhakti Movement**       | Emphasis on devotion to Vishnu and Shiva, unity among castes.                        | **Andal**, **Appar**, **Sundarar**          |
+            | **Sufi Movements**        | Promoted mysticism and religious harmony.                                            | Early Sufi saints                           |
+            | **Rajputs**               | Preservation of Hindu culture and traditions through resilience against invasions.   | Forts like **Chittorgarh**                  |
+
+            ---
+            ### ✨ **Legacy of Medieval India**
+            - Flourishing of art, architecture, and spirituality, showcasing the resilience of Sanatan Dharma.
+            - Establishment of India’s cultural and spiritual influence across Asia.
+            - A blend of devotion, resistance, and creativity that laid the groundwork for the cultural unity of India.
+
+            The **Medieval Era** remains a testament to India’s spiritual and artistic heritage, where the essence of Sanatan Dharma thrived through trials and innovations. 🌺🕉️
             """)
+
 
         elif era == "Mughal Empire (1526 CE - 1857 CE)":
             st.markdown("""
-            **The Mughal Empire** blended Persian and Indian cultures to create a rich legacy.  
-            - **Political and Military Achievements:**
-                - Founding by **Babur** after the Battle of Panipat (1526).
-                - Expansion under **Akbar**, who introduced policies of religious tolerance.
-            - **Cultural Contributions:**
-                - Architectural marvels: **Taj Mahal**, **Red Fort**, **Fatehpur Sikri**.
-                - Flourishing of Urdu poetry and miniature paintings.
-            - **Administration:**
-                - Land revenue system (Zabt) and Mansabdari system under Akbar.
-                - Promotion of trade and art.
+            ### 🏰 **Mughal Empire (1526 CE - 1857 CE)**  
+            The Mughal Empire played a pivotal role in shaping Indian history, blending cultures, leaving a rich architectural legacy, and also witnessing destruction of temples and suppression of Vedic practices.
+
+            ---
+            ### ⚔️ **Political and Military Achievements**
+            - **Foundation of the Empire**:
+                - 🗓️ **1526**: **Babur** defeated Ibrahim Lodi in the **First Battle of Panipat**, establishing Mughal rule in India.
+            - **Key Rulers**:
+                - **Akbar the Great (1556-1605)**: Expanded the empire through diplomacy and military campaigns, introducing policies of **religious tolerance**.
+                - **Shah Jahan (1628-1658)**: Focused on monumental architecture and the arts.
+                - **Aurangzeb (1658-1707)**: Expanded the empire to its greatest territorial extent but followed a stricter, divisive religious policy.
+            - **Decline**:
+                - After **Aurangzeb**, weak successors and internal conflicts led to the empire’s decline, culminating in its fall during the **Revolt of 1857**.
+
+            ---
+            ### 🛕 **Impact on Hindu Temples and Vedic Culture**
+            Below is a table summarizing key instances of temple destruction and suppression of Vedic culture during the Mughal period:
+
+            | **Temple/Spiritual Site**          | **Location**              | **Event**                                                                                     | **Ruler Responsible**      |
+            |-----------------------------------|--------------------------|---------------------------------------------------------------------------------------------|----------------------------|
+            | **Kashi Vishwanath Temple**       | Varanasi (Uttar Pradesh) | Demolished and replaced with **Gyanvapi Mosque**.                                            | Aurangzeb                  |
+            | **Somnath Temple**                | Gujarat                  | Plundered multiple times for its wealth.                                                    | Aurangzeb                  |
+            | **Krishna Janmabhoomi Temple**    | Mathura (Uttar Pradesh)  | Demolished and replaced with **Shahi Idgah Mosque**.                                         | Aurangzeb                  |
+            | **Martand Sun Temple**            | Kashmir                  | Destroyed to suppress Hindu practices.                                                      | Sikandar Butshikan (precursor to Mughal period) |
+            | **Jain and Buddhist Temples**     | Throughout India         | Targeted destruction of non-Islamic shrines and religious centers.                           | Various Mughal rulers      |
+            | **Nalanda and Takshashila**       | Bihar and Punjab         | Centers of Vedic education destroyed, impacting ancient Indian knowledge and culture.        | Precursor invasions, later influenced under Mughal rule |
+            | **Vijayanagara Temples**          | Karnataka                | Temples in **Hampi** desecrated after Mughal-allied invasions.                               | Mughal alliances           |
+            | **Ayodhya Ram Temple**            | Ayodhya (Uttar Pradesh)  | Destroyed and replaced with the **Babri Mosque**.                                            | Babur                      |
+
+            ---
+            ### 🌟 **Key Impacts on Vedic Culture**
+            - **Destruction of Knowledge Hubs**:
+                - Ancient centers of learning like **Nalanda** and **Takshashila** were destroyed, severing links to India’s scholarly heritage.
+            - **Suppression of Festivals**:
+                - Restrictions were placed on Hindu festivals like **Diwali** and **Holi**.
+            - **Imposition of Jizya**:
+                - Heavy **jizya tax** was imposed on non-Muslims, discouraging the free practice of Vedic traditions.
+            - **Cultural Resilience**:
+                - Saints and scholars preserved Vedic teachings through oral traditions, Bhakti poetry, and devotion.
+
+            ---
+            ### 🎨 **Cultural Contributions**
+            - **Architecture**:
+                - 🕌 Iconic monuments blending Persian, Indian, and Islamic styles:
+                    - **Taj Mahal** (Agra): A symbol of love built by Shah Jahan.
+                    - **Red Fort** (Delhi): A magnificent fort showcasing Mughal grandeur.
+                    - **Fatehpur Sikri**: Akbar’s planned city, now a UNESCO World Heritage Site.
+                - Grand mosques like the **Jama Masjid** and **Badshahi Mosque**.
+            - **Art and Literature**:
+                - 🌺 Flourishing of **miniature paintings** and the development of the **Mughal School of Art**.
+                - 📖 Patronage of Urdu poetry and Persian literature.
+            - **Gardens**:
+                - Creation of **charbagh-style gardens**, emphasizing symmetry and harmony.
+
+            ---
+            ### 🧱 **Administrative Systems**
+            - **Mansabdari System**:
+                - Hierarchical ranking system introduced by Akbar to organize the military and civil administration.
+            - **Land Revenue (Zabt) System**:
+                - Efficient tax collection system ensuring economic stability during Akbar’s reign.
+            - **Trade and Economy**:
+                - Promotion of trade routes, linking India with Central Asia, Persia, and Europe.
+                - Introduction of **silver rupee coins**.
+
+            ---
+            ### 🌟 **Spiritual Revival and Resistance**
+            - **Bhakti Movement**:
+                - Saints like **Tulsidas**, **Meerabai**, and **Kabir** preserved the essence of Hindu spirituality through devotional songs and poetry.
+                - Writings like the **Ramcharitmanas** (by Tulsidas) inspired the masses.
+            - **Rise of the Sikh Gurus**:
+                - The Sikh faith, led by Gurus like **Guru Nanak** and **Guru Gobind Singh**, emphasized equality, justice, and resistance to oppression.
+            - **Temple Restoration Efforts**:
+                - Rulers like **Chhatrapati Shivaji** rebuilt desecrated temples, ensuring the continuation of spiritual practices.
+
+            ---
+            ### 📜 **Legacy of the Mughal Empire**
+            - **Contributions**:
+                - Iconic architecture, art, and administrative innovations.
+            - **Controversies**:
+                - Religious intolerance and destruction of spiritual sites left a scar on India's cultural landscape.
+
+            The **Mughal Empire** remains a period of immense creativity and resilience, with Sanatan Dharma emerging stronger through centuries of trials. 🕉️🏰
             """)
+
+
 
         elif era == "Colonial Period (1757 CE - 1947 CE)":
             st.markdown("""
-            **The Colonial Period** marks British domination in India and the struggle for independence.  
-            - **Key Events:**
-                - **Battle of Plassey (1757):** British East India Company’s control over Bengal.
-                - **Revolt of 1857:** First War of Independence against British rule.
-            - **Freedom Struggle:**
-                - Formation of the **Indian National Congress** (1885).
-                - Leadership of **Mahatma Gandhi**, **Subhas Chandra Bose**, and **Bhagat Singh**.
-                - Nonviolent resistance movements like **Salt March**, **Quit India Movement**.
-            - **Economic and Social Impact:**
-                - Drain of wealth and exploitation of Indian resources.
-                - Introduction of railways, modern education, and legal systems.
+            ### 🕉️ **Colonial Period (1757 CE - 1947 CE)**  
+            The Colonial Period not only saw India under British domination but also witnessed a profound revival of **Sanatan Dharma** and the rise of several spiritual movements that reignited India’s cultural and spiritual identity.
+
+            ---
+            ### 🛕 **Spiritual Awakening and Movements**
+            The colonial period brought a resurgence in spirituality as sages and reformers worked to preserve and promote the values of Sanatan Dharma amidst foreign domination.
+
+            | **Year**  | **Spiritual Movement/Event**                  | **Key Figures and Details**                                                  |
+            |-----------|-----------------------------------------------|-------------------------------------------------------------------------------|
+            | 1828      | **Brahmo Samaj**                              | Founded by **Raja Ram Mohan Roy**, focusing on monotheism and social reforms. |
+            | 1867      | **Arya Samaj**                                | Established by **Swami Dayananda Saraswati**, promoting Vedic teachings.      |
+            | 1863-1902 | **Ramakrishna Movement**                      | Led by **Ramakrishna Paramahamsa** and carried forward by **Swami Vivekananda**.|
+            | 1893      | **Swami Vivekananda's Chicago Speech**         | Introduced the world to India’s spiritual heritage at the **Parliament of Religions**.|
+            | 1915      | **Mahatma Gandhi’s Spiritual Leadership**     | Introduced the principle of **Ahimsa (nonviolence)** as a spiritual weapon.   |
+            | 1920      | **Self-Realization Fellowship**               | Founded by **Paramahansa Yogananda**, spreading Kriya Yoga globally.         |
+
+            ---
+            ### 🧘‍♂️ **Key Spiritual Figures and Their Contributions**
+            - **Ramakrishna Paramahamsa (1836-1886)**:
+                - Emphasized the unity of all religions and realization of God through devotion and meditation.
+            - **Swami Vivekananda (1863-1902)**:
+                - Advocated Vedanta philosophy and inspired the youth to revive Indian spirituality and culture.
+            - **Swami Dayananda Saraswati (1824-1883)**:
+                - Founded Arya Samaj to revive Vedic knowledge and oppose superstition.
+            - **Paramahansa Yogananda (1893-1952)**:
+                - Author of **Autobiography of a Yogi**, instrumental in popularizing yoga and meditation in the West.
+            - **Sri Aurobindo (1872-1950)**:
+                - Merged spirituality with nationalism; emphasized **Integral Yoga** for self-realization and social progress.
+            - **Mahatma Gandhi (1869-1948)**:
+                - Used spiritual values like truth, nonviolence, and simplicity as tools for India’s independence.
+
+            ---
+            ### ✨ **Revival of Sanatan Dharma**
+            - 🕉️ **Bhakti Movement**: Saints like **Ramana Maharshi** and **Sai Baba of Shirdi** inspired millions with their teachings on devotion and universal love.
+            - 📖 **Preservation of Scriptures**: Scholars translated and preserved ancient texts like the **Bhagavad Gita**, **Upanishads**, and **Vedas**.
+            - 🛕 **Temple Rejuvenation**: Efforts were made to restore and protect key temples from colonial neglect.
+            - ✨ **Global Recognition**: Vivekananda’s speech in Chicago and the rise of Indian mysticism attracted global attention to Sanatan Dharma.
+
+            ---
+            ### 📜 **Cultural and Spiritual Impact**
+            - **Rediscovery of India’s Spiritual Roots**:
+                - Encouraged self-confidence and pride in India's spiritual and cultural heritage.
+            - **Spiritual Nationalism**:
+                - Leaders like **Sri Aurobindo** and **Bal Gangadhar Tilak** merged spirituality with the freedom struggle.
+            - **Spread of Yoga and Meditation**:
+                - Indian spiritual practices like **yoga** and **kirtan** became popular in the West.
+            - **Resistance to Conversion**:
+                - Movements like Arya Samaj opposed forced religious conversions and worked to preserve Hinduism.
+
+            ---
+            ### 🕊️ **Freedom Through Spirituality**
+            Many leaders of the independence struggle drew inspiration from spirituality:
+            - **Gandhi’s Satyagraha**: Nonviolence and truth as spiritual principles to fight oppression.
+            - **Tilak’s Call for Swaraj**: Declared that **“Swaraj is my birthright”**, connecting it to Dharma.
+            - **Aurobindo’s Vision**: A free India as a spiritual leader for the world.
+
+            ---
+            ### 🌟 **Catchy Highlights**
+            - 🪷 **Unity of Religions**: Ramakrishna and Vivekananda emphasized harmony among all faiths.
+            - 📚 **Educational Reforms**: Schools like the **Ramakrishna Mission** combined spiritual teachings with modern education.
+            - 🌐 **Global Reach**: Indian spiritual masters like Yogananda and Vivekananda inspired millions worldwide.
+            - 🕊️ **Cultural Renaissance**: The period saw a revival of traditional arts, literature, and spiritual practices.
+
+            ---
+            The **Colonial Period** was not only a time of political struggle but also a profound spiritual awakening that redefined India’s identity and strengthened its resolve for independence. 🕉️🇮🇳
             """)
+
 
         elif era == "Modern India (1947 CE - Present)":
             st.markdown("""
-            **Modern India** began with independence on August 15, 1947.  
-            - **Key Political Events:**
-                - Adoption of the **Indian Constitution** in 1950.
-                - Integration of princely states under **Sardar Vallabhbhai Patel**.
-            - **Economic Development:**
-                - Green Revolution (1960s) to achieve self-sufficiency in food grains.
-                - Economic reforms of **1991**, leading to globalization and liberalization.
-            - **Technological and Cultural Achievements:**
-                - Launch of **ISRO** and advancements in space research.
-                - Rise in IT and software industries, making India a global technology hub.
+            ### **Modern India (1947 CE - Present)**  
+            **Modern India** began on August 15, 1947, with India's independence from British rule. This era has witnessed remarkable political, economic, technological, and cultural transformations.
+
+            ---
+            ### 🏛️ **Key Political Events**
+            - 🗓️ **1947:** India gained independence, and Pakistan was formed through Partition.
+            - 🗓️ **1950:** Adoption of the **Indian Constitution** on January 26; India became a Republic.
+            - 🗓️ **1947-1955:** Integration of 562 princely states by **Sardar Vallabhbhai Patel**.
+            - 🗓️ **1975-1977:** **Emergency Period** declared by Indira Gandhi.
+            - 🗓️ **1992:** Economic liberalization introduced by **P.V. Narasimha Rao** and **Manmohan Singh**.
+            - 🗓️ **2014:** Narendra Modi became Prime Minister, initiating policies like **Digital India**, **Make in India**, and **Startup India**.
+
+            ---
+            ### 🌾 **Economic Development**
+            - 🌱 **Green Revolution (1960s):** Boosted agricultural productivity and self-sufficiency in food grains.
+            - 📈 **1991 Economic Reforms:** Liberalization, Privatization, and Globalization transformed India's economy.
+            - 🏗️ **Rise in Infrastructure:** Development of metro systems, smart cities, and highways.
+            - 🌐 **IT Revolution (2000s):** Emergence of India as a global leader in software and IT services.
+            - 🏦 **GST Implementation (2017):** Unified India's taxation system.
+
+            ---
+            ### 🚀 **Technological and Cultural Achievements**
+            - 🛰️ **1969:** Establishment of **ISRO** (Indian Space Research Organisation).
+                - 🚀 **2014:** Mangalyaan (Mars Orbiter Mission) made India the first country to succeed on its first attempt.
+                - 🌕 **2019:** Chandrayaan-2 mission for lunar exploration.
+                - 🌑 **2023:** Chandrayaan-3 made a successful soft landing on the moon's south pole.
+            - 📡 **Digital India Campaign:** Transforming India into a digitally empowered society.
+            - 🏏 **Sports Achievements:** Cricket World Cups (1983, 2011), Olympic medals in various sports.
+            - 🎨 **Cultural Renaissance:** Bollywood's global reach and the promotion of Indian classical arts and yoga.
+
+            ---
+            ### ✊ **Freedom Movements and Key Events**
+            Below is a timeline of key movements that shaped Modern India:
+
+            | **Year** | **Movement/Event**                                             | **Details**                                                                 |
+            |----------|---------------------------------------------------------------|-----------------------------------------------------------------------------|
+            | 1947     | **Independence and Partition**                                | Freedom from British rule; creation of India and Pakistan.                  |
+            | 1948     | **Assassination of Mahatma Gandhi**                           | Father of the Nation assassinated by Nathuram Godse.                        |
+            | 1956     | **Reorganization of States**                                  | States reorganized based on linguistic lines.                               |
+            | 1965     | **Indo-Pak War**                                              | Conflict over Kashmir.                                                      |
+            | 1971     | **Bangladesh Liberation War**                                 | India played a key role in the creation of Bangladesh.                      |
+            | 1975     | **Emergency**                                                 | Civil liberties suspended; major political crisis.                          |
+            | 1984     | **Operation Blue Star & Anti-Sikh Riots**                     | Military operation in Punjab; followed by riots after Indira Gandhi's death.|
+            | 1992     | **Babri Masjid Demolition**                                   | Religious tensions escalated after the demolition in Ayodhya.               |
+            | 2020     | **Farmers' Protest**                                          | Protest against farm laws; later repealed.                                  |
+
+            ---
+            ### 🔍 **Catchy Highlights**
+            - 🏆 **India as a Global Leader:** Recognized for its role in IT, space research, and peacekeeping missions.
+            - 🌏 **Environmental Focus:** Initiatives like **National Solar Mission** and international climate commitments.
+            - ✨ **Cultural Diplomacy:** Yoga Day (June 21) declared by the UN, showcasing India's soft power.
+
+            ---
+            **Modern India** stands as a testament to its resilience, diversity, and progress, constantly evolving as a major player on the global stage. 🇮🇳
             """)
+
 
         # Knowledge Base Search
         st.subheader("🔎 Search the Knowledge Base")

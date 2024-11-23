@@ -86,3 +86,27 @@ p, ol, ul, dl {
 .stIcon:hover {
     transform: rotate(360deg); /* Smooth rotation for mysticism */
 }
+
+.stRadio > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+}
+.stRadio > div > label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.stRadio > div > label:hover {
+    background-color: #8b3e3e;
+    transform: scale(1.1);
+    border-radius: 20px;
+}
+.stRadio > div > label.stCssRadio > input {
+    display: none;
+}
