@@ -445,18 +445,18 @@ elif st.session_state.current_page == "main":
 
        # Create sections for different eras
         st.subheader("📖 Select a Historical Era to Explore:")
-        with st.expander("Expand to choose an Era:", expanded=True):  # Provide a label for the expander
+        with st.expander("🕰️ Expand to choose an Era::", expanded=True):  # Provide a label for the expander
             era = st.radio(
-                "Choose an Era:",
+                "🌟 Choose an Era:",
                 options=[
-                    "Vedic Period (1500 BCE - 500 BCE)",
-                    "Mahajanapadas & Rise of Kingdoms (600 BCE - 321 BCE)",
-                    "Maurya Empire (321 BCE - 185 BCE)",
-                    "Gupta Empire (320 CE - 550 CE)",
-                    "Medieval India (750 CE - 1200 CE)",
-                    "Mughal Empire (1526 CE - 1857 CE)",
-                    "Colonial Period (1757 CE - 1947 CE)",
-                    "Modern India (1947 CE - Present)"
+                    "🕉️ Vedic Period (1500 BCE - 500 BCE)",
+                    "🏛️ Mahajanapadas (600 BCE - 321 BCE)",
+                    "🦁 Maurya Empire (321 BCE - 185 BCE)",
+                    "🛡️ Gupta Empire (320 CE - 550 CE)",
+                    "🏰 Medieval India (750 CE - 1200 CE)",
+                    "👑 Mughal Empire (1526 CE - 1857 CE)",
+                    "🌍 Colonial Period (1757 CE - 1947 CE)",
+                    "🚀 Modern India (1947 CE - Present)"
                 ],
                 index=0
             )
@@ -464,7 +464,7 @@ elif st.session_state.current_page == "main":
 
         # Dynamic content based on the selected era
         st.write("### 📜 **Details of the Selected Era:**")
-        if era == "Vedic Period (1500 BCE - 500 BCE)":
+        if era == "🕉️ Vedic Period (1500 BCE - 500 BCE)":
             st.markdown("""
             ### 📜 **The Vedic Period (1500 BCE - 500 BCE)**  
             The **Vedic Period** marks the foundation of Indian civilization, with the composition of the four **Vedas** ***Rigveda***, ***Samaveda***, ***Yajurveda***, and ***Atharvaveda*** which laid the spiritual and philosophical foundations of India.
@@ -510,7 +510,7 @@ elif st.session_state.current_page == "main":
             """)
 
 
-        elif era == "Mahajanapadas & Rise of Kingdoms (600 BCE - 321 BCE)":
+        elif era == "🏛️ Mahajanapadas (600 BCE - 321 BCE)":
             st.markdown("""
             ### 🏛️ **The Mahajanapadas Period (600 BCE - 321 BCE)**  
             The **Mahajanapadas Period** marks a significant transition in Indian history from tribal societies to more structured state-based governance, with the emergence of 16 powerful kingdoms and republics. This era also saw the rise of new philosophical and religious movements, such as **Buddhism** and **Jainism**, that challenged the existing social and religious systems.
@@ -577,7 +577,7 @@ elif st.session_state.current_page == "main":
             """)
 
 
-        elif era == "Maurya Empire (321 BCE - 185 BCE)":
+        elif era == "🦁 Maurya Empire (321 BCE - 185 BCE)":
             st.markdown("""
             ### 🏰 **Maurya Empire (321 BCE - 185 BCE)**  
             The **Maurya Empire** was the first pan-Indian empire, founded by **Chandragupta Maurya** and expanded under the leadership of **Ashoka the Great**. It stands as a monumental period in Indian history, blending political brilliance with deep spiritual transformation.
@@ -659,7 +659,7 @@ elif st.session_state.current_page == "main":
             """)
 
 
-        elif era == "Gupta Empire (320 CE - 550 CE)":
+        elif era == "🛡️ Gupta Empire (320 CE - 550 CE)":
             st.markdown("""
             ### 🌟 **Gupta Empire (320 CE - 550 CE)**  
             Known as the **Golden Age of India**, the Gupta Empire witnessed unprecedented achievements in science, mathematics, culture, and spirituality.
@@ -742,7 +742,7 @@ elif st.session_state.current_page == "main":
             """)
 
 
-        elif era == "Medieval India (750 CE - 1200 CE)":
+        elif era == "🏰 Medieval India (750 CE - 1200 CE)":
             st.markdown("""
             ### 🏺 **Medieval India (750 CE - 1200 CE)**  
             This period was marked by the rise of powerful regional kingdoms, the flourishing of art and spirituality, and remarkable cultural advancements.
@@ -817,7 +817,7 @@ elif st.session_state.current_page == "main":
             """)
 
 
-        elif era == "Mughal Empire (1526 CE - 1857 CE)":
+        elif era == "👑 Mughal Empire (1526 CE - 1857 CE)":
             st.markdown("""
             ### 🏰 **Mughal Empire (1526 CE - 1857 CE)**  
             The Mughal Empire played a pivotal role in shaping Indian history, blending cultures, leaving a rich architectural legacy, and also witnessing destruction of temples and suppression of Vedic practices.
@@ -905,7 +905,7 @@ elif st.session_state.current_page == "main":
 
 
 
-        elif era == "Colonial Period (1757 CE - 1947 CE)":
+        elif era == "🌍 Colonial Period (1757 CE - 1947 CE)":
             st.markdown("""
             ### 🕉️ **Colonial Period (1757 CE - 1947 CE)**  
             The Colonial Period not only saw India under British domination but also witnessed a profound revival of **Sanatan Dharma** and the rise of several spiritual movements that reignited India’s cultural and spiritual identity.
@@ -975,7 +975,7 @@ elif st.session_state.current_page == "main":
             """)
 
 
-        elif era == "Modern India (1947 CE - Present)":
+        elif era == "🚀 Modern India (1947 CE - Present)":
             st.markdown("""
             ### **Modern India (1947 CE - Present)**  
             **Modern India** began on August 15, 1947, with India's independence from British rule. This era has witnessed remarkable political, economic, technological, and cultural transformations.

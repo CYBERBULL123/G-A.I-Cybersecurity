@@ -27,6 +27,7 @@ p, ol, ul, dl {
     padding: 0 20px;
 }
 
+/* Button Styles */
 .stButton>button {
     background-color: #503321; /* Deep spiritual purple */
     color: #FFD700; /* Divine gold text */
@@ -75,7 +76,6 @@ p, ol, ul, dl {
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); /* Subtle glow */
 }
 
-
 /* Icon Style for Spiritual Elements */
 .stIcon {
     font-size: 3rem;
@@ -87,26 +87,93 @@ p, ol, ul, dl {
     transform: rotate(360deg); /* Smooth rotation for mysticism */
 }
 
+/* Tabs Container */
+.stTabs st-emotion-cache-0 esjhkag0 {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    padding: 1rem 0;
+}
+
+/* Individual Tab Style */
+.stTab {
+    padding: 1rem 2rem;
+    background-color: #503321; /* Deep spiritual purple */
+    color: #FFD700;
+    border: 2px solid #FFD700;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.stTab:hover {
+    background-color: #FFD700;
+    color: #4e2718;
+    transform: scale(1.1);
+}
+
+/* Active Tab Style */
+.stTabActive {
+    background-color: #FFD700;
+    color: #4e2718;
+}
+
+/* Smooth Animation for Radio Buttons */
 .stRadio > div {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 15px;
     align-items: center;
 }
+
 .stRadio > div > label {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 13px;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
+
 .stRadio > div > label:hover {
     background-color: #8b3e3e;
     transform: scale(1.1);
     border-radius: 20px;
 }
+
 .stRadio > div > label.stCssRadio > input {
     display: none;
+}
+
+.stRadio > div > input[type="radio"]:checked + label {
+    background-color: #FFD700; /* Highlight the selected radio */
+    color: #4e2718;
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+    h1, h2, h3, h4, h5, h6 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .stButton>button {
+        padding: 0.8rem 1.8rem;
+        font-size: 1rem;
+    }
+
+    .stApp {
+        padding: 1rem;
+    }
+
+    .stTabs {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .stTab {
+        padding: 1rem;
+    }
 }
