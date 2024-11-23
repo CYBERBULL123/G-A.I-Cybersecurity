@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-# =============================================================================
+# ===========================================================================
 # COPYRIGHT NOTICE
 # -----------------------------------------------------------------------------
 # This source code is the intellectual property of Aditya Pandey.
@@ -849,5 +848,3 @@ if st.session_state.show_main_app:
     render_main_app()
 else:
     render_description_and_framework()
-
->>>>>>> main
