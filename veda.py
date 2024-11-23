@@ -183,8 +183,19 @@ def generate_recommendations_based_on_input(user_input, language="en"):
             context += example["content"] + "\n"
     
     # Gemini will generate a recommendation based on the content
-    prompt = f"Based on the user's interest in the following topics, recommend related spiritual texts, practices, or concepts. Provide at least 5 specific suggestions and article url for user readings  from the same domain:\n\n{user_input}\n\nBased on the content above, what other resources would you suggest?"
+    prompt = f"""
+    The user is interested in the following topics: 
+    {user_input}
     
+    Based on the user's input and the following content from various spiritual and historical knowledge domains:
+    
+    {context}
+    
+    Provide detailed recommendations related to spiritual practices, texts, and historical concepts that align with the user's query. 
+    Please offer at least 5 specific suggestions for further reading, including titles of texts, practices to explore, key concepts, and URLs to trusted resources for deeper understanding. Each suggestion should be accompanied by a brief explanation of why it is relevant to the user's interests. 
+
+    Suggestions:
+    """
     recommendation = query_gemini(context, prompt, language)
     if recommendation:
         # Split the recommendations into a list for easier processing
