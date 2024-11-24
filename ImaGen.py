@@ -1,3 +1,20 @@
+# =============================================================================
+# COPYRIGHT NOTICE
+# ----------------------------------------------------------------------------- 
+# This source code is the intellectual property of Aditya Pandey.
+# Any unauthorized reproduction, distribution, or modification of this code 
+# is strictly prohibited.
+# If you wish to use or modify this code for your project, please ensure 
+# to give full credit to Aditya Pandey.
+#
+# PROJECT DESCRIPTION
+# ----------------------------------------------------------------------------- 
+# This code is for Oximagen, a project focused on leveraging AI to 
+# enhance imaging Genertation and storytelling.
+#
+# Author: Aditya Pandey
+# =============================================================================
+
 import os
 import streamlit as st
 from PIL import Image
@@ -13,13 +30,8 @@ import uuid
 import time
 import logging
 from constants import gemini_key
+from googletrans import Translator
 
-# Streamlit framework configuration
-st.set_page_config(
-    page_title="OxImaGen 🎨",
-    page_icon="🖼️",
-    layout="wide"
-)
 
 # Load custom CSS
 def load_css(file_name):
@@ -106,7 +118,114 @@ style_list = [
         "prompt": "sketch art {prompt} . pencil drawings, detailed lines, rough texture",
         "negative_prompt": "colorful, digital, polished",
     },
+    {
+        "name": "Graffiti 🎨",
+        "prompt": "graffiti art {prompt} . urban, colorful, bold strokes, street art, spray paint effects",
+        "negative_prompt": "realistic, subdued colors, traditional",
+    },
+    {
+        "name": "Art Nouveau 🌸",
+        "prompt": "art nouveau {prompt} . flowing lines, organic forms, intricate patterns, floral elements",
+        "negative_prompt": "modern, geometric, minimalist",
+    },
+    {
+        "name": "Baroque 🕯️",
+        "prompt": "baroque artwork {prompt} . dramatic lighting, rich colors, ornate details, grandeur",
+        "negative_prompt": "minimalist, abstract, contemporary",
+    },
+    {
+        "name": "Realism 🌍",
+        "prompt": "realistic painting of {prompt} . true-to-life, detailed, accurate representation, everyday life",
+        "negative_prompt": "abstract, surreal, exaggerated, stylized",
+    },
+    {
+        "name": "Futurism 🚀",
+        "prompt": "futuristic artwork {prompt} . dynamic, movement, energy, technology, speed",
+        "negative_prompt": "static, traditional, slow, classic",
+    },
+    {
+        "name": "Collage 🖼️",
+        "prompt": "collage art of {prompt} . mixed media, layered textures, various materials, visual storytelling",
+        "negative_prompt": "clean, polished, digital, smooth",
+    },
+    {
+        "name": "Retro Vintage 📻",
+        "prompt": "retro vintage style {prompt} . nostalgic, faded colors, classic design, old-school charm",
+        "negative_prompt": "modern, high-tech, flashy, new",
+    },
+    {
+        "name": "Conceptual Art 💡",
+        "prompt": "conceptual artwork {prompt} . thought-provoking, idea-driven, avant-garde, experimental",
+        "negative_prompt": "traditional, realistic, conventional, mainstream",
+    },
+    {
+        "name": "Bauhaus 🏢",
+        "prompt": "bauhaus style {prompt} . functional, geometric, minimalistic, industrial design",
+        "negative_prompt": "ornate, decorative, complex, traditional",
+    },
+    {
+        "name": "Minimalism ➖",
+        "prompt": "minimalist artwork of {prompt} . simplicity, clean lines, few colors, essential forms",
+        "negative_prompt": "complex, detailed, busy, ornate",
+    },
+    {
+        "name": "Expressionism 🎭",
+        "prompt": "expressionist art of {prompt} . emotional, subjective, vivid colors, distorted forms",
+        "negative_prompt": "realism, precise, clean, conventional",
+    },
+    {
+        "name": "Traditional Chinese 🏮",
+        "prompt": "traditional Chinese painting of {prompt} . delicate brushwork, ink wash, natural subjects, harmony",
+        "negative_prompt": "modern, abstract, digital",
+    },
+    {
+        "name": "Traditional Japanese 🎋",
+        "prompt": "traditional Japanese art of {prompt} . ukiyo-e style, woodblock prints, nature themes, elegance",
+        "negative_prompt": "modern, Western, chaotic",
+    },
+    {
+        "name": "Victorian 🎩",
+        "prompt": "victorian style {prompt} . ornate, detailed, romantic, historical elements",
+        "negative_prompt": "minimalist, modern, abstract",
+    },
+    {
+        "name": "Indian Traditional 🪬",
+        "prompt": "traditional Indian artwork of {prompt} . intricate patterns, rich colors, cultural elements, folk art style, detailed brushwork",
+        "negative_prompt": "modern, abstract, minimalistic, digital",
+    },
+    {
+        "name": "Logo Making 🖊️",
+        "prompt": "professional logo design for {prompt} . clean, modern, vector-based, suitable for branding, visually appealing",
+        "negative_prompt": "messy, overly complex, low resolution, handwritten",
+    },
+    {
+        "name": "Vector Art 📐",
+        "prompt": "vector art of {prompt} . sharp lines, flat colors, scalable design, clean and minimalistic, suitable for printing",
+        "negative_prompt": "photographic, raster graphics, blurry, pixelated",
+    },
+    {
+        "name": "NFT Creation 💎",
+        "prompt": "NFT art piece of {prompt} . unique, vibrant, engaging, digital collectibles, futuristic, suitable for digital marketplace",
+        "negative_prompt": "low quality, generic, traditional art styles, realism",
+    },
 ]
+
+# Available Indian regional languages
+languages = {
+    "English": "en",
+    "Hindi": "hi",
+    "Bengali": "bn",
+    "Gujarati": "gu",
+    "Kannada": "kn",
+    "Malayalam": "ml",
+    "Marathi": "mr",
+    "Punjabi": "pa",
+    "Tamil": "ta",
+    "Telugu": "te"
+}
+
+# Initialize Google Translator
+translator = Translator()
 
 
 def generate_content_from_image(image, theme):
@@ -115,50 +234,184 @@ def generate_content_from_image(image, theme):
 
     # Prepare the content generation prompt based on theme
     theme_prompts = {
-    "None": "Simple",
-    
-    "Adventure 🏔️": """
-    🌄 **Embark on an Epic Adventure!** 🏞️
-    
-    Create an exhilarating story set in wild landscapes and untamed frontiers. Your characters will face thrilling challenges, mysterious discoveries, and a final showdown that tests their courage and resolve. 
-    Let their journey be one of excitement, danger, and triumph!. use proper emojis and make it more intresting, immersive and catchy. Use more than 500 words.
-    """,
-    
-    "Sci-Fi 🚀": """
-    👽 **Journey into the Future!** 🌌
-    
-    Imagine a far-off world filled with advanced technology and unknown lifeforms. Your story will unfold with groundbreaking innovations, shocking twists, and a quest that challenges the limits of the imagination. 
-    Explore strange galaxies and futuristic adventures that leave readers on the edge of their seats!. use proper emojis and make it more intresting, immersive and catchy. Use more than 500 words.
-    """,
-    
-    "Fantasy 🧚‍♀️": """
-    🏰 **Step into a Magical Realm!** 🦄
-    
-    Enter a world where magic is real and legends come to life. Write about brave heroes, enchanted creatures, and epic quests. Your story will take readers on a journey through enchanted forests, mystical lands, and ancient prophecies. 
-    Will good conquer evil in the ultimate battle of magic?. use proper emojis and make it more intresting, immersive and catchy. Use more than 500 words.
-    """,
-    
-    "Mystery 🕵️‍♂️": """
-    🧐 **Crack the Code of a Dark Mystery!** 🔍
-    
-    Start with an eerie scene and dive into a web of secrets and clues. Red herrings, hidden motives, and spine-chilling revelations will lead to a climactic resolution that no one saw coming. 
-    Can your characters solve the mystery before it's too late?. use proper emojis and make it more intresting, immersive and catchy. Use more than 500 words.
-    """,
-    
-    "Romance 💕": """
-    💖 **Feel the Magic of Love Unfold!** 🌹
-    
-    Create a beautiful and heartwarming story of love, loss, and reconciliation. Build the tension and passion between your characters as they navigate the highs and lows of a romantic journey.
-    Will their love overcome all obstacles to reach a perfect happy ending?. use proper emojis and make it more intresting, immersive and catchy. Use more than 500 words.
-    """,
-    
-    "ComicBook 🤠": """
-    🦸‍♂️ **Unleash Superhero Action!** ⚡
-    
-    Dive into a thrilling, fast-paced adventure with superpowered heroes and sinister villains. Your comicbook-style story should be filled with dramatic battles, heroic moments, and epic plot twists. 
-    Will the forces of good prevail in this action-packed tale? .use proper emojis and make it more intresting, immersive and catchy. Use more than 500 words .
-    """
-}
+        "None": "Simple",
+
+        "Nature 🌳": """
+        🌿 **Celebrate the Beauty of Nature!** 🌼
+        
+        Write a reflective piece that highlights the wonders of the natural world. Explore themes of harmony, balance, and the interconnectedness of all living things. 
+        🍃🌍 Describe the vivid landscapes, the intricate details of flora and fauna, and the emotional impact of nature on your characters. use proper emojis and make it more intresting, immersive and catchy. Craft a narrative of over 500 words that evokes a sense of wonder and appreciation for the Earth!
+        """,
+
+        "Sci-Fi 🚀": """
+        👽 **Journey into the Future!** 🌌
+        
+        Imagine a far-off world filled with advanced technology and unknown lifeforms. Your story will unfold with groundbreaking innovations, shocking twists, and a quest that challenges the limits of imagination. 
+        🌌💫 Explore strange galaxies and futuristic adventures that leave readers on the edge of their seats! Paint a vivid picture of alien landscapes, mind-bending technologies, and thrilling interstellar battles. use proper emojis and make it more intresting, immersive and catchy. Craft a tale that sparks wonder and curiosity, aiming for more than 500 words!
+        """,
+
+        "Abstract 🌀": """
+        🎨 **Dive into the Realm of the Abstract!** ✨
+        
+        Create a narrative that explores complex themes and emotions through a non-linear structure. Utilize vivid imagery, symbolism, and metaphor to express abstract concepts. 
+        🌈🔮 Your story can challenge traditional storytelling norms, inviting readers to interpret the meaning in their own way. use proper emojis and make it more intresting, immersive and catchy. Aim for a thought-provoking piece of over 500 words that captivates the imagination!
+        """,
+
+        "Fantasy 🧚‍♀️": """
+        🏰 **Step into a Magical Realm!** 🦄
+        
+        Enter a world where magic is real and legends come to life. Write about brave heroes, enchanted creatures, and epic quests. 
+        🌳✨ Your story will take readers on a journey through enchanted forests, mystical lands, and ancient prophecies. Will good conquer evil in the ultimate battle of magic? Describe stunning magical spells, mythical beings, and enchanting landscapes. use proper emojis and make it more intresting, immersive and catchy. *Create a captivating narrative with more than 500 words!* 
+        """,
+
+        "Adventure 🏔️": """
+        🌄 **Embark on an Epic Adventure!** 🏞️
+        
+        Create an exhilarating story set in wild landscapes and untamed frontiers. Your characters will face thrilling challenges, mysterious discoveries, and a final showdown that tests their courage and resolve. 
+        🏇🌌 Let their journey be one of excitement, danger, and triumph! Describe the breathtaking vistas, the pulse of the wild, and the unbreakable bonds forged through trials. Use rich, immersive language and engage the senses. use proper emojis and make it more intresting, immersive and catchy. *Aim for more than 500 words, and make it unforgettable!* 
+        """,
+
+        "Mystery 🕵️‍♂️": """
+        🧐 **Crack the Code of a Dark Mystery!** 🔍
+        
+        Start with an eerie scene and dive into a web of secrets and clues. Red herrings, hidden motives, and spine-chilling revelations will lead to a climactic resolution that no one saw coming. 
+        🌒🔑 Can your characters solve the mystery before it's too late? Build tension with atmospheric descriptions, intriguing characters, and shocking twists. use proper emojis and make it more intresting, immersive and catchy.  *Weave a compelling story that keeps readers guessing, aiming for over 500 words!* 
+        """,
+
+        "Romance 💕": """
+        💖 **Feel the Magic of Love Unfold!** 🌹
+        
+        Create a beautiful and heartwarming story of love, loss, and reconciliation. Build the tension and passion between your characters as they navigate the highs and lows of a romantic journey. 
+        🌸💞 Will their love overcome all obstacles to reach a perfect happy ending? Describe the spark of attraction, the sweetness of first kisses, and the heart-wrenching moments of doubt. use proper emojis and make it more intresting, immersive and catchy. *Craft an emotional narrative that resonates deeply, aiming for more than 500 words!* 
+        """,
+
+        "Comic Book 🤠": """
+        🦸‍♂️ **Unleash Superhero Action!** ⚡
+        
+        Dive into a thrilling, fast-paced adventure with superpowered heroes and sinister villains. Your comic book-style story should be filled with dramatic battles, heroic moments, and epic plot twists. 
+        🌪️🦹‍♀️ Will the forces of good prevail in this action-packed tale? Capture the excitement of high-stakes confrontations, daring rescues, and jaw-dropping abilities. use proper emojis and make it more intresting, immersive and catchy.  *Make it a vibrant, action-filled narrative with over 500 words!* 
+        """,
+
+        "Horror 👻": """
+        🕷️ **Enter the Abyss of Fear!** 🌑
+        
+        Craft a chilling tale that grips the reader’s imagination and plunges them into a world of terror. Use suspense, eerie settings, and unsettling characters to create a spine-tingling atmosphere.
+        🕯️😱 From haunted houses to dark secrets, describe the moments that make hearts race and skin crawl. use proper emojis and make it more intresting, immersive and catchy.  *Aim for over 500 words that haunt the mind long after reading!* 
+        """,
+
+        "Thriller 🎬": """
+        ⚡ **Feel the Adrenaline Surge!** 🔥
+        
+        Write a fast-paced story filled with twists, turns, and unexpected moments that keep readers on the edge of their seats. Develop complex characters who find themselves in perilous situations.
+        🚨🕵️‍♀️ As the plot unfolds, layer in suspense and high stakes. use proper emojis and make it more intresting, immersive and catchy. *Create a gripping narrative that delivers thrills and chills, aiming for over 500 words!* 
+        """,
+
+        "Historical 📜": """
+        🏛️ **Travel Through Time!** ⏳
+        
+        Set your story in a significant historical period, immersing readers in the sights, sounds, and culture of the time. Create characters who navigate the challenges and triumphs of their era.
+        ⚔️📜 From epic battles to everyday life, detail the events and emotions that shaped history. use proper emojis and make it more intresting, immersive and catchy. *Weave a rich tapestry of narrative that exceeds 500 words and enlightens the reader!* 
+        """,
+
+        "Superhero 🦸‍♂️": """
+        🦸‍♀️ **Rise of the Heroes!** 🌟
+        
+        Create a thrilling story of extraordinary individuals with unique powers facing formidable villains. Explore the complexities of heroism, sacrifice, and the responsibility that comes with great power. 
+        💥⚡ Detail their journeys, the challenges they encounter, and the moral dilemmas they face. use proper emojis and make it more intresting, immersive and catchy. *Craft an inspiring tale that highlights the triumphs and struggles of heroes, aiming for over 500 words!* 
+        """,
+
+        "Western 🤠": """
+        🐎 **Ride into the Wild West!** 🌵
+        
+        Set your story in the rugged landscapes of the Wild West, filled with cowboys, outlaws, and lawmen. Explore themes of justice, revenge, and survival against the backdrop of an untamed frontier.
+        🌞🔫 Describe the grit, the dust, and the raw emotions of the characters as they navigate a world of danger and adventure. use proper emojis and make it more intresting, immersive and catchy. *Craft a gripping tale of over 500 words that captures the spirit of the West!* 
+        """,
+
+        "Mythology 🏺": """
+        🌌 **Explore the Legends of Old!** 📖
+        
+        Dive into the rich tapestry of myth and legend, creating a story that blends ancient tales with modern interpretations. Feature gods, demigods, and mythical creatures in epic quests.
+        🌊⚔️ Describe the heroic deeds, moral lessons, and timeless themes found in mythology. use proper emojis and make it more intresting, immersive and catchy. *Create a captivating narrative of over 500 words that brings mythological stories to life!* 
+        """,
+
+        "Cyberpunk 🌆": """
+        🌐 **Dive into a High-Tech Future!** ⚙️
+        
+        Set in a dystopian world where advanced technology and societal collapse coexist, your story should explore themes of corporate greed, identity, and rebellion.
+        🕶️🚀 Describe neon-lit streets, hackers, and the struggle against oppressive forces. use proper emojis and make it more intresting, immersive and catchy. *Create a thrilling narrative that exceeds 500 words and explores the dark side of innovation!* 
+        """,
+
+        "Dystopian 🏙️": """
+        🌪️ **Survive in a Broken World!** 🌍
+        
+        Envision a future where society has crumbled and chaos reigns. Your story should explore themes of survival, resilience, and the human spirit amidst adversity.
+        🛡️🔥 Describe the stark realities of a dystopian setting and the characters' struggles against oppressive regimes or catastrophic events. use proper emojis and make it more intresting, immersive and catchy. *Craft a narrative that challenges and inspires, exceeding 500 words!* 
+        """,
+
+        "Steampunk ⚙️": """
+        🕰️ **Venture into a Steam-Powered World!** 🚂
+        
+        Set in an alternate Victorian era filled with steam-powered inventions and fantastical machinery, your story should combine adventure with a touch of the whimsical.
+        🌪️🛠️ Explore themes of innovation, societal change, and the clash between tradition and progress. use proper emojis and make it more intresting, immersive and catchy. *Create a richly detailed narrative of over 500 words that transports readers to a world where anything is possible!* 
+        """,
+
+        "Slice of Life 🌅": """
+        🌇 **Capture the Essence of Everyday Life!** ☕
+        
+        Write a poignant story that focuses on the small moments that make life beautiful and meaningful. Explore characters' relationships, emotions, and experiences in a realistic setting.
+        🌻📖 Detail the mundane yet profound aspects of daily life, inviting readers to connect with the universal human experience. use proper emojis and make it more intresting, immersive and catchy. *Aim for a heartfelt narrative of over 500 words that resonates with the reader's own experiences!* 
+        """,
+
+        "Magical Realism ✨": """
+        🌈 **Blend Reality with the Magical!** 🌌
+        
+        Weave a narrative where the extraordinary is part of everyday life. Your story should explore themes of identity, culture, and the human experience through a lens of magic and wonder.
+        🍃🦋 Create vivid characters and settings that blur the lines between the real and the magical. use proper emojis and make it more intresting, immersive and catchy. *Aim for a beautifully crafted tale of over 500 words that lingers in the imagination!* 
+        """,
+
+        "Crime 🕵️": """
+        🚔 **Unravel a Gripping Crime Story!** 🔍
+        
+        Create a narrative centered around a crime, whether it be a heist, murder, or an intricate conspiracy. Explore the minds of both the criminals and those trying to bring them to justice.
+        💼📖 Detail the investigation, the motivations, and the consequences of the characters' actions. use proper emojis and make it more intresting, immersive and catchy. *Craft a thrilling story of over 500 words that keeps readers guessing until the very end!* 
+        """,
+
+        "Family 👨‍👩‍👦": """
+        👪 **Delve into the Dynamics of Family!** ❤️
+        
+        Write a touching story that explores the bonds, conflicts, and love within a family unit. Highlight the relationships between family members, their struggles, and the lessons learned.
+        🌸🏡 Describe the warmth, challenges, and complexities of family life. use proper emojis and make it more intresting, immersive and catchy. *Aim for a heartfelt narrative of over 500 words that reflects the intricacies of familial love and connection!* 
+        """,
+
+        "Drama 🎭": """
+        🎬 **Create a Compelling Dramatic Narrative!** 🌟
+        
+        Focus on intense emotions and conflict between characters, exploring themes of love, betrayal, and redemption. Your story should draw readers into the lives of your characters and their struggles.
+        🎤💔 Build tension through dialogue, actions, and the characters' inner thoughts. use proper emojis and make it more intresting, immersive and catchy. *Craft a powerful drama of over 500 words that resonates with the reader’s emotions!* 
+        """,
+
+        "Sports ⚽": """
+        🏅 **Celebrate the Spirit of Competition!** 🏆
+        
+        Write an inspiring story centered around sports, capturing the thrill of competition, teamwork, and perseverance. Explore the journey of athletes as they strive for greatness.
+        ⚽🏃‍♂️ Describe the challenges they face, the camaraderie of teammates, and the joy of victory or the lessons learned from defeat. use proper emojis and make it more intresting, immersive and catchy. *Aim for an energetic narrative of over 500 words that celebrates the world of sports!* 
+        """,
+
+        "Adventure Fantasy 🏕️": """
+        ⚔️ **Embark on a Fantastical Adventure!** 🧙‍♂️
+        
+        Combine elements of fantasy with thrilling adventures. Your characters should embark on a quest filled with danger, mythical creatures, and magical realms.
+        🏞️🦄 Describe the challenges they face, the friendships they forge, and the discoveries they make along the way. use proper emojis and make it more intresting, immersive and catchy. *Craft an enchanting narrative of over 500 words that transports readers to a world of adventure!* 
+        """,
+
+        "Apocalyptic ☠️": """
+        🌍 **Survive in a World Gone Wrong!** 🌪️
+        
+        Envision a post-apocalyptic landscape where survivors must navigate the challenges of a devastated world. Your story should explore themes of survival, loss, and hope.
+        🏚️🔦 Describe the characters' struggles to find food, shelter, and safety while confronting dangers from other survivors or the environment.use proper emojis and make it more intresting, immersive and catchy. *Create a gripping narrative of over 500 words that captures the resilience of the human spirit in dire circumstances!* 
+        """
+    }
+
 
     prompt = theme_prompts.get(theme, theme_prompts["None"])
 
@@ -170,6 +423,70 @@ def generate_content_from_image(image, theme):
     except Exception as e:
         st.error(f"Content generation failed: {e}")
         return "Content generation failed."
+
+def split_text(text, max_length=500):
+    """Splits text into smaller chunks to handle large content."""
+    if not text:
+        return []  # Return an empty list if text is None or empty
+    
+    sentences = re.split(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s', text)
+    chunks = []
+    current_chunk = ""
+    
+    for sentence in sentences:
+        if len(current_chunk) + len(sentence) < max_length:
+            current_chunk += sentence + "\n"
+        else:
+            chunks.append(current_chunk.strip())
+            current_chunk = sentence + "\n"
+    
+    if current_chunk:
+        chunks.append(current_chunk.strip())
+    
+    return chunks
+
+
+# Translate content into the desired language using Google Translate
+def translate_content(content, target_language):
+    """Translates the content into the specified language chunk by chunk."""
+    try:
+        # Split content into smaller chunks if it's too long
+        content_chunks = split_text(content)
+        translated_chunks = []
+        
+        # Translate each chunk separately
+        for chunk in content_chunks:
+            if not chunk:  # Check for empty chunks
+                continue
+            translated = translator.translate(chunk, dest=target_language)
+            if translated is None or translated.text is None:
+                raise ValueError("Received None from translation API")
+            translated_chunks.append(translated.text)
+        
+        # Combine translated chunks back into one string
+        translated_content = "\n".join(translated_chunks)
+        
+        # Store the translated content in the session state under the language
+        if 'translated_contents' not in st.session_state:
+            st.session_state['translated_contents'] = {}
+        return translated_content
+    
+    except Exception as e:
+        st.error(f"Translation failed: {e}")
+        return content  # If translation fails, return the original content
+
+
+# Speech synthesis function
+def generate_speech(content, language_code):
+    try:
+        tts = gTTS(text=content, lang=language_code)
+        audio_file = BytesIO()
+        tts.write_to_fp(audio_file)
+        audio_file.seek(0)
+        st.audio(audio_file, format='audio/mp3')
+        st.session_state.generated_audio = audio_file
+    except Exception as e:
+        st.error(f"Speech synthesis failed: {e}")
 
 # Remove special characters and improve formatting
 def clean_text(text):
@@ -186,7 +503,7 @@ HF_API_URL = "https://api-inference.huggingface.co/models/black-forest-labs/FLUX
 HF_HEADERS = {"Authorization": "Bearer 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"}
 
 # Function to query Hugging Face model with parameters
-async def query_hf_model_async(prompt, text, theme=None, style=None, size="512x512", dimension="512x512", quality="high", creativity="medium", temperature=1.0, variance=1.0, num_images=1):
+async def query_hf_model_async(prompt, text, theme=None, style=None, size="256x256", width=512, height=512, quality="high", creativity="medium", temperature=1.0, variance=1.0, num_images=1):
     images = []
     async with aiohttp.ClientSession() as session:
         tasks = []
@@ -200,8 +517,10 @@ async def query_hf_model_async(prompt, text, theme=None, style=None, size="512x5
                 payload["style"] = style
             if size:
                 payload["size"] = size
-            if dimension:
-                payload["dimension"] = dimension
+            if width:
+                payload["width"] = width
+            if height:
+                payload["height"] = height
             if quality:
                 payload["quality"] = quality
             if creativity:
@@ -217,6 +536,7 @@ async def query_hf_model_async(prompt, text, theme=None, style=None, size="512x5
         for img_bytes in results:
             if img_bytes:
                 images.append(img_bytes)
+            await asyncio.sleep(1)  # Adjust delay as needed
     return images
 
 # Helper function to fetch image
@@ -226,11 +546,7 @@ async def fetch_image(session, payload):
             response.raise_for_status()
             return await response.read()
     except aiohttp.ClientError as e:
-<<<<<<< HEAD
-        st.error(f"API request failed")
-=======
         st.error(f"API request failed: {e}")
->>>>>>> main
         return None
 
 # Helper function to get the style prompt and negative prompt based on the selected style
@@ -269,23 +585,20 @@ if 'generated_audio' not in st.session_state:
     st.session_state.generated_audio = None
 if "show_info" not in st.session_state:
     st.session_state.show_info = True  # Start with project info
+if 'translated_content' not in st.session_state:
+    st.session_state['translated_contents'] = {}
+if "translate_text" not in st.session_state:
+    st.session_state['translated_text'] = True
+
 
 # Functions to handle main app and project info
 def show_main_app():
     st.session_state.show_info = False
-<<<<<<< HEAD
     st.rerun()
 
 def show_project_info():
     st.session_state.show_info = True
     st.rerun()
-=======
-    st.experimental_rerun()
-
-def show_project_info():
-    st.session_state.show_info = True
-    st.experimental_rerun()
->>>>>>> main
 
 # Function to run asyncio event loop within Streamlit app
 def run_async_function(async_func, *args, **kwargs):
@@ -302,22 +615,22 @@ if st.session_state.show_info:
     ## 🚀 OxImaGen: Comprehensive Image Generation & Analysis 🌟
     ---------
 
-     ***🏗️ Architecture 🏛️***
+    ***🏗️ Architecture 🏛️***
                 
     OxImaGen integrates cutting-edge technologies to provide a comprehensive image generation and analysis solution. 🛠️ The architecture includes:
     - **Frontend:** Developed using Streamlit for a responsive and interactive user interface. 🌐
     - **Backend:** Utilizes Hugging Face and Google Gemini APIs for image generation and content analysis. 🔍
     - **Data Handling:** Efficiently manages image inputs and outputs through robust data pipelines. 📊
 
-     ***🛠️ API Calling 📡***
+    ***🛠️ API Calling 📡***
                 
     OxImaGen leverages the following APIs for various functionalities:
     1. **Hugging Face API:** Handles image generation with customizable parameters like style, resolution, and content. 🎨
-       - **Endpoint:** `/generate-image` 🖼️
-       - **Parameters:** `prompt`, `style`, `resolution` 📝
+    - **Endpoint:** `/generate-image` 🖼️
+    - **Parameters:** `prompt`, `style`, `resolution` 📝
     2. **Google Gemini API:** Provides advanced content generation and analysis. 📈
-       - **Endpoint:** `/analyze-image` 🖼️
-       - **Parameters:** `image_url`, `analysis_type` 🔎
+    - **Endpoint:** `/analyze-image` 🖼️
+    - **Parameters:** `image_url`, `analysis_type` 🔎
 
     ***⚙️ Function Calling 🔧***
                 
@@ -372,11 +685,10 @@ if st.session_state.show_info:
     - **Robust Data Handling:** Efficiently manage image inputs and outputs through robust data pipelines.
     - **Story Generation:** Generate stories based on uploaded images, and vice versa.
 
-    ***🔄 Navigation 🏠***
                 
-    Want to go main app, click the button below: 🏡
+    click the button below: 🎨
     """)
-    if st.button("🏠 Go to Main App"):
+    if st.button("🎨 Click me"):
         show_main_app()
 
 else:
@@ -385,7 +697,7 @@ else:
     st.markdown("***Image & Story Generation Section 🖼️***")
 
     # Text input for prompt
-    input_text = st.text_input("🖋️ Input Prompt For Image Generation & Analysis", key="input")
+    input_text = st.text_input("🖋️ Input Prompt For Image Generation & Analysis", key="input_image_gen")
 
     # Layout for parameters
     col1, col2 = st.columns(2)
@@ -426,12 +738,41 @@ else:
 
 
         with col4:
-            width = st.slider("📏 Adjust Image Width:", min_value=100, max_value=1024, value=512, step=64)
-            height = st.slider("📏 Adjust Image Height:", min_value=100, max_value=1024, value=512, step=64)
-            dimension = f"{width}x{height}"
+            width = st.slider("📏 Adjust Image Width:", min_value=100, max_value=2048, value=512, step=64)
+            height = st.slider("📏 Adjust Image Height:", min_value=100, max_value=2048, value=512, step=64)
+            size = f"{width}x{height}"
+
+    story_theme = [
+        "None",
+        "Nature 🌳",
+        "Sci-Fi 🚀",
+        "Abstract 🌀",
+        "Fantasy 🧚‍♀️",
+        "Adventure 🏔️",
+        "Mystery 🕵️‍♂️",
+        "Romance 💕",
+        "Comic Book 🤠",
+        "Horror 👻",
+        "Thriller 🎬",
+        "Historical 📜",
+        "Superhero 🦸‍♂️",
+        "Western 🤠",
+        "Mythology 🏺",
+        "Cyberpunk 🌆",
+        "Dystopian 🏙️",
+        "Steampunk ⚙️",
+        "Slice of Life 🌅",
+        "Magical Realism ✨",
+        "Crime 🕵️",
+        "Family 👨‍👩‍👦",
+        "Drama 🎭",
+        "Sports ⚽",
+        "Adventure Fantasy 🏕️",
+        "Apocalyptic ☠️",
+    ]
 
     # Button to generate images from a prompt
-    story_theme = st.selectbox("📚 Choose Story Theme:",["None", "ComicBook 🤠", "Adventure 🏔️", "Sci-Fi 🚀", "Fantasy 🧚‍♀️", "Mystery 🕵️‍♂️", "Romance 💕"],key="story_theme")
+    story_theme = st.selectbox("📚 Choose Story Theme:", story_theme, key="story_theme")
     st.divider()
     col1, col2 , col3 = st.columns(3)  # Create two columns
 
@@ -462,12 +803,13 @@ else:
 
             images_bytes = run_async_function(
                 query_hf_model_async,
-                input_text,
                 final_prompt,
+                input_text,
                 theme if theme != "None" else None,
                 style_name if style_name != "(No style)" else None,
                 size,
-                dimension,
+                width,
+                height,
                 quality,
                 creativity,
                 temperature,
@@ -501,8 +843,8 @@ else:
                     if st.session_state.generated_audio is None:
                         generate_and_store_audio(content)
                     if st.session_state.generated_audio is not None:
-                       st.session_state.generated_audio.seek(0)
-                       st.audio(st.session_state.generated_audio, format='audio/mp3')
+                        st.session_state.generated_audio.seek(0)
+                    st.audio(st.session_state.generated_audio, format='audio/mp3')
                 else:
                     st.error("story_theme is not defined")
             else:
@@ -534,11 +876,44 @@ else:
             with st.expander("Generated Content ✏️"):
                 st.markdown(f"***📜 Generated Story***")
                 st.markdown(st.session_state.generated_content)
+                st.markdown(st.session_state.translated_contents)
                 if st.session_state.generated_audio is not None:
                     st.session_state.generated_audio.seek(0)
                     st.audio(st.session_state.generated_audio, format='audio/mp3')
-                else:
-                    st.error("Audio generation failed.")
+                
+        for lang, translated_text in st.session_state['translated_contents'].items():
+            if translated_text:
+                with st.expander(f"Translated Content ({lang})"):
+                    st.markdown(translated_text)
+
+            else:
+                st.error("Audio generation failed.")
+
+    # Generate content and translate when button is clicked
+    selected_language = st.selectbox("Select Language", list(languages.keys()))
+    if st.button("Translate 🎙️"):
+        language_code = languages[selected_language] if selected_language in languages else 'en'
+
+        if 'generated_content' in st.session_state:
+            english_content = st.session_state.generated_content
+
+            if language_code != 'en':
+                st.info(f"Translating content into {selected_language}...")
+                translated_content = translate_content(english_content, language_code)
+                st.markdown(f"### Translated Content ({selected_language})")
+                
+                # Show translated content inside an expander
+                with st.expander(f"Translated Content ({selected_language})"):
+                    st.markdown(translated_content)
+
+                # Generate speech from the translated content
+                generate_speech(translated_content, language_code)
+                
+                # # Show the translated audio
+                # if st.session_state.generated_audio:
+                #     st.audio(st.session_state.generated_audio, format='audio/mp3')
+        else:
+            st.error("No content available in session. Please generate content first.")
 
     # File uploader for image
     st.markdown("***File Upload Section 📤***")
@@ -571,11 +946,3 @@ else:
             st.write(response)
         else:
             st.write("Please provide an input prompt or upload an image.")
-
-st.markdown("---")
-linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
-<<<<<<< HEAD
-st.markdown("  Created with 🤗💖 By Aditya Pandey  " f"[  LinkedIn 🔗]({linkedin_url})")
-=======
-st.markdown("  Created with 🤗💖 By Aditya Pandey  " f"[  LinkedIn 🔗]({linkedin_url})")
->>>>>>> main
