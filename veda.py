@@ -1085,7 +1085,7 @@ with st.container():
     st.markdown("""
         <div style="text-align: center; padding: 20px; color: #555;">
             <p style="font-size: 14px; font-weight: bold;">Developed with Passion and Precision</p>
-            <p style="font-size: 12px;">Crafted by Aditya Pandey | Building the Future of AI & Spiritual Wisdom</p>
+            <p style="font-size: 12px;">Crafted by Aditya Pandey | Building the Future of AI & Spiritual Wisdom 🔱</p>
             <p style="font-size: 10px; color: #777;">Innovating with technology, rooted in tradition.</p>
         </div>
     """, unsafe_allow_html=True)
