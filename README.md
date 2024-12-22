@@ -35,10 +35,15 @@ An advanced 🖼️ analysis tool that generates 📚 narratives and insights us
 ## **Key Technologies**
 
 - **Streamlit 🎛️**: Provides an intuitive and interactive 🧑‍💻 interface for 🛡️ applications.
+
 - **LangChain 🔗**: Enables dynamic 📂 extraction and seamless integration of insights.
+
 - **Google AI Python Framework 🤖🐍**: Powers reliable ⚡ and efficient backend 🛠️ operations.
+
 - **Gemini 🌌 & OpenAI 🤖**: Elevates intelligence 🧠 with cutting-edge 📚 and multimodal models.
+
 - **FAISS Vector Database 💾**: Ensures fast ⚡ and accurate 📂 retrieval for text-based queries.
+
 - **Hugging Face APIs 🤗**: Supports advanced 🖼️ processing and analysis.
 
 ---
@@ -71,13 +76,30 @@ This 📂 repository is for 🧑‍🏫 demonstration purposes. To use the showc
 
 4. **Add Your API Keys 🔑:**
    - Open `constants.py` and add your API 🔑 for the required services:
-     - **VirusTotal API Key 🔗** in `app.py`
-     - **Hugging Face API Key 🤗** in `imagen`
+     - **VirusTotal API Key 🔗** 
+     - **Hugging Face API Key 🤗**
+     - **Gemini API Key**
 
-5. **Run the Application 🚀:**
-   ```bash
-   streamlit run app.py
-   ```
+5. 🚀 **Run the OxSecure Intelligence Suite**  
+      - Unleash the power of AI-driven solutions with ease!
+      - Depending on your needs, execute the following  commands:  
+
+- **For OxIntelligence**:  
+  ```bash
+  streamlit run oxsecure.py
+  ```  
+
+- **For OxRAG** (Retrieve-and-Generate Intelligence):  
+  ```bash
+  streamlit run oxrag.py
+  ```  
+
+- **For OxImagen** (Visual Intelligence and Analysis):  
+  ```bash
+  streamlit run oximagen.py
+  ```  
+
+**Step into the future of automated intelligence now!** 🌟
 
 6. **Access the Platform 🌐:**
    Open your browser 🌐 and visit `http://localhost:8501`.
