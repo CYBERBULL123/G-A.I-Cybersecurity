@@ -26,7 +26,6 @@ import time
 import chardet
 from constants import gemini_key , virustotal_key
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.llms import OpenAI
 from langchain import PromptTemplate
 from langchain.chains import LLMChain
 import google.generativeai as genai
