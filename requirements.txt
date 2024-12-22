@@ -26,3 +26,4 @@ SpeechRecognition
 googletrans
 faiss-cpu
 PyPDF2
+streamlit_authenticator
