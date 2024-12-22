@@ -46,7 +46,7 @@ import re
 import hashlib
 
 # VirusTotal API details
-VIRUSTOTAL_API_KEY = 'ed48e6407e0b7975be7d19c797e1217f500183c9ae84d1119af8628ba4c98c3d'
+VIRUSTOTAL_API_KEY = '...x...x'
 
 
 # API configuration

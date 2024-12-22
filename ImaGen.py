@@ -29,7 +29,7 @@ from io import BytesIO
 import uuid
 import time
 import logging
-from constants import gemini_key
+from constants import gemini_key , huggingface_key
 from googletrans import Translator
 
 
@@ -500,7 +500,7 @@ genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
 
 # Hugging Face API configuration
 HF_API_URL = "https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-dev"
-HF_HEADERS = {"Authorization": "Bearer syx"}
+HF_HEADERS = {"Authorization": huggingface_key}
 
 # Function to query Hugging Face model with parameters
 async def query_hf_model_async(prompt, text, theme=None, style=None, size="256x256", width=512, height=512, quality="high", creativity="medium", temperature=1.0, variance=1.0, num_images=1):

@@ -24,7 +24,7 @@ from io import BytesIO
 import io
 import time
 import chardet
-from constants import gemini_key
+from constants import gemini_key , virustotal_key
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.llms import OpenAI
 from langchain import PromptTemplate
@@ -46,7 +46,7 @@ import re
 import hashlib
 
 # VirusTotal API details
-VIRUSTOTAL_API_KEY = 'zzzzz'
+VIRUSTOTAL_API_KEY = virustotal_key
 
 
 # API configuration

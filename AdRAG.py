@@ -359,22 +359,22 @@ def render_main_app():
     st.markdown("-----")
     
     # Voice recognition section
-#    st.markdown("**Voice Input 🗣️**")
-#    query = recognize_speech()
-#    if st.button("Start Voice Recognition") and query:
-#        with st.spinner("Processing your voice query..."):
-#            response = handle_qa(query, st.session_state.faiss_index, st.session_state.document_chunks, top_k)
-#        if response:
-#            st.divider()
-#            st.markdown("**Voice Q&A Response 🤖**")
-            
-#            clean_response = clean_text(response)
-#            st.write(clean_response)
-#            tts = gTTS(clean_response)
-#            audio_file = BytesIO()
-#            tts.write_to_fp(audio_file)
-#            st.audio(audio_file, format='audio/mp3')
-#    st.markdown("---")
+    st.markdown("**Voice Input 🗣️**")
+    query = recognize_speech()
+    if st.button("Start Voice Recognition") and query:
+        with st.spinner("Processing your voice query..."):
+            response = handle_qa(query, st.session_state.faiss_index, st.session_state.document_chunks, top_k)
+        if response:
+            st.divider()
+            st.markdown("**Voice Q&A Response 🤖**")
+                
+            clean_response = clean_text(response)
+            st.write(clean_response)
+            tts = gTTS(clean_response)
+            audio_file = BytesIO()
+            tts.write_to_fp(audio_file)
+            st.audio(audio_file, format='audio/mp3')
+    st.markdown("---")
     linkedin_url = "https://www.linkedin.com/in/aditya-pandey-896109224"
     st.markdown(f"Created with 🤗 💖 By Aditya Pandey [ LinkedIn 🔗 ]({linkedin_url})")
 
